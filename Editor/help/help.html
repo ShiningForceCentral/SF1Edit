@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<title>Shining Force Editor Help</title>
+		<link rel="stylesheet" type="text/css" href="assets/css/help.css">
+		<script src="assets/js/jquery-1.12.2.min.js"></script>
+		<script src="assets/js/html5shiv.js"></script>
+	</head>
+
+	<body>
+
+        <nav id="top-nav">
+            <div class="page-width">
+                <ul id="nav-buttons">
+                    <li><a class="button" href="#menus">Menus</a></li>
+                </ul>
+                <ul id="nav-tiles">
+                    <li><a class="button tile tile-character" href="#character">Character</a></li>
+                    <li><a class="button tile tile-spell-progression" href="#spell-progression">Spell Progression</a></li>
+                    <li><a class="button tile tile-items" href="#items">Items</a></li>
+                    <li><a class="button tile tile-enemies" href="#enemies">Enemies</a></li>
+                    <li><a class="button tile tile-spells" href="#spells">Spells</a></li>
+                    <li><a class="button tile tile-battle" href="#battle">Battle</a></li>
+                    <li><a class="button tile tile-font" href="#font">Font</a></li>
+                    <li><a class="button tile tile-shops" href="#shops">Shops</a></li>
+                    <li><a class="button tile tile-maps" href="#maps">Maps</a></li>
+                    <li><a class="button tile tile-classes" href="#classes">Classes</a></li>
+                    <li><a class="button tile tile-tiles" href="#tiles">Tiles</a></li>
+                    <li><a class="button tile tile-mechanics" href="#mechanics">Mechanics</a></li>
+                    <li><a class="button tile tile-effects" href="#effects">Effects</a></li>
+                    <li><a class="button tile tile-range" href="#range">Range</a></li>
+                    <li><a class="button tile tile-palette" href="#palette">Palette</a></li>
+                    <li><a class="button tile tile-text" href="#text">Text</a></li>
+                    <li><a class="button tile tile-graphics" href="#graphics">Graphics</a></li>
+                    <li><a class="button tile tile-animation" href="#animation">Animation</a></li>
+                    <li><a class="button tile tile-scripting" href="#scripting">Scripting</a></li>
+                </ul>
+            </div>
+        </nav>
+
+		<div class="content-position" id="help">
+            
+            <a class="rotate" href="http://forums.shiningforcecentral.com/viewtopic.php?f=3&t=15145" id="sticky">
+                <small>Head to</small>
+                <b>Shining Force Central</b>
+                <small>for more</small>
+                <b>Updates &amp; Support</b>
+            </a>
+
+			<main class="content-width">
+		
+				<article id="menus">
+
+					<h1>Menus</h1>
+                    <h2>File</h2>
+                    <h3>Open</h3>
+                    <p>Load a rom for editing. Supports files in the .bin format, and may not correctly handle versions other than the English ([U] !) version. Can also be accessed via <code>Ctrl+O</code>.</p>
+                    
+                    <h3>Change</h3>
+                    <p>Changes the currently selected rom file without loading the data. Useful for transferring data between roms. Open one rom using the normal Open and switch to another rom using this command and then save in the appropriate editors. </p>
+                    
+                    <h3>Save</h3>
+                    <p>Saves data back to the rom. Note that only data from the current editor is saved. Can also be accessed via <code>Ctrl+S</code>.</p>
+                    
+                    <h3>Expand Rom</h3>
+                    <p>Opens the rom expander. See <a href="#expand-rom">Expand Rom</a>. Can also be accessed via <code>Ctrl+R</code>.</p>
+                
+                    <h3>Import</h3>
+                    <p>Imports data for the current editor. Requires a file with a specific extension and format which can be created from the Export option. Can also be accessed via <code>Ctrl+I</code>.
+		    <div class="info">
+			Note that as new data is added to sections, the import/export data becomes out of date. Old exports may not contain all of the data represesnted in the editor section.
+		    </div>
+		    </p>
+
+                
+                    <h3>Export</h3>
+                    <p>Exports data for the current editor. Creates a file which can be reloaded from the Import option. Useful for backing up data. Can also be accessed via <code>Ctrl+E</code>.
+		    <div class="info">
+			Note that as new data is added to sections, the import/export data becomes out of date. Many of the exports have not been updated to include all of the data represented in the editor.
+		    </div>
+		    </p>
+                
+                    <h3>Exit</h3>
+                    <p>Quits the editor. Can also be accessed via <code>Alt+F4</code>.</p>
+
+                    <h2>Edit</h2>
+                    <h3>Copy</h3>
+                    <p>Copies the currectly selected item. Can also be accessed via <code>Ctrl+C</code>. Not available in all sections.</p>
+                
+                    <h3>Paste</h3>
+                    <p>Pastes the data from the previously selected item. Note that this will overwrite all data for the selected item. Can also be accessed via <code>Ctrl+V</code>. Not available in all sections.</p>
+                
+                    <h2>Editor</h2>
+                    <p>Select an editor from the drop down menu to jump directly to that editor mode.</p>
+                
+                    <h2>Help</h2>
+                    <p>Opens this help file.</p>
+
+				</article>
+                
+		<article id="expand">
+                    <h1>Expand Rom</h1>
+
+			<p>
+				Check a size and click expand in order to change the size of your rom. Many of the advanced features require more storage space and will not allow you to save without expanding the rom. 
+			</p>
+                <div class="notice" id="expand-rom"><big>&#9888;</big>Do not change back to a smaller size unless you know what you are doing!<br>Data can be lost when reducing size.</div>
+                
+		</article>
+
+                <article id="character">
+                    
+                    <h1>Characters</h1>
+                    
+                    <h2>Name</h2>
+                    
+                    <div class="info"><big>&#x1F6C8;</big>Click a character's name to select that character for editing. The currently selected character is indicated with a box. You can also use the <code>Up Arrow</code> and <code>Down Arrow</code> keys to change the selected character.
+                    <br>
+                    You can type to edit the character's name. Names are limited to 10 letters and changes are not reflected by most dialog in the game which must be edited manually.</div>
+                    
+                    <h3>Stat Growth</h3>
+                    <p>Each character has six stats: Attack, Defence, Agility, Hit Points, Magic Points, and Critical.<br>
+                    Each stat has a growth rate and a growth curve, for both promoted and unpromoted.<br>
+                    The growth rate affects how likely a character will increase in a stat when going up a level. Click on the value and type to edit.<br>
+                    The growth curve affects when the character gets their stat increases. For example, on the straight line, increases will be fairly even, but on the upward curve, increases will be slow at first and then greater at higher levels.</p>
+                    
+                    <h3>Class</h3>
+                    <p>Selects the starting class of the character. Click the value and type to edit, or click the <code>...</code> button to select from a drop down.</p>
+                    
+                    <h3>Level</h3>
+                    <p>Sets the level the character will start at. Click the value and type to edit.</p>
+                    
+                    <h3>Attack</h3>
+                    <p>Sets the character's level 1 attack stat. Click the value and type to edit.</p>
+                    
+                    <h3>Defense</h3>
+                    <p>Sets the character's level 1 defense stat. Click the value and type to edit.</p>
+                    
+                    <h3>Agility</h3>
+                    <p>Sets the character's level 1 agility stat. Click the value and type to edit.</p>
+                    
+                    <h3>Move</h3>
+                    <p>Sets the character's movement rate. This is how far they can move in battle. Click the value and type to edit.</p>
+                    
+                    <h3>Base Crit</h2>
+                    <p>Sets the character's base critical chance. Click the value and type to edit.</p>
+                    
+                    <h3>HP</h3>
+                    <p>Sets the character's level 1 HP. Click the value and type to edit.</p>
+                    
+                    <h3>Max HP</h3>
+                    <p>Sets the character's level 1 Max HP. Click the value and type to edit.</p>
+                    
+                    <h3>MP</h3>
+                    <p>Sets the character's level 1 MP. Click the value and type to edit.</p>
+                    
+                    <h3>Max MP</h3>
+                    <p>Sets the character's level 1 Max MP. Click the value and type to edit.</p>
+                    
+                    <h3>Items</h3>
+                    <p>Selects the starting items of the character. Click the value and type to edit, or click the <code>...</code> button to select from a drop down. Use the equipped checkbox in the drop down, or use values of at least 128 to have the item start equipped. (Advanced Note: if you want to, you can add 64 to the value to have it start broken/cracked)</p>
+                    
+                    <h3>Spells</h3>
+                    <p>Selects the starting spells of the character. Click the value and type to edit, or click the <code>...</code> button to select from a drop down.</p>
+                    
+                    <h3>Table Offset</h3>
+                    <p>The offset in hex where the character data is saved. Only change this if you know what you are doing, any existing data at the target location will be overwritten.</p>
+                
+                </article>
+                
+                <article id="spell-progression">
+                
+                    <h1>Spell Progression</h1>
+                    <h3>Name</h3>
+                    <p>Click a character's name to select that character for editing. The currently selected character is indicated with a box.<br>
+                    You can also use the <code>Up Arrow</code> and <code>Down Arrow</code> keys to change the selected character.</p>
+
+                    <h3>Plus (Add New)</h3>
+                    <p>Adds a new spell for that character. Note that you must expand your rom before you can save added spells.</p>
+                    
+                    <h3>X (Remove)</h3>
+                    <p>Click to remove a spell from the progression.</p>
+                    
+                    <h3>Level</h3>
+                    <p>Sets the level the character learns the spell at. Click and type to edit. Hit backspace when the level is already 0 or press delete to remove the spell.</p>
+                    
+                    <h3>Spell</h3>
+                    <p>Sets the spell the character learns. Click and type to edit, or click the <code>...</code> button to select from a drop down. Hit backspace when the spell is already 0 or press delete to remove the spell.</p>
+                    
+                    <h3>Table Offset</h3>
+                    <p>The offset in hex where the spell progression data is saved. Only change this if you know what you are doing, any existing data at the target location will be overwritten. The editor will automatically relocate the table if data is added and the offset has not been manually changed.</p>
+                
+                </article>
+                
+                <article id="items">
+                
+                    <h1>Items</h1>
+                    <h3>Name</h3>
+                    <p>Click an items's name to select that character for editing. The currently selected item is indicated with a box.<br>
+                    You can also use the arrow keys to change the selected item.<br>
+                    You can type to edit the item's name.
+		    <div class="info">
+			When using the original data table for items, there is no space for additional length in item names. If you want to lengthen the name of one item, you'll have to shorten another.<br>
+			The editor will prompt in this situation and prevent you from editing.<br>
+			Using Extended Items relocates the item table and removes this restriction.
+		    </div></p>
+                    
+                    <h3>Up/Down Arrows</h3>
+                    <p>Click the up and down arrows to cycle through items if there are more than 64 items.<br>
+                    Only available if items have been extended. You can also use Page Up/Down to switch.</p>
+                    
+                    <h3>Equippable</h3>
+                    <p>Use the checkboxes to select which classes are able to equip the item.</p>
+                    
+                    <h3>Attribute</h3>
+                    <p>Selects what attribute to modify when the item is equipped. Use the <code>Plus</code> and <code>Minus</code> to change.</p>
+                    
+                    <h3>Attribute Bonus</h3>
+                    <p>How much to adjust the attribute by when equipped. Click and type to edit.<br>Note that in a single byte value like stats 127 is the greatest positive value. Increasing past 127 or attempting to add more than 127 will give negative results.<br>(For example, adding 255 is the same as subtracting 1)</p>
+                    
+                    <h3>Price</h3>
+                    <p>How much the item costs in a shop. Click and type to edit.<br>Values 0-65535 are valid, but not all of the game's routines appear to handle prices higher than 32767.</p>
+                    
+                    <h3>Cursed</h3>
+                    <p>If checked, the item is cursed.</p>
+                    
+                    <h3>Use Range</h3>
+                    <p>If the item can be used, the range of it's use effect. Corresponds to the range number in the range editor. Click and type to edit, or click the <code>...</code> button to select from a drop down.<br>
+			The drop down provides a list of the standard ranges, though if you edit these ranges in the range editor the list may no longer be accurate.</p>
+                    
+                    <h3>Use Effect</h3>
+                    <p>If the item can be used, the effect to run when the item is used. Corresponds to the effect number in the effect editor. Click and type to edit.</p>
+                    
+                    <h3>Out of Battle Uses</h3>
+                    <p>Opens the subeditor for assigning uses to items when used outside of battle.<br>
+
+				<div class="subitem">
+			        <h3>Item #</h3>
+                    		<p>Chooses an item to perform the corresponding function when used outside of a battle.</p>
+			        <h3>Back</h3>
+                    		<p>Returns to the item editor. Also accessible via <code>Esc</code></p>
+				</div>
+
+
+		    </p>
+                    
+                    <h3>Range</h3>
+                    <p>The range of the item for attacking. Corresponds to the range number in the range editor. Click and type to edit, or click the <code>...</code> button to select from a drop down.<br>
+			The drop down provides a list of the standard ranges, though if you edit these ranges in the range editor the list may no longer be accurate.</p>
+                    
+                    <h3>Attack Effect</h3>
+                    <p>The effect used if the item is used to attack. Corresponds to the effect number in the effect editor. Click and type to edit.</p>
+                    
+                    <h3>Sell to Deals</h3>
+                    <p>If checked, the item goes to the deals section when sold. Only availble for non-extended items (0-62).</p>
+                    
+                    <h3>Broken</h3>
+                    <p>If checked, the item can be repaired, becoming the corresponding non-extended item in the same slot (Item ID - 64). Only availble for extended items (64-126).</p>
+                    
+                    <h3>Can't Drop</h3>
+                    <p>If checked, the item can not be dropped.</p>
+                    
+                    <h3>Chance to Crack</h3>
+                    <p>If checked, the item will have a chance of breaking on each use. If using extended items, it will switch to the corresponding extended item instead (Item ID + 64), or for an already extended item it will be destroyed.</p>
+                    
+                    <h3>Usable</h3>
+                    <p>If checked, the item can be used.</p>
+                    
+                    <h3>Cannot Unequip</h3>
+                    <p>If checked, the item can not be removed normally.</p>
+                    
+                    <h3>Ring</h3>
+                    <p>If checked, the item can be equipped as a ring.</p>
+                    
+                    <h3>Lose After Use</h3>
+                    <p>If checked, the item is lost after being used.</p>
+                    
+                    <h3>Weapon</h3>
+                    <p>If checked, the item can be equipped as a weapon.</p>
+
+                    <h3>Armor</h3>
+                    <p>If checked, the item can be equipped as armor. Only available if the armor type has been added in the mechanics editor.</p>
+                    
+                    <h3>Outfits</h3>
+                    <p>Opens the subeditor for assigning outfits to items when held.
+
+
+				<div class="subitem">
+			        <h3>Item #</h3>
+                    		<p>Chooses an item to apply an outfit to.</p>
+			        <h3>Item #</h3>
+                    		<p>Chooses a character that will be effected by the outfit.</p>
+			        <h3>Map Sprite</h3>
+                    		<p>Chooses what sprite to change the character to if they are holding the item.</p>
+			        <h3>Battle Sprite</h3>
+                    		<p>Chooses what battle sprite to change the character to if they are holding the item, only available if Battle Outfits is checked.</p>
+			        <h3>Battle Outfits</h3>
+                    		<p>Extends the outfit system to also change the sprite used during battle animations.</p>
+			        <h3>Back</h3>
+                    		<p>Returns to the item editor. Also accessible via <code>Esc</code></p>
+				</div>
+
+		    </p>
+
+                    <h3>Dropped by Enemies</h3>
+                    <p>If checked, enemies will drop this item on death. Only available if Extend Drop Table is checked.</p>
+                    
+                    <h3>Extend Drop Table</h3>
+                    <p>If checked, a new option will be added allowing you to set what items are dropped by enemies.</p>
+                    
+                    <h3>Offset</h3>
+                    <p>Offset in hex for saving the extended drop table, don't change unless you know what you are doing. Only available if Extend Drop Table is checked.</p>
+                    
+                    <h3>Item Name Offset</h3>
+                    <p>Offset in hex where the item names are stored. For reference only.</p>
+                    
+                    <h3>Item Data Offset</h3>
+                    <p>Offset in hex where the item data is stored. For reference only.</p>
+                    
+                    <h3>Icon</h3>
+                    <p>Edit the icon for the item. Click a color at the bottom to select, selected color is displayed at left. Select a size and draw/erase and then click and drag to edit.<br>
+		    The item icons are also exported with the rest of the graphics for easier external editing.</p>
+                    
+                    <h3>Extend Items</h3>
+                    <p>If checked, the number of available items will be increased to 128. An expanded rom will be required to save.<br>
+                    <div class="info">
+			This changes the way the item break mechanics work entirely.<br>
+			Only items which are on the first item page can be set to have a chance to crack, and when they do they will turn into the corresponding item in the extended item page (Item ID + 64).<br>
+			You can just copy/paste an item from the first page to the spot in the extended page to make sure it breaks properly, but this also lets you do things like having special broken icons for items or reduced stats.<br>
+			Similarly, extended items have a Broken check box, and if this is checked the item can be repaired which will turn it into the corresponding item on the first page (Item ID + 64).<br>
+			The matching item need not have a chance to break, allowing for the option to have a broken item which can be permanently repaired to a new item.<br><br>
+
+			Also note that the icon for item 64 is used as the 'Remove' icon in the equip screens, so do not use that slot as an item.</p>
+		    <div>
+                
+                </article>
+                
+                <article id="enemies">
+                
+                    <h1>Enemies</h1>
+                    <h3>Name</h3>
+                    <p>Click an enemy's name to select that enemy for editing. The currently selected enemy is indicated with a box.<br>
+                    You can also use the arrow keys to change the selected enemy.<br>
+                    You can type to edit the enemy's name.
+
+		    <div class="info">
+			When using the original data table for enemies, there is no space for additional length in enemy names. If you want to lengthen the name of one enemy, you'll have to shorten another.<br>
+			The editor will prompt in this situation and prevent you from editing.<br>
+			Using Extended Monsters relocates the enemy table and removes this restriction.
+		    </div>
+		    </p>
+
+                    <h3>Up/Down Arrows</h3>
+                    <p>Click the up and down arrows to cycle through enemies if there is more than one page.<br>
+                    Only available if monsters have been extended. You can also use Page Up/Down to switch.</p>
+                    
+                    <h3>Coins</h3>
+                    <p>How many coins are given when killed. Click the value and type to edit.<br>Values 0-65535 are valid.</p>
+                    
+                    <h3>Display Name</h3>
+                    <p>Which name to use for the enemy. Value is the enemy's number + 32. Click the value and type to edit.</p>
+                    
+                    <h3>Effective Level</h3>
+                    <p>Determines the level of the enemy, used for determining exp. Click the value and type to edit.</p>
+                    
+                    <h3>Attack</h3>
+                    <p>Sets the enemy's attack. Click the value and type to edit.</p>
+                    
+                    <h3>Defense</h3>
+                    <p>Sets the enemy's defense. Click the value and type to edit.</p>
+                    
+                    <h3>Agility</h3>
+                    <p>Sets the enemy's agility. Click the value and type to edit.</p>
+                    
+                    <h3>Move</h3>
+                    <p>Sets the enemy's move. Click the value and type to edit.<br>Note that move above 9 allows movement anywhere.</p>
+                    
+                    <h3><abbr title="Hit Points">HP</abbr></h3>
+                    <p>Sets the enemy's HP. Click the value and type to edit.</p>
+                    
+                    <h3><abbr title="Magic Points">MP</abbr></h3>
+                    <p>Sets the enemy's MP. Click the value and type to edit.</p>
+                    
+                    <h3>Status</h3>
+                    <p>Sets what status effects the enemy starts with. Click the value and type to edit.</p>
+                    
+                    <h3>Map Sprite</h3>
+                    <p>Sets the graphics to use for the enemy on the battle map. Click the value and type to edit.</p>
+                    
+                    <h3>Battle Sprite</h3>
+                    <p>Sets the graphics to use for the enemy for the in battle closeup. Click the value and type to edit.</p>
+                    
+                    <h3>Battle Palette</h3>
+                    <p>Sets the color scheme to use for the battle sprite. Click the value and type to edit.</p>
+                    
+                    <h3>Portrait</h3>
+                    <p>Sets the graphics to use for the enemy when talking. Click the value and type to edit.</p>
+                    
+                    <h3>Critical</h3>
+                    <p>Sets the enemy's critical stat. Click the value and type to edit. Only available if Add Critical Stat is checked.</p>
+                    
+                    <h3>Add Critical Stat</h3>
+                    <p>Adds a critical value to the enemy data. Requires an expanded rom to save.</p>
+
+                    <h3>Extend Monster</h3>
+                    <p>Doubles the number of available monster entries. Requires an expanded rom to save.</p>
+                
+                </article>
+                
+                <article id="spells">
+                
+                    <h1>Spells</h1>
+                    <h3>Name</h3>
+                    <p>Click a spell's name to select that spell for editing. The currently selected spell is indicated with a box. You can also use the <code>Up Arrow</code> and <code>Down Arrow</code> keys to change the selected spell.<br>
+                    You can type to edit the spell's name, but spell names are limited to 6 characters.
+
+		    <div class="info">
+			When using the original data table for spells, there is no space for additional length in spell names. If you want to lengthen the name of one spell, you'll have to shorten another.<br>
+			The editor will prompt in this situation and prevent you from editing.<br>
+			Using Extended Spells relocates the spell table and removes this restriction.
+		    </div>
+
+		    </p>
+                    
+                    <h3>Extend Spells</h3>
+                    <p>Extends the number of spells from 16 to 32. Note that an expanded rom is required for saving with extended spells. Also increases the amount of space for spell names, allowing for lengthening names without having to shorten others.</p>
+                    
+                    <h3>Names Offset</h3>
+                    <p>The offset in hex at which to store the spell names. Do not change unless you know what you are doing. Only available if Extend Spells is checked.</p>
+                    
+                    <h3>Data Offset</h3>
+                    <p>The offset in hex at which to store the spell names. Do not change unless you know what you are doing. Only available if Extend Spells is checked.</p>
+                    
+                    <h3>Images Offset</h3>
+                    <p>The offset in hex at which to store the spell names. Do not change unless you know what you are doing. Only available if Extend Spells is checked.</p>
+                    
+                    <h3>Range</h3>
+                    <p>The range of the spell. Click and type to edit, or click the <code>...</code> button to select from a drop down.</p>
+                    
+                    <h3>Effect</h3>
+                    <p>The effect of the spell. Click and type to edit. Matches to the entry in the effects editor.</p>
+                    
+                    <h3><abbr title="Magic Points">MP</abbr></h3>
+                    <p>The MP required to cast the spell. Click and type to edit.</p>
+                    
+                    <h3><abbr title="Artificial Intelligence">AI</abbr> Type</h3>
+                    <p>Determines how enemies decide to target the spell when casting. Click and select from the dropdown menu to change.</p>
+                    
+                    <h3>Icon</h3>
+                    <p>Edit the icon for the spell. Click a color at the bottom to select, selected color is displayed at left. Select a size and draw/erase and then click and drag to edit.<br>
+		    The spell icons are also exported with the rest of the graphics for easier external editing.</p>
+                
+                </article>
+                
+                <article id="battle">
+                
+                    <h1>Battles</h1>
+                    
+                    <div class="info"><big>&#x1F6C8;</big> Use the arrow keys to move the view. Click to select/edit and click+drag to move units.<br>
+			Press <code>z</code> to change the zoom level, and expand or maximize the window for easier editing.
+		    </div>
+                    
+                    <h3>Battle Number</h3>
+                    <p>Indicates the number of the currently selected battle. Click and type to edit, or use either the <code>Plus</code> and <code>Minus</code> buttons or the <code>Page Up</code> and <code>Page Down</code> keys to change the currently selected battle.</p>
+                    
+                    <h3>Map</h3>
+                    <p>Selects the map to use for the battle. Click and type to edit.</p>
+                    
+                    <h3>Music</h3>
+                    <p>Selects the music to use for the battle. Click and type to edit.</p>
+                    
+                    <h3>X (Coordinates Plane)</h3>
+                    <p>Sets the left side of the region of the map to use for the battle.<br>
+                    The <em>X</em>, <em>Y</em>, <em>W</em>, and <em>H</em> values define a box which restricts the battle to a section of the map which will be indicated with a yellow line if Display Border is checked.</p>
+                    
+                    <h3>Y (Coordinates Plane)</h3>
+                    <p>Sets the top side of the region of the map to use for the battle.<br>
+                    The <em>X</em>, <em>Y</em>, <em>W</em>, and <em>H</em> values define a box which restricts the battle to a section of the map which will be indicated with a yellow line if Display Border is checked.</p>
+                    
+                    <h3>W</h3>
+                    <p>Sets the width of the region of the map to use for the battle.<br>
+                    The <em>X</em>, <em>Y</em>, <em>W</em>, and <em>H</em> values define a box which restricts the battle to a section of the map which will be indicated with a yellow line if Display Border is checked.</p>
+                    
+                    <h3>H</h3>
+                    <p>Sets the height of the region of the map to use for the battle.<br>
+                    The <em>X</em>, <em>Y</em>, <em>W</em>, and <em>H</em> values define a box which restricts the battle to a section of the map which will be indicated with a yellow line if Display Border is checked.</p>
+                    
+                    <h3>Enemies</h3>
+                    <p>Sets the editing mode to enemies. Click an enemy while in this mode to select it for editing, and use the <code>Delete</code> key to remove the selected enemy.</p>
+                    
+                    <h3>Terrain</h3>
+                    <p>Sets the editing mode to terrain. Click a tile to set the terrain. The current terrain will be shown on each tile, but only if at the default zoom level.<br>
+			Right click in this mode to copy the terrain from a tile.
+			</p>
+                    
+                    <h3><abbr title="Artificial Intelligence">AI</abbr> Region</h3>
+                    <p>Sets the editing mode to AI region. Click a tile to set the AI region. The current region will be shown on each tile, but only if at the default zoom level.<br>
+                    The AI regions correspond to the trigger checkboxes in the enemy's behavior.<br>
+		    Right click in this mode to copy the region from a tile.</p>
+                    
+                    <h3>Force</h3>
+                    <p>Sets the editing mode to force members.<br>
+			This determines where the force members spawn at the start of the battle.<br><br>
+			Locations can be moved by clicking and dragging.
+		    </p>
+
+                    <h3>Exits</h3>
+                    <p>Sets the editing mode to battle exits. Click a tile to set the exit.<br>
+			This determines where Max can move to leave the battle and where to go upon exiting.<br><br>
+			Right click in this mode to copy the exit from a tile.
+		    </p>
+                
+                    <h3>Enemy</h3>
+                    <p>The id of the current enemy. Click and type to edit, or click the <code>...</code> button to select from a drop down.<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.</p>
+                    
+                    <h3>Delete Enemy</h3>
+                    <p>Click the red <span class="red">X</span> next to the enemy name to remove the enemy from the battle. Alternatively, press the <code>Delete</code> key while an enemy is selected.<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.</p>
+                    
+                    <h3>Items</h3>
+                    <p>Selects the three items the enemy has. Click the value and type to edit, or click the <code>...</code> button to select from a drop down. Use the equipped checkbox in the drop down, or use values of at least 128 to have the item start equipped. (Advanced Note: if you want to, you can add 64 to the value to have it start broken/cracked)<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.</p>
+                    
+                    <h3>X/Y (Coordinate Plane)</h3>
+                    <p>Specifies the location of the enemy. Click and type to edit. Or click and drag the enemy to move.<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.</p>
+                    
+                    <h3># Spawn</h3>
+                    <p>Specifies the number of the enemy to spawn. If greater than 1, it will reappear after death. If 0, the enemy will not exist in the battle. Click and type to edit.<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.</p>
+   
+                    <h3>Hide Until</h3>
+                    <p>If greater than 0, the enemy will not spawn until someone moves into the matching AI region and then the enemy gets a turn.</p>
+                 
+                    <h3><abbr title="Artificial Intelligence">AI</abbr></h3>
+                    <p>Opens the AI editor for editing the behavior of the selected enemy.<br>
+                    Only available if the mode is set to Enemies and an enemy is selected.
+                       
+		    <div class="info"><big>&#x1F6C8;</big>When an enemy is selected, their AI targets will be drawn as squares on the map with the behavior number in the upper left corner.<br><br>'Move To' actions will be in green. 'Path' actions will be in blue, with lines connecting them and the order of the squares in the middle.<br>
+			You can click and drag to move the target squares without having to go into the AI editor.
+			</div>
+
+		    <div class="subitem">                 
+                    <h3>Number of Behaviors</h3>
+                    <p>Sets the number of behaviors the enemy has. An enemy can have between 0 and 8 behaviors, assigned to the different triggers.</p>
+                    
+                    <h3>Triggers</h3>
+                    <p>Sets the trigger regions for which to use the current behavior, corresponds to the AI regions specified on the map. Only available in the AI editor.</p>
+                    
+                    <h3>Action</h3>
+                    <p>Sets the action to use for the current behavior. Common values: 0 = go to x,y specified by values. 1 = move and attack nearby force members (values generally 255). 2 = follow a programmed path. Only available in the AI editor.<br>
+		    For path actions, an Edit Path button will be available to set the coordinates.</p>
+                    
+                    <h3>Values</h3>
+                    <p>Sets the arguments used by the action. Often used as an x,y target. Only available in the AI editor.</p>
+		    </div>     
+		    </p>               
+
+                    <h3>Add Enemy</h3>
+                    <p>Adds a new enemy to the battle. Note that the game will only process a limited number of enemies and adding will not be allowed past 20.<br>
+		    Attempts to add the enemy as close to the center of the view as possible.<br>
+                    Only available if the mode is set to Enemies.</p>
+
+                    <h3>Terrain</h3>
+                    <p>Selects the terrain type to place on the map. Only available if the mode is set to Terrain.</p>
+                    
+                    <h3>Region</h3>
+                    <p>Selects the AI region to place on the map. Only available if the mode is set to AI Regions.</p>
+                    
+                    <h3>Entrance</h3>
+                    <p>Selects the battle entrance to use for editing. A battle can have more than one set of locations for the force members depending on where the battle is initiated from.<br>
+                    Only available if the mode is set to Force.</p>
+                    
+                    <h3>Members</h3>
+                    <p>Sets the number of force members to include in the battle.<br>
+                    Only available if the mode is set to Force.</p>
+                    
+                    <h3>Set</h3>
+                    <p>Selects the battle exit set to use for editing. A battle can have more than one set of exits depending on the map, but many battles have only 1 set.<br>
+                    Only available if the mode is set to Exits.</p>
+
+                    <h3>Exit</h3>
+                    <p>Selects the battle exit place on the map.<br>
+                    Only available if the mode is set to Exits.</p>
+
+                    <h3>View Script</h3>
+                    <p>The actual map to go to upon exiting and other factors are all handled in code unfortunately and must be changed via the scripting editors.<br>
+		    Clicking this button will attempt to find the code corresponding to the selected exit and link there.<br>
+                    Only available if the mode is set to Exits.</p>
+
+                    <h3>Zoom</h3>
+                    <p>Click the magnifying glass to cycle through zoom levels for the map. Note that values displayed on each tile will not be visible on some higher zoom levels.<br>
+			Also accessible via <code>z</code>
+			</p>
+                    
+                    <h3>Display Border</h3>
+                    <p>Draws a yellow border around the region of the map being used for the battle, as defined by the <em>X</em>, <em>Y</em>, <em>W</em>, and <em>H</em> values.</p>
+                    
+                    <h3>Display Grid</h3>
+                    <p>Draws a grid around the tiles, making it easier to see where each tile is.</p>
+                
+                </article>
+                
+                <article id="font">
+                
+                    <h1>Font</h1>
+                    
+                    <h3>Letters</h3>
+                    <p>Click a letter to select that letter for editing. The currently selected letter is indicated with a box.<br>
+                    You can also use the arrow keys to change the currently selected letter.</p>
+                    
+                    <h3>Icons</h3>
+                    <p>Edit the icon for the letter. Select a size and draw/erase and then click and drag to edit.</p>
+                    
+                    <h3>Plus/Minus (+/-)</h3>
+                    <p>Adjusts the width of the character. Changes how close together to draw the next character, can be seen in the preview at the top.</p>
+                    
+                    <h3>Character Width</h3>
+                    <p>If checked, displays the width of the characters as a red line. Used to determine where to start the next character. Can be adjusted using the <code>Plus</code> and <code>Minus</code> keys.</p>
+                
+                </article>
+                
+                <article id="shops">
+                
+                    <h1>Shops</h1>
+                    
+                    <h3>Name</h3>
+                    <p>Click a shop number to select that shop for editing. The currently selected shop is indicated with a box. The town the shop can be found in is displayed at the left for reference, but this can be out of date if the shop owner is changed via map editing.<br>
+                    You can also use the <code>Up Arrow</code> and <code>Down Arrow</code> keys to change the currently selected shop.</p>
+                    
+                    <h3>Items</h3>
+                    <p>Selects the items the shop sells. Click the value and type to edit, or click the <code>...</code> button to select from a drop down.</p>
+                    
+                    <h3>Plus/Minus (+/-)</h3>
+                    <p>Adds or removes items from the current shop. Note that adding items will require an expanded rom to save.</p>
+                    
+                    <h3>Shop Type</h3>
+                    <p>Selects whether the shop is a weapon or item shop.</p>
+                
+                </article>
+                
+                <article id="maps">
+                
+                    <h1>Maps</h1>
+                    
+                    <h2>Sprites</h2>
+                    
+                    <h3>Set</h3>
+                    <p>Use the <code>Plus</code> and <code>Minus</code> keys or click and type to select a set for editing sprites. Note that these numbers do not match up with the map editor directly, but when 'View Sprites' is chosen in the main map editor it will attempt to show the appropriate sprite set.</p>
+                    
+                    <h3>X/Y (Coordinate Plane)</h3>
+                    <p>The position of the sprite on the map. Click and type to edit.</p>
+                    
+                    <h3><abbr title="Direction/Animation">Dir/Anim</abbr></h3>
+                    <p>The direction the sprite faces and the animation to use. Click and type to edit.</p>
+                    
+                    <h3><abbr title="Graphics">GFX</abbr></h3>
+                    <p>The graphics used for the sprite. Click and type to edit.</p>
+                    
+                    <h3>Movement</h3>
+                    <p>The sprite's movement type. Click and type to edit.</p>
+                    
+                    <h3>Dialogue</h3>
+                    <p>The dialogue the sprite uses when talked to. Click and type to edit.</p>
+                    
+                    <h2>Chests</h2>
+                    
+                    <h3>Chapter</h3>
+                    <p>Click a chapter number to select a group of chests to edit. The currently selected chapter is indicated with a box.<br>
+                    You can also use the arrow keys to change the currently selected chapter.</p>
+                    
+                    <h3>Map</h3>
+                    <p>The area the chest exists in. Note that these numbers do not match up with the map editor...</p>
+                    
+                    <h3>X/Y (Coordinate Plane)</h3>
+                    <p>The X/Y position of the chest.</p>
+                    
+                    <h3>Item</h3>
+                    <p>The item found in the chest. 63 = empty.</p>
+                    
+                    <h2>Maps</h2>
+                    
+                    <h3>Controls</h3>
+                    <p>Arrow keys move the visible area of the map. Use the <code>Plus</code> and <code>Minus</code> keys to change maps.
+		    <code>Home</code> or <code>End</code> and <code>Page Up</code> or <code>Page Down</code> change the graphics sets being used. Left click to place a tile, or right click to copy one.<br>
+		    Press <code>z</code> to change the zoom level, and expand or maximize the window for easier editing.</p>
+                    
+                    <h3>Map</h3>
+                    <p>Use the <code>Plus</code> and <code>Minus</code> buttons or keys or click and type to select a map for editing.</p>
+                    
+                    <h3>Tilesets</h3>
+                    <p>Selects the set of tiles to use for the map. In general you probably won't need to change these unless you totally remake a map using different tiles. Use the <code>Plus</code> and <code>Minus</code> or click and type to edit.</p>
+                    
+                    <h3>Graphics</h3>
+                    <p>Changes the graphics used to display the map. Note that this doesn't change anything in game. You just have to change these to get the map to look right in the editor. Use the <code>Plus</code> and <code>Minus</code> or click and type to edit. Alternatively use <code>Home</code> or <code>End</code>, or <code>Page Up</code> or <code>Page Down</code>.</p>
+                    
+                    <h3>Current Tile</h3>
+                    <p>The current tile to place on the map. Click and type, use the <code>Plus</code> and <code>Minus</code>, or click the <code>...</code> button for a visual selector. Also can right click on the map to copy a tile.</p>
+                    
+                    <h3>Current Event</h3>
+                    <p>The event to place on the map. Click and type or use the <code>Plus</code> and <code>Minus</code> keys. Also can right click on the map to copy a tile. Only available if Display Events is checked.</p>
+                    
+                    <h3>Walkable</h3>
+                    <p>Sets if the tile to be placed can be walked on. Only available if Upper Level is not checked.</p>
+                    
+                    <h3>Roof Group</h3>
+                    <p>Sets the roof group of the tile to be placed. When you walk under a roof tile, all tiles of the same group are hidden. Use group 0 to clear upper tiles. Only available if Upper Level is checked.</p>
+                    
+                    <h3>Display Tile #</h3>
+                    <p>If checked, the tile number will be displayed in the upper left of each tile.</p>
+                    
+                    <h3>Display Grid</h3>
+                    <p>If checked, a grid will be drawn to show the boundaries between tiles.</p>
+                    
+                    <h3>Display Walkable</h3>
+                    <p>If checked, an X will be shown in the middle of tiles that cannot be walked through.</p>
+                    
+                    <h3>Upper Level</h3>
+                    <p>If checked, the upper level will be displayed, and editing will be done on that level.</p>
+                    
+                    <h3>Display Roof Group</h3>
+                    <p>If checked, the roof group number will be shown in the middle of all upper level tiles.</p>
+                    
+                    <h3>Display Event</h3>
+                    <p>If checked, the event number will be displayed in the middle left of each tile, and it will switch to event editing mode.</p>
+                    
+                    <h3>Display Sprites</h3>
+                    <p>If checked, the selected sprite set will be displayed on the map and editable.</p>
+
+                    <h3>Music</h3>
+                    <p>Sets the music to be played on this map. Click and type to edit.</p>
+                    
+                    <h3>Zoom</h3>
+                    <p>Click the magnifying glass to cycle through zoom levels for the map. Note that values displayed on each tile will not be visible on higher zoom levels.</p>
+                    
+                </article>
+                
+                <article id="classes">
+                
+                    <h1>Classes</h1>
+                    <h3>Name</h3>
+                    <p>Click a class or enemy's name to select enemy for editing. The currently selected item is indicated with a box.<br>
+                    You can type to edit the class's name. Use the icons on the left to switch between classes and enemies.</p>
+                    
+                    <h3>Resistances</h3>
+                    <p>Adjusts the resistance or weakness to each of the different spells. Use the checkboxes to select a resistance level.</p>
+                    
+                    <h3>Movement Type</h3>
+                    <p>Sets the movement type for the class. Click and select from the dropdown.</p>
+                    
+                    <h3>Action Type</h3>
+                    <p>Adjusts how the AI controls the enemy. Click and select from the dropdown.</p>
+   
+                    <h3>Action Chance</h3>
+                    <p>Sets the chance the enemy will use their action AI rather than a normal attack on their turn. Click and select from the dropdown.</p>
+                 
+                    <h3>Unarmed Range</h3>
+                    <p>Sets the ranges of an attack with no weapon equipped. Click and type to edit, or click the <code>...</code> to select from a dropdown.</p>
+                    
+                    <h3>Unarmed Attack</h3>
+                    <p>The effect to use for an unarmed attack. Click and type to edit.</p>
+                    
+                    <h3>Regenerate</h3>
+                    <p>If checked, the enemy/class regenerates every turn.</p>
+                    
+                    <h3>Special Attack</h3>
+                    <p>Sets the special attack the enemy can use. Click and select from the dropdown.</p>
+
+                    <h3>Special Check</h3>
+                    <p>Sets the chance the enemy will use their special attack on their turn. Click and select from the dropdown.</p>
+                    
+                    <h3>AI Target Priority</h3>
+                    <p>Sets a number to add to the targeting priority for that class. The higher the value, the more likely they will be targeted by an enemy.</p>
+                    
+                    <h3>Double Attacks</h3>
+                    <p>Sets the base chance for the character to perform a double attack.<br>
+			Default - Uses 7% or the value set in the mechanics editor.<br>
+			Never - Can never land a double attack.<br>
+			High - Double attacks 39% of the time.<br>
+			Level Bonus - Double attacks 7 + 2/3 Level % of the time.<br><br>
+			Only available if Fix Class Double Setting is enable in the mechanics section.</p>
+                    
+                </article>
+                
+                <article id="tiles">
+                
+                    <h1>Tiles</h1>
+                    
+                    <h3>Note</h3>
+                    <p>The higher tile numbers will look garbled on the default settings. Use <code>Home</code> or <code>End</code>, and <code>Page Up</code> or <code>Page Down</code> to adjust how the tiles are drawn.</p>
+                
+                    <h3>Name</h3>
+                    <p>Use the <code>Plus</code> and <code>Minus</code> or click and type to select a tile for editing.</p>
+                    
+                    <h3>Subtiles</h3>
+                    <p>Each tile is made up of 9 sub tiles. Click and type to change each of the tiles.</p>
+                    
+                    <h3>Palette</h3>
+                    <p>Sets the colors used by each subtile. Note that this will not be reflected in the editor. Click and type to edit.</p>
+                    
+                    <h3>Above Sprites</h3>
+                    <p>If checked, the subtile will be drawn above sprites, allowing them to walk underneath.</p>
+                    
+                    <h3>Flip X/Y</h3>
+                    <p>Flips the subtiles horizontally and/or vertically.</p>
+                
+                </article>
+                
+                <article id="mechanics">
+                
+                    <h1>Mechanics</h1>
+                    
+                    <h3>Poison</h3>
+                    <p>The damage done by poison. Interpretted as a percent of max HP if percent damage is checked. Click and type to edit.</p>
+                    
+                    <h3>Fixed Damage</h3>
+                    <p>If checked, poison damage is a fixed number.</p>
+                    
+                    <h3>Percent Damage</h3>
+                    <p>If checked, poison damage is a percent of max HP.</p>
+                    
+                    <h3>Routine Offset</h3>
+                    <p>The offset in hex at which to place the routine for percent damage poison. Don't change unless you know what you are doing! Only available if Percent Damage is checked.</p>
+                    
+                    <h3>Base Damage</h3>
+                    <p>The base damage done by all attacks/spells. Damage is calculated as (ATTACK STRENGTH) * (BASE + random(0 to SPREAD))%</p>
+                    
+                    <h3>Spread</h3>
+                    <p>The spread of damage by all attacks/spells. Damage is calculated as (ATTACK STRENGTH) * (BASE + random(0 to SPREAD))%</p>
+                    
+                    <h3><abbr title="Critical Multiplier">Crit Mult</abbr></h3>
+                    <p>The amount to multiply damage by for a critical.</p>
+                    
+                    <h3>Three Digit Stats</h3>
+                    <p>If checked, the battle status screen will be modified to display three digits for stats.</p>
+                    
+                    <h3>Extend Status Screen</h3>
+                    <p>If checked, the battle status screen will be modified to display the critical stat and the level of enemies.</p>
+                    
+                    <h3>Stat Cap to 127</h3>
+                    <p>If checked, stats will max out at 127 instead of 99.</p>
+    
+                    <h3>Fix Double Class Setting</h3>
+                    <p>If checked, a dropdown will be added to the class editor for selecting the frequency of double attacks. In order to mimic the default behavior, Max / Hanzou should be set to 'Level Bonus'</p>
+                
+                    <h3>Double Chance</h3>
+                    <p>Percent chance of getting a double attack.</p>
+                    
+                    <h3>Triple+ Attacks</h3>
+                    <p>If checked, can attack any number of times as long as the percent chance keeps succeeding.</p>
+                    
+                    <h3>Multi Falloff</h3>
+                    <p>Sets the amount to reduce the chance by for each attack after the second. For example, if the double chance is 7 and the falloff is 2 there is a 7% chance of a double attack and then a 5% chance of having a triple attack after that and a 3% chance of a quadruple, etc.<br>
+                    Only available if Triple+ attacks is checked.</p>
+                    
+                    <h3>Item Break Chance</h3>
+                    <p>Percent chance of a breakable item cracking after being used.</p>
+                    
+                    <h3>No Reviving</h3>
+                    <p>If checked, characters will not be able to be revived by the priest.</p>
+                    
+                    <h3>Unpromoted</h3>
+                    <p>Sets the highest level an unpromoted character can reach.</p>
+                    
+                    <h3>To Promote</h3>
+                    <p>Sets the minimum level for a character to promote.</p>
+                    
+                    <h3>Promoted</h3>
+                    <p>The Maximum Level sets the highest level a promoted character can reach. The Minimum Level sets the number of levels to add to determine the total level after promotion.</p>
+                    
+                    <h3>Add MP Increase Effect</h3>
+                    <p>If checked, extends the effect used by the stat increasing items to include a max MP increase.<br>
+                    To complete the set up, you will have to go to the text editor and click Assign Messages. Then for the Max MP Increase message you can enter a message number to use and edit it manually through the text editor, or just click Default Message.<br>
+                    Then to use, you'll need to set up an effect in the effect editor, the new option will show in the dropdown. </p>
+
+                    <h3>Add New Effects</h3>
+                    <p>If checked, extends the effect routines to include an MP Refill and a distributed damage attack.<br>
+                    To complete the set up, you will have to go to the text editor and click Assign Messages. Then for the Max Refill Increase message you can enter a message number to use and edit it manually through the text editor, or just click Default Message.<br>
+                    Then to use, you'll need to set up an effect in the effect editor, the new options will show in the dropdown.
+                    
+                    <h3>Jogurt Levels</h3>
+                    <p>If checked, modifies the last character slot to level normally instead of using the special routines for Jogurt.</p>
+                    
+                    <h3>Fix Land Effect</h3>
+                    <p>If checked, applies a fix which allows the defense bonus for land effect to be applied properly. The original game had a bug causing the bonus to be based off of the wrong enemy. </p>
+                
+                    <h3>Automatic Item Passing</h3>
+                    <p>If checked, when opening a chest in town an item will be passed to the first character with an empty item slot.</p>
+
+                    <h3>In Battle</h3>
+                    <p>If checked, when opening a chest in battle an item will be passed to the first character with an empty item slot.</p>
+
+                    <h3>EXP Overflow</h3>
+                    <p>If checked, when gaining a level extra experience past 100 is retained.</p>
+
+                    <h3>Add Armor Type</h3>
+                    <p>If checked, adds a new type of equipment 'Armor' to the game. This will add a new 'Armor' checkbox in the item editor to make an item Armor and a third equip menu will show in game to equip it.</p>
+
+                    <h3>Smart Heal AI</h3>
+                    <p>If checked, when casting a heal spell only the lowest level which heals the missing HP will be cast.</p>
+
+                    <h3>Heal EXP Percent</h3>
+                    <p>Set the base healing EXP multiplier. By default healing experience is 20% of the percentage of max health that was healed.<br>So a full heal would grant about 20 exp.</p>
+
+		    <h3>Heal EXP Min</h3>
+                    <p>Set the minimum EXP for healing.</p>
+
+                </article>
+                
+                <article id="effects">
+                
+                    <h1>Effects</h1>
+                    
+                    <h3>Effect</h3>
+                    <p>Effects are viewed in groups of 30. Click the effect on the left to change which is active. The current effect is indicated with a box.<br>
+			You can also use the up/down keys to change effects.</p>
+                    
+                    <h3>Up/Down Arrows</h3>
+                    <p>Click the up and down arrows to cycle through pages of effects.<br>
+                    You can also use Page Up/Down to switch.</p>
+
+                    <h3>Action</h3>
+                    <p>Selects what type of action to apply when using the effect and what options are available below.</p>
+
+                    <h3>Type</h3>
+                    <p>The type of the effect. Effects how the character animates when using the effect.</p>
+
+                    <h3>Strength</h3>
+                    <p>Damage dealt or healed by the effect. Click and type to edit. (255 = full heal for healing)</p>
+       
+                    <h3>Resistance</h3>
+                    <p>The 'element' of the damage dealt. Determines which resistances to apply for increasing or decreasing the damage.</p>
+             
+                    <h3>Animation</h3>
+                    <p>The animation used for the effect. Click and type to edit.<br>
+			Only available if the type is Spell or Attack+Spell</p>
+       
+
+                    <h3>Crit</h3>
+                    <p>Percentage chance of critical.</p>
+             
+                    <h3>Status Effect</h3>
+                    <p>Status effect to cause.<br>                    
+
+                    <h3>Can Fail</h3>
+                    <p>Determines whether a status effect can fail, used for negative statuses.<br>  
+                    
+                    <h3>Text</h3>
+                    <p>Text to display when effect is used. Click and type to edit. (255 = default)</p>
+
+                    <h3>Stat</h3>
+                    <p>Stat to increase for max stat up effects.<br>  
+
+
+                    <h3>Used By</h3>
+                    <p>Attempts to show everything that currently makes use of the effect. Does not show all of the Effect 0 uses, because there are a lot of default values of 0. <br>               
+
+                
+                </article>
+                
+                <article id="range">
+                
+                    <h1>Ranges</h1>
+                    
+                    <h3>Range</h3>
+                    <p>Ranges are viewed in groups of 30. Click the range on the left to change which is active. The current range is indicated with a box.<br>
+			You can also use the up/down keys to change ranges.</p>
+                    
+                    <h3>Up/Down Arrows</h3>
+                    <p>Click the up and down arrows to cycle through pages of effects.<br>
+                    You can also use Page Up/Down to switch.</p>
+                    
+                    <h3>Plus/Minus (+/-)</h3>
+                    <p>Adds a new range, or deletes the last range.</p>
+                    
+                    <h3>Min</h3>
+                    <p>The minimum distance for the range. Click and type to edit.<br>
+			Squares closer than this distance will not be targetable (like for arrows).</p>
+
+                    <h3>Max</h3>
+                    <p>The maximum distance for the range.</p>
+
+                    <h3>Shape</h3>
+                    <p>The shape of the targetable area. Changes which squares are available to target.<br>
+			For example, the plus shape only allows squares directly horizontal or vertical to be targetted.<br>
+			Only available if Advanced Ranges is checked.
+			</p>		    
+
+                                        
+                    <h3>Area</h3>
+                    <p>The area for the range. Changes which squares around the chosen target are hit.<br>
+                    If Advanced Areas (requires advanced ranges) is checked, there will be extra options.</p>
+                    
+                    <h3>Group</h3>
+                    <p>Selects which types of units are valid targets.<br></p>
+                    
+                    <h3>Routine</h3>
+                    <p>Selects the action used for the routine. Mostly used only for a couple special cases (Egress, Laser Eye). Many of the options don't seem to work or be used.</p>
+                    
+                    <h3>Show Preview</h3>
+                    <p>If checked, show a graphical preview of the range and area below.</p>
+                    
+                    <h3>Show Uses</h3>
+                    <p>If checked, show what uses the range below.</p>
+                    
+                    <h3>Maximum Range</h3>
+                    <p>The maximum distance the game will process. Must be increased for larger ranges and areas, higher values can cause slowdown though.</p>
+                    
+                    <h3>Advanced Ranges</h3>
+                    <p>Changes the area system to allow for different range shapes.</p>
+                    
+                    <h3>Advanced Areas</h3>
+                    <p>Changes the area system to allow for different area shapes. Only available if Advanced Ranges is checked.</p>
+
+                    <h3>Preview</h3>
+                    <p>If show preview is checked, show a graphical preview of the range and area and the chosen group.</p>
+
+                    <h3>Used By</h3>
+                    <p>If show uses is checked, attempts to show all uses of the range. Some will not be shown because they are used as default values in a lot of places.</p>
+                </article>
+                
+                <article id="palette">
+                
+                    <h1>Palettes</h1>
+                    <div class="info"><big>&#x1F6C8;</big> 
+			Click on a color to open the color selector. Note that the Genesis has limited color resolution compared to the values used by the computer, so colors may not translate perfectly but the editor will attempt to convert the color to the closest match upon closing the color dialog.<br>
+			Some colors are fixed/special and may not have any apparent effect when edited or may change parts of the UI. This is true of many blacks and whites at the beginning of palettes.<br>
+			Also for many graphics, the first color entry is the transparent color, and changing this color will have no visible effect.
+		    </div>
+                    <div class="notice"><big>&#9888;</big> Some palettes are used for more than one purpose in game. Changing colors may have unintended side effects!<br>
+                    </div>
+                
+                </article>
+                
+                <article id="text">
+                
+                    <h1>Text</h1>
+                    
+                    <div class="info"><big>&#x1F6C8;</big> Click decompress text to load the text from game. Use <code>Plus</code> or <code>Minus</code> keys, or the <code>Page Up</code> or <code>Page Down</code> keys to flip through the available text. Click and type to edit and <code>Left Arrow</code> and <code>Right Arrow</code> keys move the cursor.<br>
+                    Exporting will create a text file which can be edited and then reimported, though take care to keep the line breaks the same and to note that most special characters aren't supported by the game.</div>
+                    
+                    <h3>Line Number</h3>
+                    <p>The current line number is displayed in the lower left. Click and type to edit and jump to a line.</p>
+                    
+                    <h3>Search</h3>
+                    <p>Click the magnifying glass to open the search box. Type the text to search for and then press Enter to cycle through the results.</p>
+                    
+                    <h3>Special Commands</h3>
+                    <p>First position the curson within the text where you would like to insert a command. Then click the <code>[...]</code> button to open the commands dialog.<br>
+                    Clicking one of the items will insert it within the current line of text.</p>
+                    
+                    <h3>Assign Messages</h3>
+                    <p>Opens the Assign Messages sub-editor for assigning message numbers to various new text needed by editor features.</p>
+                    
+                    <h3>Message #</h3>
+                    <p>Selects the text to use for the message, corresponding to the line number in the text editor. Click and type to edit.</p>
+                    
+                    <h3>Default Message</h3>
+                    <p>Clicking will fill the selected text line with the default text for the new message, and jump to it for viewing.<br>
+                    Make sure the chosen number is not in use already before clicking this!</p>
+                
+                </article>
+                
+                <article id="graphics">
+                
+                    <h1>Graphics</h1>
+                    
+                    <div class="info"><big>&#x1F6C8;</big> Click decompress gfx to load the graphics from game (usually done automatically). Click a color on the palette at the top to select. Use the buttons to the left of the image to select pencil/eraser and the brush size.<br>
+                    Exporting will create a folder called GFX with bmp files that can be edited and reimported. Note that you must stick to the colors used by that sprites palette, any other colors will be matched to the closest color.</div>
+                    
+                    <h3>Category</h3>
+                    <p>Use the icons along the left side to select a set of graphics for editing.</p>
+                    
+                    <h3>Sprite</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a sprite for editing.</p>
+                    
+                    <h3>Frame</h3>
+                    <p>For sprites that have multiple frames, click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a frame for editing.</p>
+                    
+                    <h3>Palette</h3>
+                    <p>For sprites that have multiple palette, click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a palette for displaying the sprite.<br>
+			Some graphics will also allow palette editing from this screen, right click the color to edit.</p>
+
+                    <h3>Add Sprite</h3>
+                    <p>Some graphics will allow new entries to be added, click this to add a new graphic of the current type.
+		
+		    <div class="notice"><big>&#9888;</big>For graphics like battle sprites which have multiple frames, make sure to also add enough frames as the game will crash usually if it tries to load a frame that doesn't exist.</div>
+		    </p>
+
+                    <h3>Remove Sprite</h3>
+                    <p>If you've added additional graphics to this type, click to delete the last one.</p>
+
+		    <h3>Add Frame</h3>
+                    <p>Add a new frame to graphics type with multiple frames. Frames can be used in the Animation Editor.</p>
+
+		    <h3>Remove Frame</h3>
+                    <p>Deletes the last frame of a graphics type with multiple frames.</p>
+
+		    <h3>Add Palette</h3>
+                    <p>Add a new palette to graphics type with multiple palettes. Can be used in the corresponding data, character/monster editor etc.</p>
+
+		    <h3>Remove Palette</h3>
+                    <p>Deletes the last palette of a graphics type with multiple palettes.</p>
+                
+                </article>
+
+		<article id="animation">
+                
+                    <h1>Animation</h1>
+                    
+                    <h3>Animation</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select an animation for editing.</p>
+
+                    <h3>Frame</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a frame of the current animation for editing.</p>
+           
+                    <h3>Character</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a character for viewing.<br>
+			Only used for previewing the animation, does not effect anything in game.</p>
+       
+                    <h3>Weapon</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select a character for viewing.<br>
+			Only used for previewing the animation, does not effect anything in game.</p>
+  
+                    <h3># of Frames</h3>
+                    <p>Sets the total number of frames in the current animation. Click and type to edit.</p>
+   
+                    <h3>Effect</h3>
+                    <p>Sets a special animation effect to play along with the current animation, -1 for none (default).</p>
+                 
+		    <h3>Weapon Section</h3>
+		    <div class="subitem">
+                  	  <h3>Graphic</h3>
+                  	  <p>Sets the frame of the weapon graphic to display. Click and type to edit.</p>
+
+                  	  <h3>X/Y</h3>
+                  	  <p>Positions the weapon graphic on the screen. Click and type to edit.</p>
+
+                  	  <h3>X/Y Flip</h3>
+                  	  <p>If checked, flips the weapon graphic horizontally or vertically.</p>
+		    </div>
+                
+                </article>
+
+		<article id="scripting">
+		    <h1>Scripting</h1>
+                    <div class="info"><big>&#x1F6C8;</big> Click and drag on empty space to move the view. Click to select/edit and click+drag to move nodes.<br>
+
+			The triangular 'Start' node indicates the beginning of the script. The code will follow the graph along the lines of connected nodes, generally just from left to right.<br>
+
+			A square node just performs an action and moves onto the next node, there will be one line from the left in and one line from the right out in a straight horizontal line.<br>
+
+			A diamond node represents a check/choice. This type of node will have one line in on the left, but two (or maybe more) out on the right; one continuing on the same line and the rest moving down to lower lines. Each will be labeled with the type of result (Equal, Not equal, etc)<br>
+
+			The circular 'End' nodes indicate the script should finish here. Any node which isn't connected on the right will automatically get an 'End' attached when saving.
+
+			The selected node and its outputs will be highlighted in blue. Right clicking or double clicking a node will open it for editing options.<br>
+
+			With a node selected, press the left/right keys to move along connected nodes. If a node has multiple outs, use up/down to follow the other branch.<br>
+
+			A selected node will show a blue square on the right side, click and dragging from this point will allow it to be reconnected to another node.
+
+			Press <code>z</code> to change the zoom level, and expand or maximize the window for easier editing.
+		    </div>
+
+                    <h3>Script</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select an script for editing.</p>
+
+                    <h3>Script Set</h3>
+                    <p>Click and edit or use the <code>Plus</code> or <code>Minus</code> buttons to select an script set for editing.<br>
+			Each script set handles a completely different set of tasks with different types of nodes available.<br><br>
+			Currently the sets are: 0 - Dialogue/NPC Interaction, 1 - End of Battle, 2 - Battle Exits
+			</p>
+
+
+		    <h3>Actions</h3>
+		    <p>A list of available action nodes. Click and drag to add a new node of that type, or double click to add to the middle of the screen.<br>
+			The <code>?</code> button will give an explanation of that node if available.<br>
+			The node will need to be connected from the left before it can be reached.
+
+
+		    <h3>Checks</h3>
+		    <p>A list of available check/choice nodes. Click and drag to add a new node of that type, or double click to add to the middle of the screen.<br>
+			The <code>?</code> button will give an explanation of that node if available.<br>
+			The node will need to be connected from the left before it can be reached, and connected on the right to as many nodes as there are outcomes (almost always just 2, except in battle exits).
+
+
+		    <h3>Add End</h3>
+		    <p>Creates a cirular 'End' note in the center of the editing area.<br>
+			Not usually necessary, since ends are added automatically when saving.</p>
+
+		    <h3>Fill Ends</h3>
+		    <p>Creates a cirular 'End' note connected to the right of every node that isn't an end and doesn't have a connection to the right.<br>
+			Not usually necessary, since this is done automatically when saving, but can be useful for seeing while in the middle of editing if you don't want to save yet.</p>
+
+		    <h3>Previous Node</h3>
+		    <p>With a node selected, moves back to the node connected to the left.<br>
+			Same as pressing up/left on the keyboard.</p>	
+
+		    <h3>Follow Branch</h3>
+		    <p>With a node selected that has more than one output to the right, moves to the lower node.<br>
+			Same as pressing down on the keyboard.</p>
+
+
+		    <h3>Search</h3>
+		    <p>Brings up a dialog which allows you to search for any node which displays a particular message.</p>
+
+		    <h3>Clear All</h3>
+		    <p>Removes all nodes from the current script except for the start. Only use this if you know what you are doing and are totally rebuilding a section!</p>		    	
+
+		    <h3>Disconnect</h3>
+		    <p>When editing a node, removes all connections to and from the selected node.<br>
+			<div class="notice" id="expand-rom"><big>&#9888;</big>Be careful when disconnecting nodes either this way or by dragging new connections. Any unreachable nodes that don't have a connection from the left will be lost when saving.</div>
+			</p>
+
+		    <h3>Remove</h3>
+		    <p>When editing a node, deletes the selected node.<br>
+			Make sure to reconnect the adjacent nodes if deleted from the middle of a line.<br>
+			Also accessible via the <code>Delete</code> key.
+			</p>
+
+                </article>
+                <!-- EXAMPLE SECTION
+                <article id="NAV ID">
+                
+                    <h1>SECTION TITLE</h1>
+                    <h2>SECTION SUB-SECTION</h2>
+                    <h3>SECTION SPECIFIC</h3>
+                    <p>SECTION SPECIFIC OVERVIEW</p>
+                
+                </article>
+                -->
+				
+
+			</main>
+					
+		</div><!-- .wrapper #help -->
+        
+        <div id="background"></div>
+            
+		<script src="assets/js/js.js"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,1231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d72e119b-56ae-437d-a67c-f4e9ebb5859c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{29983a70-48c8-4260-8115-e40a249b5fe5}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Characters">
+      <UniqueIdentifier>{7e0ae945-04e8-4673-8627-ce6a1f1852a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Battles">
+      <UniqueIdentifier>{a3f5d966-2437-42d8-9e82-c357c9d3321d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Monsters">
+      <UniqueIdentifier>{727ab1ef-6eba-45af-afed-346e39eb4bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Spells">
+      <UniqueIdentifier>{c5a89033-2e1b-46be-b00f-6ce89297b3f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{e5c1b3ff-78c4-4d61-a385-c26749660262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Font">
+      <UniqueIdentifier>{4604ead8-6153-4915-ab9f-a309bc8da55f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shops">
+      <UniqueIdentifier>{5d7a2133-b1f2-4906-b224-bfac2e0bbaf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Maps">
+      <UniqueIdentifier>{e77a88bc-b28a-4ae3-aa41-a4d9d880a0cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Classes">
+      <UniqueIdentifier>{96ba0701-7a05-43b9-81a2-25882e9a8856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Tiles">
+      <UniqueIdentifier>{7f259bab-c43d-4018-b3ca-9cf14857a706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Mechanics">
+      <UniqueIdentifier>{43c79d2a-e13b-47da-b705-1dde2eb8c623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Effects">
+      <UniqueIdentifier>{cf2325ce-b81a-4af3-b2c0-f664d081cb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ranges">
+      <UniqueIdentifier>{f7d2d749-dbf3-439b-9e33-3555d6dfa012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Palettes">
+      <UniqueIdentifier>{bf5ebaf8-9d00-4afe-8922-a9a8e9b1aed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Expand">
+      <UniqueIdentifier>{de599c01-2515-4bdf-b667-ab06cff304c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Text">
+      <UniqueIdentifier>{11b40ae3-d32a-4a1e-a815-f1df9c025162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Compression">
+      <UniqueIdentifier>{60fb563e-2458-417b-bca3-8fe3e57efa23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{77ae6eda-cc03-4457-9e85-9825511b8f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{21e628b8-b38a-4356-b3ac-4d5a0c828b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialog">
+      <UniqueIdentifier>{44fc9255-2180-421b-899f-9d209271d8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Battle End">
+      <UniqueIdentifier>{6c6a9540-c7cc-47e7-a7f8-b697e48a69a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Randomizer">
+      <UniqueIdentifier>{82486c96-cba3-46ee-a07d-6c4a6346cf3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{42d73746-b264-4d0f-9ab9-5a75e65e6397}</UniqueIdentifier>
+      <Extensions>rc</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{46d3ab2c-0c69-419e-a223-53219353f0ad}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Debug">
+      <UniqueIdentifier>{eb7d21b0-3de9-4cd3-ae49-75b4d9f21553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Battle Exit">
+      <UniqueIdentifier>{6b774937-2b5e-44d5-8a3e-e5381549d7b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ChapterStart">
+      <UniqueIdentifier>{5b1b4155-5352-4951-85d9-6a8694fcbb03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Battle Start">
+      <UniqueIdentifier>{46f3c24a-dd46-4a14-ac75-8de4080a12f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Cutscenes - World">
+      <UniqueIdentifier>{8fa600c0-17e1-40ae-9d99-3820539d6ff7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SF1Edit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharChar1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharChar2.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharClick1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharClick2.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharKeyDown.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharMove.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharPaint1.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CharPaint2.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadChar.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveChar.h">
+      <Filter>Header Files\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleChar.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleClick.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleKeyDown.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMClick.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMove.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMRelease.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattlePaint.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleRClick.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadBattle.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveBattle.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadMonster.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterChar.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterClick.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterKeyDown.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterPaint.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveMonster.h">
+      <Filter>Header Files\Monsters</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSpell.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveSpell.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellChar.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellClick.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellKeyDown.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellMove.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellPaint.h">
+      <Filter>Header Files\Spells</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemChar.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemClick.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemKeyDown.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemMove.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemPaint.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRClick.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadItem.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveItem.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="FontClick.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontKeyDown.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontMove.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontPaint.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadFont.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveFont.h">
+      <Filter>Header Files\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadShop.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveShop.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopChar.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopClick.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopKeyDown.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopPaint.h">
+      <Filter>Header Files\Shops</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadMap.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapChar.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapClick.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapClickFunc.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapKeyDown.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMClick.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMove.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapMRelease.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapPaint.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="MapRClick.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveMap.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassChar.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassClick.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassKeyDown.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassPaint.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadClass.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveClass.h">
+      <Filter>Header Files\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadTile.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveTile.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileChar.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileClick.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TileKeyDown.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePaint.h">
+      <Filter>Header Files\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadMech.h">
+      <Filter>Header Files\Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="MechChar.h">
+      <Filter>Header Files\Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="MechClick.h">
+      <Filter>Header Files\Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="MechPaint.h">
+      <Filter>Header Files\Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveMech.h">
+      <Filter>Header Files\Mechanics</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectChar.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectClick.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectKeyDown.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPaint.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadEffect.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveEffect.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadRange.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeChar.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeClick.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="RangeKeyDown.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="RangePaint.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveRange.h">
+      <Filter>Header Files\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadPalettes.h">
+      <Filter>Header Files\Palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="PaletteChar.h">
+      <Filter>Header Files\Palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="PaletteClick.h">
+      <Filter>Header Files\Palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="PalettePaint.h">
+      <Filter>Header Files\Palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="SavePalette.h">
+      <Filter>Header Files\Palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandClick.h">
+      <Filter>Header Files\Expand</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandKeyDown.h">
+      <Filter>Header Files\Expand</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandPaint.h">
+      <Filter>Header Files\Expand</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadText.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveText.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextChar.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextClick.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextKeyDown.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextPaint.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="BytePair.h">
+      <Filter>Header Files\Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="OldText.h">
+      <Filter>Header Files\Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>Header Files\Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleBit.h">
+      <Filter>Header Files\Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="UpperLevel.h">
+      <Filter>Header Files\Compression</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXChar.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXClick.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXMove.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXPaint.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GFXRClick.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadGFX.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveGFX.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimChar.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimClick.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimPaint.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadAnim.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveAnim.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogChar.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogClick.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogDClick.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogGraph.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogGraphNode.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogKeyDown.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogMove.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogPaint.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRClick.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogRelease.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadDialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeType.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveDialog.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="BEChar.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEClick.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEGraph.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEGraphNode.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEKeyDown.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEMove.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BEPaint.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BERClick.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BERelease.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadBattleEnd.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveBattleEnd.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="Randomizer.h">
+      <Filter>Header Files\Randomizer</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SF1Edit.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugPaint.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadDebug.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugChar.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugClick.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitChar.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitClick.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitGraph.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitGraphNode.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitKeyDown.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitMove.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitPaint.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitRClick.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitRelease.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadBExit.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveBExit.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BEDClick.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitDClick.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWheel.h">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimMove.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimPaint.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadSpellAnim.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimClick.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimRClick.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimRClick.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimChar.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimWheel.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimWheel.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogWheel.h">
+      <Filter>Header Files\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="BExitWheel.h">
+      <Filter>Header Files\Battle Exit</Filter>
+    </ClInclude>
+    <ClInclude Include="BEWheel.h">
+      <Filter>Header Files\Battle End</Filter>
+    </ClInclude>
+    <ClInclude Include="SpellAnimScript.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveSpellAnim.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSGraphNode.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadCS.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSGraph.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleKeyDown2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattlePaint2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleRClick2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMClick2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMRelease2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleClick2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleChar2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleMove2.h">
+      <Filter>Header Files\Battles</Filter>
+    </ClInclude>
+    <ClInclude Include="Lists.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSChar.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSClick.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSDClick.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSKeyDown.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSMove.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSPaint.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSRClick.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSRelease.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="CSWheel.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveCS.h">
+      <Filter>Header Files\ChapterStart</Filter>
+    </ClInclude>
+    <ClInclude Include="BSChar.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSClick.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSDClick.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSGraph.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSGraphNode.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSKeyDown.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSMove.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSPaint.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSRClick.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSRelease.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="BSWheel.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadBS.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveBS.h">
+      <Filter>Header Files\Battle Start</Filter>
+    </ClInclude>
+    <ClInclude Include="WCClick.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCDClick.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCGraph.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCGraphNode.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCKeyDown.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCMove.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCPaint.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCRClick.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCRelease.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCWheel.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadWC.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveWC.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="WCChar.h">
+      <Filter>Header Files\Cutscenes - World</Filter>
+    </ClInclude>
+    <ClInclude Include="MapWheel.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="AdvancedNodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SF1Edit.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Tilesets\1.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\10.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\11.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\12.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\13.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\14.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\15.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\16.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\17.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\18.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\19.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\20.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\21.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\22.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\23.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\24.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\25.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\26.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\27.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\28.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\29.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\3.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\30.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\31.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\32.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\4.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\5.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\6.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\7.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\8.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\9.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ANIM.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ANIMON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Area.bin">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="BG.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="BGON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="CHAR.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="CHARON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="CHECKOFF.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="CLASS.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="CLASSON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="DELETE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="DOTS.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="DOWN.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="DOWNARROW.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="EFFECT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="EFFECTON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ERASER.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="GFX.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="GFXON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Tilesets\icon1.ico">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="LEFT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MAGIC.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MAGICON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MAP.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MAPON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MECH.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MECHON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="MINUS.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="NEXT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PALETTE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PALETTEON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PLAT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PLATON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PLUS.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PORTRAIT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PORTRAITON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="PREV.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Range.bin">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RANGE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RANGEON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE2.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE2ON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE3.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE3ON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE4.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATE4ON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="RATEON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ReadMe.txt">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="SCRIPT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="SCRIPTON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Search.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="SF1Edit.ico">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="small.ico">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Special.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="SPRITE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="SPRITEON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="TEXT.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="TEXTON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="TILE.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="TILEON.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="UPARROW.bmp">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="ZOOM.bmp">
+      <Filter>Resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="CHECKON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="LEFT2.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MID.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="PENCIL.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="PENCILON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="ERASERON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="1.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="1ON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="2.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="2ON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="4.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="4ON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MONSTER.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MONSTERON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="SPELL.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="SPELLON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="FONT.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="FONTON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="BATTLE.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="BATTLEON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="SHOP.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="SHOPON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="CHESTON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="CHEST.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="ITEM.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="ITEMON.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Tilesets\2.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="tilesets\bitmap2.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Areas.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="bitmap2.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="List.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="tilesets\liston.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="liston.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Hi.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MOVEDOWN.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MOVELEFT.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MOVERIGHT.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MOVEUP.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="MOVEADD.bmp">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

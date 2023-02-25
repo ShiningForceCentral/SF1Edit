@@ -1,0 +1,6 @@
+Creative Commons Zero (CC0) license
+
+- Free for personal and commercial use
+- No attribution required
+
+For more information about this license: https://creativecommons.org/publicdomain/zero/1.0/
