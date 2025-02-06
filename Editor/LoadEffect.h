@@ -6,7 +6,7 @@ unsigned long EffectRoutineOffset[] = {0x34,0xFC,0x102,0x160,0x2DA,0x2F6,0x2FE,0
 char StatusEffectName[][16] = { "Quick","Slow","Boost","Dispel","Shield","Muddle","Sleep","Poison","Curse","Jogurt" };
 char StatUps[][16] = { "Attack", "Defense", "Move", "Agility", "HP", "MP" };
 char EffectTypes[][16] = { "Attack", "Attack+Spell", "Spell", "None/Item", "?" };
-char EffectResist[][16] = { "Blaze", "Freeze", "Bolt", "Sleep/Desoul", "Muddle","Slow","?","None" };
+char EffectResist[][16] = { "Blaze/Status", "Freeze", "Bolt", "Sleep/Desoul", "Anti-Air","Chaos Breaker","Undefined","None" };
 
 char EffectCrit[][16] = { "3%","4%","6%" };
 
