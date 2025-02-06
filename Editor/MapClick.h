@@ -33,6 +33,13 @@
 						else select[mode]=0;
 					}
 				}
+				if (p.x >= 0 && p.x <= 40 && p.y >= 170 && p.y <= 209) {
+					if (submode[mode] != 4) {
+						submode[mode] = 4;
+						select[mode] = 0;
+					}
+				}
+
 
 				if(submode[mode]==0){
 					if(p.x>=76&&p.x<=145&&p.y>=10&&p.y<=25){
@@ -898,4 +905,12 @@
 						i+=SpriteComLen[in];
 					}
 
+				}
+				if (submode[mode] == 4) {
+					if (p.x >= 200 && p.x <= 240 && p.y >= 10 && p.y <= 26) {
+						focus = 1;
+					}
+					if (p.x >= 200 && p.x <= 240 && p.y >= 36 && p.y <= 52) {
+						focus = 2;
+					}
 				}

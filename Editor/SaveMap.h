@@ -44,6 +44,14 @@ void SaveMap(){
 			return;
 		}
 
+		if (NumChars == 30) {
+			fseek(fp, 0x23A6D, SEEK_SET);
+			fprintf(fp, "%c", NovaSprite);
+		}
+
+		fseek(fp, 0x68C1, SEEK_SET);
+		fprintf(fp, "%c", BlueFlameSprite);
+
 		long o;
 
 		o = 0x1EA000;

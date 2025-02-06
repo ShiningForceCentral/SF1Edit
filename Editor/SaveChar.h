@@ -1069,7 +1069,7 @@
 			fprintf(fp, "%c", 0x32);
 			fprintf(fp, "%c", 0x3C);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x39);
+			fprintf(fp, "%c", NovaSprite);
 			fprintf(fp, "%c", 0x60);
 			fprintf(fp, "%c", 0x1E);
 

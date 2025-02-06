@@ -1,7 +1,3 @@
-#define MAX_CHARS 50
-
-int NumChars = 30;
-
 unsigned char Poison;
 unsigned char DamageSpread;
 unsigned char DamageBase;

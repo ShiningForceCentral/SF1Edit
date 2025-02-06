@@ -1,5 +1,5 @@
 #pragma warning( disable : 4477) 
-
+#pragma comment(lib, "Msimg32.lib")
 
 #include "stdafx.h"
 #include <shlobj.h> 
@@ -16,7 +16,7 @@
 #include "time.h"
 #include <direct.h>
 
-char version[] = "3.4.4";
+char version[] = "3.5.0";
 
 char ScriptTitles[][32] = { "Dialogue Scripts", "Battle End Scripts", "Map/Battle Exit Scripts", "Chapter Start Scripts", "Battle Start Scripts", "World Cutscenes" };
 
@@ -132,7 +132,7 @@ HBITMAP left,left2,mid,checkon,checkoff,pencil,pencilon,eraser,eraseron,zoom,upa
 HBITMAP one,oneon,two,twoon,four,fouron,plus,minus,dots,next,prev,search,special,deleteicon,down;
 HBITMAP rate[4],rateon[4];
 HBITMAP chara,charaon,magic,magicon,item,itemon,monster,monsteron,spell,spellon,font,fonton,port,porton, anim, animon;
-HBITMAP battle,battleon,shop,shopon,map,mapon,classi,classon,tile,tileon,chest,cheston,bg,bgon,sprite,spriteon,highlight;
+HBITMAP battle, battleon, shop, shopon, map, mapon, classi, classon, tile, tileon, chest, cheston, bg, bgon, sprite, spriteon, highlight;
 HBITMAP mech,mechon,effect,effecton,range,rangeon,palette,paletteon,text,texton, gfx, gfxon, plat, platon, script, scripton, list, liston;
 HBITMAP moveleft, moveup, moveright, movedown, moveadd;
 HBITMAP areas;
@@ -221,16 +221,18 @@ bool ExpandedGraphics = false;
 #include "Pixel.h" 
 
 unsigned char NumItems = 64;
+int NumChars = 30;
 long EffectOffset;
 
 bool ScriptsLoaded = false;
 
-#define NUM_DIALOG	35
-#define NUM_BE		30
-#define NUM_BEXIT	8
-#define NUM_CS	8
-#define NUM_BS	30
-#define NUM_WC	5
+#define MAX_CHARS 50
+#define NUM_DIALOG    35
+#define NUM_BE        30
+#define NUM_BEXIT    8
+#define NUM_CS    8
+#define NUM_BS    30
+#define NUM_WC    5
 
 void FromClipboard(unsigned char * data, unsigned int size[2], unsigned char pal[16][3], bool tileset = false, bool weapon = false, bool resize=false, bool recolor=false);
 void ToClipboard(unsigned char * data, unsigned int size[2], unsigned char pal[16][3], bool tileset = false, bool weapon = false);

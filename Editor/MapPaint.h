@@ -26,6 +26,14 @@
 	}
 	BitBlt(memdc,0,130,40,40,bmpdc,0,0,SRCCOPY);
 
+	if (submode[mode] == 4) {
+		SelectObject(bmpdc, mechon);
+	}
+	else {
+		SelectObject(bmpdc, mech);
+	}
+	BitBlt(memdc, 0, 170, 40, 40, bmpdc, 0, 0, SRCCOPY);
+
 	if(submode[mode]==0){
 		SelectObject(bmpdc,minus);
 		BitBlt(memdc,55,8,20,20,bmpdc,0,0,SRCCOPY);
@@ -1398,6 +1406,60 @@
 						Rectangle(memdc,x+263,105+20*i,x+263+207,105+20*i+20);
 					TextOut(memdc, x+55,  105+20*i, SpriteComName[i], strlen(SpriteComName[i]));
 					TextOut(memdc, x+263, 105+20*i, SpriteComName[i+15], strlen(SpriteComName[i+15]));
+				}
+			}
+		}
+	}
+	if (submode[mode] == 4) {
+		TextOut(memdc, 50, 10, "Nova HQ Sprite", 14);   //14 is the number of characters that %d prints below, 50 is the x and 10 is the y
+		TextOut(memdc, 50, 40, "Blue Flame Sprite", 17);
+
+		if (focus == 1 && cursor) {
+			sprintf(out, "%d|", NovaSprite);
+		}
+		else {
+			sprintf(out, "%d", NovaSprite);
+		}
+		TextOut(memdc, 200, 10, out, strlen(out));
+
+
+		if (focus == 2 && cursor) {
+			sprintf(out, "%d|", BlueFlameSprite);
+		}
+		else {
+			sprintf(out, "%d", BlueFlameSprite);
+		}
+		TextOut(memdc, 200, 40, out, strlen(out));
+		if (GraphicsLoaded) {
+			int width = MSSize[0][0][0];
+			int height = MSSize[0][0][1];
+
+			for (x = 0; x < width / 2; x++) {
+				for (y = 0; y < height; y++) {
+					int k = MapSprites[NovaSprite][0][x + 24 * cursor + y * width];
+					if (k < 0)k = 0;
+					if (k) {
+						if (!MSPalette[NovaSprite]) {
+							SetPixel(memdc, x + 230, y + 4, RGB(FMSPalette[k][0], FMSPalette[k][1], FMSPalette[k][2]));
+						}
+						else {
+							SetPixel(memdc, x + 230, y + 4, RGB(EMSPalette[k][0], EMSPalette[k][1], EMSPalette[k][2]));
+						}
+					}
+				}
+			}
+			for (x = 0; x < width / 2; x++) {
+				for (y = 0; y < height; y++) {
+					int k = MapSprites[BlueFlameSprite][0][x + 24 * cursor + y * width];
+					if (k < 0)k = 0;
+					if (k) {
+						if (!MSPalette[BlueFlameSprite]) {
+							SetPixel(memdc, x + 230, y + 34, RGB(FMSPalette[k][0], FMSPalette[k][1], FMSPalette[k][2]));
+						}
+						else {
+							SetPixel(memdc, x + 230, y + 4, RGB(EMSPalette[k][0], EMSPalette[k][1], EMSPalette[k][2]));
+						}
+					}
 				}
 			}
 		}

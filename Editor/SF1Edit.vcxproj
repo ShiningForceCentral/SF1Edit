@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -11,21 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{3BA96FEB-0047-4F94-B543-5939FA115DEF}</ProjectGuid>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -40,13 +40,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\Debug\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\Release\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <_ProjectFileVersion>17.0.35707.178</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
@@ -55,8 +59,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
       <TypeLibraryName>.\Debug/SF1Edit.tlb</TypeLibraryName>
-      <HeaderFileName>
-      </HeaderFileName>
+      <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -80,14 +83,13 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;MSIMG32.LIB;gdi32.lib;user32.lib;shell32.lib;comdlg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;gdi32.lib;user32.lib;shell32.lib;comdlg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Debug/SF1Edit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/SF1Edit.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -101,8 +103,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetEnvironment>Win32</TargetEnvironment>
       <TypeLibraryName>.\Release/SF1Edit.tlb</TypeLibraryName>
-      <HeaderFileName>
-      </HeaderFileName>
+      <HeaderFileName />
     </Midl>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -125,7 +126,7 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;MSIMG32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/SF1Edit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release/SF1Edit.pdb</ProgramDatabaseFile>
@@ -138,91 +139,16 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SF1Edit.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
+    <ClCompile Include="SF1Edit.cpp" />
     <ClCompile Include="StdAfx.cpp">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AdvancedNodes.h" />
-    <ClInclude Include="AnimMove.h" />
-    <ClInclude Include="AnimRClick.h" />
-    <ClInclude Include="AnimWheel.h" />
-    <ClInclude Include="BattleChar2.h" />
-    <ClInclude Include="BattleClick2.h" />
-    <ClInclude Include="BattleKeyDown2.h" />
-    <ClInclude Include="BattleMClick2.h" />
-    <ClInclude Include="BattleMove2.h" />
-    <ClInclude Include="BattleMRelease2.h" />
-    <ClInclude Include="BattlePaint2.h" />
-    <ClInclude Include="BattleRClick2.h" />
-    <ClInclude Include="BEDClick.h" />
-    <ClInclude Include="BEWheel.h" />
-    <ClInclude Include="BExitChar.h" />
-    <ClInclude Include="BExitClick.h" />
-    <ClInclude Include="BExitDClick.h" />
-    <ClInclude Include="BExitGraph.h" />
-    <ClInclude Include="BExitGraphNode.h" />
-    <ClInclude Include="BExitKeyDown.h" />
-    <ClInclude Include="BExitMove.h" />
-    <ClInclude Include="BExitPaint.h" />
-    <ClInclude Include="BExitRClick.h" />
-    <ClInclude Include="BExitRelease.h" />
-    <ClInclude Include="BExitWheel.h" />
-    <ClInclude Include="BSChar.h" />
-    <ClInclude Include="BSClick.h" />
-    <ClInclude Include="BSDClick.h" />
-    <ClInclude Include="BSGraph.h" />
-    <ClInclude Include="BSGraphNode.h" />
-    <ClInclude Include="BSKeyDown.h" />
-    <ClInclude Include="BSMove.h" />
-    <ClInclude Include="BSPaint.h" />
-    <ClInclude Include="BSRClick.h" />
-    <ClInclude Include="BSRelease.h" />
-    <ClInclude Include="BSWheel.h" />
-    <ClInclude Include="CSChar.h" />
-    <ClInclude Include="CSClick.h" />
-    <ClInclude Include="CSDClick.h" />
-    <ClInclude Include="CSGraph.h" />
-    <ClInclude Include="CSGraphNode.h" />
-    <ClInclude Include="CSKeyDown.h" />
-    <ClInclude Include="CSMove.h" />
-    <ClInclude Include="CSPaint.h" />
-    <ClInclude Include="CSRClick.h" />
-    <ClInclude Include="CSRelease.h" />
-    <ClInclude Include="CSWheel.h" />
-    <ClInclude Include="DebugChar.h" />
-    <ClInclude Include="DebugClick.h" />
-    <ClInclude Include="DebugPaint.h" />
-    <ClInclude Include="DialogWheel.h" />
-    <ClInclude Include="LinkedList.h" />
-    <ClInclude Include="CharChar1.h" />
-    <ClInclude Include="CharChar2.h" />
-    <ClInclude Include="CharClick1.h" />
-    <ClInclude Include="CharClick2.h" />
-    <ClInclude Include="CharKeyDown.h" />
-    <ClInclude Include="CharMove.h" />
-    <ClInclude Include="CharPaint1.h" />
-    <ClInclude Include="CharPaint2.h" />
-    <ClInclude Include="Lists.h" />
-    <ClInclude Include="LoadBExit.h" />
-    <ClInclude Include="LoadBS.h" />
-    <ClInclude Include="LoadChar.h" />
-    <ClInclude Include="LoadCS.h" />
-    <ClInclude Include="LoadDebug.h" />
-    <ClInclude Include="LoadSpellAnim.h" />
-    <ClInclude Include="LoadWC.h" />
-    <ClInclude Include="MapWheel.h" />
-    <ClInclude Include="Pair.h" />
-    <ClInclude Include="SaveBExit.h" />
-    <ClInclude Include="SaveBS.h" />
-    <ClInclude Include="SaveChar.h" />
+    <ClInclude Include="AnimChar.h" />
+    <ClInclude Include="AnimClick.h" />
+    <ClInclude Include="AnimPaint.h" />
     <ClInclude Include="BattleChar.h" />
     <ClInclude Include="BattleClick.h" />
     <ClInclude Include="BattleKeyDown.h" />
@@ -231,123 +157,28 @@
     <ClInclude Include="BattleMRelease.h" />
     <ClInclude Include="BattlePaint.h" />
     <ClInclude Include="BattleRClick.h" />
-    <ClInclude Include="LoadBattle.h" />
-    <ClInclude Include="SaveBattle.h" />
-    <ClInclude Include="LoadMonster.h" />
-    <ClInclude Include="MonsterChar.h" />
-    <ClInclude Include="MonsterClick.h" />
-    <ClInclude Include="MonsterKeyDown.h" />
-    <ClInclude Include="MonsterPaint.h" />
-    <ClInclude Include="SaveCS.h" />
-    <ClInclude Include="SaveMonster.h" />
-    <ClInclude Include="LoadSpell.h" />
-    <ClInclude Include="SaveSpell.h" />
-    <ClInclude Include="SaveSpellAnim.h" />
-    <ClInclude Include="SaveWC.h" />
-    <ClInclude Include="ScriptBuilder.h" />
-    <ClInclude Include="SpellAnimChar.h" />
-    <ClInclude Include="SpellAnimClick.h" />
-    <ClInclude Include="SpellAnimPaint.h" />
-    <ClInclude Include="SpellAnimRClick.h" />
-    <ClInclude Include="SpellAnimScript.h" />
-    <ClInclude Include="SpellAnimWheel.h" />
-    <ClInclude Include="SpellChar.h" />
-    <ClInclude Include="SpellClick.h" />
-    <ClInclude Include="SpellKeyDown.h" />
-    <ClInclude Include="SpellMove.h" />
-    <ClInclude Include="SpellPaint.h" />
-    <ClInclude Include="ItemChar.h" />
-    <ClInclude Include="ItemClick.h" />
-    <ClInclude Include="ItemKeyDown.h" />
-    <ClInclude Include="ItemMove.h" />
-    <ClInclude Include="ItemPaint.h" />
-    <ClInclude Include="ItemRClick.h" />
-    <ClInclude Include="LoadItem.h" />
-    <ClInclude Include="SaveItem.h" />
-    <ClInclude Include="FontClick.h" />
-    <ClInclude Include="FontKeyDown.h" />
-    <ClInclude Include="FontMove.h" />
-    <ClInclude Include="FontPaint.h" />
-    <ClInclude Include="LoadFont.h" />
-    <ClInclude Include="SaveFont.h" />
-    <ClInclude Include="LoadShop.h" />
-    <ClInclude Include="SaveShop.h" />
-    <ClInclude Include="ShopChar.h" />
-    <ClInclude Include="ShopClick.h" />
-    <ClInclude Include="ShopKeyDown.h" />
-    <ClInclude Include="ShopPaint.h" />
-    <ClInclude Include="LoadMap.h" />
-    <ClInclude Include="MapChar.h" />
-    <ClInclude Include="MapClick.h" />
-    <ClInclude Include="MapClickFunc.h" />
-    <ClInclude Include="MapKeyDown.h" />
-    <ClInclude Include="MapMClick.h" />
-    <ClInclude Include="MapMove.h" />
-    <ClInclude Include="MapMRelease.h" />
-    <ClInclude Include="MapPaint.h" />
-    <ClInclude Include="MapRClick.h" />
-    <ClInclude Include="SaveMap.h" />
+    <ClInclude Include="BEChar.h" />
+    <ClInclude Include="BEClick.h" />
+    <ClInclude Include="BEGraph.h" />
+    <ClInclude Include="BEGraphNode.h" />
+    <ClInclude Include="BEKeyDown.h" />
+    <ClInclude Include="BEMove.h" />
+    <ClInclude Include="BEPaint.h" />
+    <ClInclude Include="BERClick.h" />
+    <ClInclude Include="BERelease.h" />
+    <ClInclude Include="BytePair.h" />
+    <ClInclude Include="CharChar1.h" />
+    <ClInclude Include="CharChar2.h" />
+    <ClInclude Include="CharClick1.h" />
+    <ClInclude Include="CharClick2.h" />
+    <ClInclude Include="CharKeyDown.h" />
+    <ClInclude Include="CharMove.h" />
+    <ClInclude Include="CharPaint1.h" />
+    <ClInclude Include="CharPaint2.h" />
     <ClInclude Include="ClassChar.h" />
     <ClInclude Include="ClassClick.h" />
     <ClInclude Include="ClassKeyDown.h" />
     <ClInclude Include="ClassPaint.h" />
-    <ClInclude Include="LoadClass.h" />
-    <ClInclude Include="SaveClass.h" />
-    <ClInclude Include="LoadTile.h" />
-    <ClInclude Include="SaveTile.h" />
-    <ClInclude Include="TextWheel.h" />
-    <ClInclude Include="TileChar.h" />
-    <ClInclude Include="TileClick.h" />
-    <ClInclude Include="TileKeyDown.h" />
-    <ClInclude Include="TilePaint.h" />
-    <ClInclude Include="LoadMech.h" />
-    <ClInclude Include="MechChar.h" />
-    <ClInclude Include="MechClick.h" />
-    <ClInclude Include="MechPaint.h" />
-    <ClInclude Include="SaveMech.h" />
-    <ClInclude Include="EffectChar.h" />
-    <ClInclude Include="EffectClick.h" />
-    <ClInclude Include="EffectKeyDown.h" />
-    <ClInclude Include="EffectPaint.h" />
-    <ClInclude Include="LoadEffect.h" />
-    <ClInclude Include="SaveEffect.h" />
-    <ClInclude Include="LoadRange.h" />
-    <ClInclude Include="RangeChar.h" />
-    <ClInclude Include="RangeClick.h" />
-    <ClInclude Include="RangeKeyDown.h" />
-    <ClInclude Include="RangePaint.h" />
-    <ClInclude Include="SaveRange.h" />
-    <ClInclude Include="LoadPalettes.h" />
-    <ClInclude Include="PaletteChar.h" />
-    <ClInclude Include="PaletteClick.h" />
-    <ClInclude Include="PalettePaint.h" />
-    <ClInclude Include="SavePalette.h" />
-    <ClInclude Include="ExpandClick.h" />
-    <ClInclude Include="ExpandKeyDown.h" />
-    <ClInclude Include="ExpandPaint.h" />
-    <ClInclude Include="LoadText.h" />
-    <ClInclude Include="SaveText.h" />
-    <ClInclude Include="TextChar.h" />
-    <ClInclude Include="TextClick.h" />
-    <ClInclude Include="TextKeyDown.h" />
-    <ClInclude Include="TextPaint.h" />
-    <ClInclude Include="BytePair.h" />
-    <ClInclude Include="OldText.h" />
-    <ClInclude Include="Pixel.h" />
-    <ClInclude Include="SingleBit.h" />
-    <ClInclude Include="UpperLevel.h" />
-    <ClInclude Include="GFXChar.h" />
-    <ClInclude Include="GFXClick.h" />
-    <ClInclude Include="GFXMove.h" />
-    <ClInclude Include="GFXPaint.h" />
-    <ClInclude Include="GFXRClick.h" />
-    <ClInclude Include="LoadGFX.h" />
-    <ClInclude Include="SaveGFX.h" />
-    <ClInclude Include="AnimChar.h" />
-    <ClInclude Include="AnimClick.h" />
-    <ClInclude Include="AnimPaint.h" />
-    <ClInclude Include="LoadAnim.h" />
-    <ClInclude Include="SaveAnim.h" />
     <ClInclude Include="DialogChar.h" />
     <ClInclude Include="DialogClick.h" />
     <ClInclude Include="DialogDClick.h" />
@@ -358,178 +189,219 @@
     <ClInclude Include="DialogPaint.h" />
     <ClInclude Include="DialogRClick.h" />
     <ClInclude Include="DialogRelease.h" />
-    <ClInclude Include="LoadDialog.h" />
-    <ClInclude Include="NodeType.h" />
-    <ClInclude Include="SaveDialog.h" />
-    <ClInclude Include="BEChar.h" />
-    <ClInclude Include="BEClick.h" />
-    <ClInclude Include="BEGraph.h" />
-    <ClInclude Include="BEGraphNode.h" />
-    <ClInclude Include="BEKeyDown.h" />
-    <ClInclude Include="BEMove.h" />
-    <ClInclude Include="BEPaint.h" />
-    <ClInclude Include="BERClick.h" />
-    <ClInclude Include="BERelease.h" />
+    <ClInclude Include="EffectChar.h" />
+    <ClInclude Include="EffectClick.h" />
+    <ClInclude Include="EffectKeyDown.h" />
+    <ClInclude Include="EffectPaint.h" />
+    <ClInclude Include="ExpandClick.h" />
+    <ClInclude Include="ExpandKeyDown.h" />
+    <ClInclude Include="ExpandPaint.h" />
+    <ClInclude Include="FontClick.h" />
+    <ClInclude Include="FontKeyDown.h" />
+    <ClInclude Include="FontMove.h" />
+    <ClInclude Include="FontPaint.h" />
+    <ClInclude Include="GFXChar.h" />
+    <ClInclude Include="GFXClick.h" />
+    <ClInclude Include="GFXMove.h" />
+    <ClInclude Include="GFXPaint.h" />
+    <ClInclude Include="GFXRClick.h" />
+    <ClInclude Include="ItemChar.h" />
+    <ClInclude Include="ItemClick.h" />
+    <ClInclude Include="ItemKeyDown.h" />
+    <ClInclude Include="ItemMove.h" />
+    <ClInclude Include="ItemPaint.h" />
+    <ClInclude Include="ItemRClick.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="LoadAnim.h" />
+    <ClInclude Include="LoadBattle.h" />
     <ClInclude Include="LoadBattleEnd.h" />
-    <ClInclude Include="SaveBattleEnd.h" />
+    <ClInclude Include="LoadChar.h" />
+    <ClInclude Include="LoadClass.h" />
+    <ClInclude Include="LoadDialog.h" />
+    <ClInclude Include="LoadEffect.h" />
+    <ClInclude Include="LoadFont.h" />
+    <ClInclude Include="LoadGFX.h" />
+    <ClInclude Include="LoadItem.h" />
+    <ClInclude Include="LoadMap.h" />
+    <ClInclude Include="LoadMech.h" />
+    <ClInclude Include="LoadMonster.h" />
+    <ClInclude Include="LoadPalettes.h" />
+    <ClInclude Include="LoadRange.h" />
+    <ClInclude Include="LoadShop.h" />
+    <ClInclude Include="LoadSpell.h" />
+    <ClInclude Include="LoadText.h" />
+    <ClInclude Include="LoadTile.h" />
+    <ClInclude Include="MapChar.h" />
+    <ClInclude Include="MapClick.h" />
+    <ClInclude Include="MapClickFunc.h" />
+    <ClInclude Include="MapKeyDown.h" />
+    <ClInclude Include="MapMClick.h" />
+    <ClInclude Include="MapMove.h" />
+    <ClInclude Include="MapMRelease.h" />
+    <ClInclude Include="MapPaint.h" />
+    <ClInclude Include="MapRClick.h" />
+    <ClInclude Include="MechChar.h" />
+    <ClInclude Include="MechClick.h" />
+    <ClInclude Include="MechPaint.h" />
+    <ClInclude Include="MonsterChar.h" />
+    <ClInclude Include="MonsterClick.h" />
+    <ClInclude Include="MonsterKeyDown.h" />
+    <ClInclude Include="MonsterPaint.h" />
+    <ClInclude Include="NodeType.h" />
+    <ClInclude Include="OldText.h" />
+    <ClInclude Include="PaletteChar.h" />
+    <ClInclude Include="PaletteClick.h" />
+    <ClInclude Include="PalettePaint.h" />
+    <ClInclude Include="Pixel.h" />
     <ClInclude Include="Randomizer.h" />
+    <ClInclude Include="RangeChar.h" />
+    <ClInclude Include="RangeClick.h" />
+    <ClInclude Include="RangeKeyDown.h" />
+    <ClInclude Include="RangePaint.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SaveAnim.h" />
+    <ClInclude Include="SaveBattle.h" />
+    <ClInclude Include="SaveBattleEnd.h" />
+    <ClInclude Include="SaveChar.h" />
+    <ClInclude Include="SaveClass.h" />
+    <ClInclude Include="SaveDialog.h" />
+    <ClInclude Include="SaveEffect.h" />
+    <ClInclude Include="SaveFont.h" />
+    <ClInclude Include="SaveGFX.h" />
+    <ClInclude Include="SaveItem.h" />
+    <ClInclude Include="SaveMap.h" />
+    <ClInclude Include="SaveMech.h" />
+    <ClInclude Include="SaveMonster.h" />
+    <ClInclude Include="SavePalette.h" />
+    <ClInclude Include="SaveRange.h" />
+    <ClInclude Include="SaveShop.h" />
+    <ClInclude Include="SaveSpell.h" />
+    <ClInclude Include="SaveText.h" />
+    <ClInclude Include="SaveTile.h" />
     <ClInclude Include="SF1Edit.h" />
+    <ClInclude Include="ShopChar.h" />
+    <ClInclude Include="ShopClick.h" />
+    <ClInclude Include="ShopKeyDown.h" />
+    <ClInclude Include="ShopPaint.h" />
+    <ClInclude Include="SingleBit.h" />
+    <ClInclude Include="SpellChar.h" />
+    <ClInclude Include="SpellClick.h" />
+    <ClInclude Include="SpellKeyDown.h" />
+    <ClInclude Include="SpellMove.h" />
+    <ClInclude Include="SpellPaint.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="WCChar.h" />
-    <ClInclude Include="WCClick.h" />
-    <ClInclude Include="WCDClick.h" />
-    <ClInclude Include="WCGraph.h" />
-    <ClInclude Include="WCGraphNode.h" />
-    <ClInclude Include="WCKeyDown.h" />
-    <ClInclude Include="WCMove.h" />
-    <ClInclude Include="WCPaint.h" />
-    <ClInclude Include="WCRClick.h" />
-    <ClInclude Include="WCRelease.h" />
-    <ClInclude Include="WCWheel.h" />
+    <ClInclude Include="TextChar.h" />
+    <ClInclude Include="TextClick.h" />
+    <ClInclude Include="TextKeyDown.h" />
+    <ClInclude Include="TextPaint.h" />
+    <ClInclude Include="TileChar.h" />
+    <ClInclude Include="TileClick.h" />
+    <ClInclude Include="TileKeyDown.h" />
+    <ClInclude Include="TilePaint.h" />
+    <ClInclude Include="UpperLevel.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="SF1Edit.rc">
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ResourceCompile>
+    <ResourceCompile Include="SF1Edit.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tilesets\1.bmp" />
-    <None Include="Tilesets\10.bmp" />
-    <None Include="Tilesets\11.bmp" />
-    <None Include="Tilesets\12.bmp" />
-    <None Include="Tilesets\13.bmp" />
-    <None Include="Tilesets\14.bmp" />
-    <None Include="Tilesets\15.bmp" />
-    <None Include="Tilesets\16.bmp" />
-    <None Include="Tilesets\17.bmp" />
-    <None Include="Tilesets\18.bmp" />
-    <None Include="Tilesets\19.bmp" />
-    <None Include="Tilesets\20.bmp" />
-    <None Include="Tilesets\21.bmp" />
-    <None Include="Tilesets\22.bmp" />
-    <None Include="Tilesets\23.bmp" />
-    <None Include="Tilesets\24.bmp" />
-    <None Include="Tilesets\25.bmp" />
-    <None Include="Tilesets\26.bmp" />
-    <None Include="Tilesets\27.bmp" />
-    <None Include="Tilesets\28.bmp" />
-    <None Include="Tilesets\29.bmp" />
-    <None Include="Tilesets\3.bmp" />
-    <None Include="Tilesets\30.bmp" />
-    <None Include="Tilesets\31.bmp" />
-    <None Include="Tilesets\32.bmp" />
-    <None Include="Tilesets\4.bmp" />
-    <None Include="Tilesets\5.bmp" />
-    <None Include="Tilesets\6.bmp" />
-    <None Include="Tilesets\7.bmp" />
-    <None Include="Tilesets\8.bmp" />
-    <None Include="Tilesets\9.bmp" />
-    <None Include="ANIM.bmp" />
-    <None Include="ANIMON.bmp" />
+    <Image Include="ANIM.bmp" />
+    <Image Include="ANIMON.bmp" />
+    <Image Include="BG.bmp" />
+    <Image Include="BGON.bmp" />
+    <Image Include="CHAR.bmp" />
+    <Image Include="CHARON.bmp" />
+    <Image Include="CHECKOFF.bmp" />
+    <Image Include="CLASS.bmp" />
+    <Image Include="CLASSON.bmp" />
+    <Image Include="DELETE.bmp" />
+    <Image Include="DOTS.bmp" />
+    <Image Include="DOWN.bmp" />
+    <Image Include="DOWNARROW.bmp" />
+    <Image Include="EFFECT.bmp" />
+    <Image Include="EFFECTON.bmp" />
+    <Image Include="ERASER.bmp" />
+    <Image Include="GFX.bmp" />
+    <Image Include="GFXON.bmp" />
+    <Image Include="LEFT.bmp" />
+    <Image Include="MAGIC.bmp" />
+    <Image Include="MAGICON.bmp" />
+    <Image Include="MAP.bmp" />
+    <Image Include="MAPON.bmp" />
+    <Image Include="MECH.bmp" />
+    <Image Include="MECHON.bmp" />
+    <Image Include="MINUS.bmp" />
+    <Image Include="NEXT.bmp" />
+    <Image Include="PALETTE.bmp" />
+    <Image Include="PALETTEON.bmp" />
+    <Image Include="PLAT.bmp" />
+    <Image Include="PLATON.bmp" />
+    <Image Include="PLUS.bmp" />
+    <Image Include="PORTRAIT.bmp" />
+    <Image Include="PORTRAITON.bmp" />
+    <Image Include="PREV.bmp" />
+    <Image Include="RANGE.bmp" />
+    <Image Include="RANGEON.bmp" />
+    <Image Include="RATE.bmp" />
+    <Image Include="RATE2.bmp" />
+    <Image Include="RATE2ON.bmp" />
+    <Image Include="RATE3.bmp" />
+    <Image Include="RATE3ON.bmp" />
+    <Image Include="RATE4.bmp" />
+    <Image Include="RATE4ON.bmp" />
+    <Image Include="RATEON.bmp" />
+    <Image Include="SCRIPT.bmp" />
+    <Image Include="SCRIPTON.bmp" />
+    <Image Include="Search.bmp" />
+    <Image Include="SF1Edit.ico" />
+    <Image Include="small.ico" />
+    <Image Include="Special.bmp" />
+    <Image Include="SPRITE.bmp" />
+    <Image Include="SPRITEON.bmp" />
+    <Image Include="TEXT.bmp" />
+    <Image Include="TEXTON.bmp" />
+    <Image Include="TILE.bmp" />
+    <Image Include="TILEON.bmp" />
+    <Image Include="Tilesets\1.bmp" />
+    <Image Include="Tilesets\10.bmp" />
+    <Image Include="Tilesets\11.bmp" />
+    <Image Include="Tilesets\12.bmp" />
+    <Image Include="Tilesets\13.bmp" />
+    <Image Include="Tilesets\14.bmp" />
+    <Image Include="Tilesets\15.bmp" />
+    <Image Include="Tilesets\16.bmp" />
+    <Image Include="Tilesets\17.bmp" />
+    <Image Include="Tilesets\18.bmp" />
+    <Image Include="Tilesets\19.bmp" />
+    <Image Include="Tilesets\20.bmp" />
+    <Image Include="Tilesets\21.bmp" />
+    <Image Include="Tilesets\22.bmp" />
+    <Image Include="Tilesets\23.bmp" />
+    <Image Include="Tilesets\24.bmp" />
+    <Image Include="Tilesets\25.bmp" />
+    <Image Include="Tilesets\26.bmp" />
+    <Image Include="Tilesets\27.bmp" />
+    <Image Include="Tilesets\28.bmp" />
+    <Image Include="Tilesets\29.bmp" />
+    <Image Include="Tilesets\3.bmp" />
+    <Image Include="Tilesets\30.bmp" />
+    <Image Include="Tilesets\31.bmp" />
+    <Image Include="Tilesets\32.bmp" />
+    <Image Include="Tilesets\4.bmp" />
+    <Image Include="Tilesets\5.bmp" />
+    <Image Include="Tilesets\6.bmp" />
+    <Image Include="Tilesets\7.bmp" />
+    <Image Include="Tilesets\8.bmp" />
+    <Image Include="Tilesets\9.bmp" />
+    <Image Include="Tilesets\icon1.ico" />
+    <Image Include="UPARROW.bmp" />
+    <Image Include="ZOOM.bmp" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Area.bin" />
-    <None Include="BG.bmp" />
-    <None Include="BGON.bmp" />
-    <None Include="CHAR.bmp" />
-    <None Include="CHARON.bmp" />
-    <None Include="CHECKOFF.bmp" />
-    <None Include="CLASS.bmp" />
-    <None Include="CLASSON.bmp" />
-    <None Include="DELETE.bmp" />
-    <None Include="DOTS.bmp" />
-    <None Include="DOWN.bmp" />
-    <None Include="DOWNARROW.bmp" />
-    <None Include="EFFECT.bmp" />
-    <None Include="EFFECTON.bmp" />
-    <None Include="ERASER.bmp" />
-    <None Include="GFX.bmp" />
-    <None Include="GFXON.bmp" />
-    <None Include="Tilesets\icon1.ico" />
-    <None Include="LEFT.bmp" />
-    <None Include="MAGIC.bmp" />
-    <None Include="MAGICON.bmp" />
-    <None Include="MAP.bmp" />
-    <None Include="MAPON.bmp" />
-    <None Include="MECH.bmp" />
-    <None Include="MECHON.bmp" />
-    <None Include="MINUS.bmp" />
-    <None Include="NEXT.bmp" />
-    <None Include="PALETTE.bmp" />
-    <None Include="PALETTEON.bmp" />
-    <None Include="PLAT.bmp" />
-    <None Include="PLATON.bmp" />
-    <None Include="PLUS.bmp" />
-    <None Include="PORTRAIT.bmp" />
-    <None Include="PORTRAITON.bmp" />
-    <None Include="PREV.bmp" />
     <None Include="Range.bin" />
-    <None Include="RANGE.bmp" />
-    <None Include="RANGEON.bmp" />
-    <None Include="RATE.bmp" />
-    <None Include="RATE2.bmp" />
-    <None Include="RATE2ON.bmp" />
-    <None Include="RATE3.bmp" />
-    <None Include="RATE3ON.bmp" />
-    <None Include="RATE4.bmp" />
-    <None Include="RATE4ON.bmp" />
-    <None Include="RATEON.bmp" />
-    <None Include="ReadMe.txt" />
-    <None Include="SCRIPT.bmp" />
-    <None Include="SCRIPTON.bmp" />
-    <None Include="Search.bmp" />
-    <None Include="SF1Edit.ico" />
-    <None Include="small.ico" />
-    <None Include="Special.bmp" />
-    <None Include="SPRITE.bmp" />
-    <None Include="SPRITEON.bmp" />
-    <None Include="TEXT.bmp" />
-    <None Include="TEXTON.bmp" />
-    <None Include="TILE.bmp" />
-    <None Include="TILEON.bmp" />
-    <None Include="UPARROW.bmp" />
-    <None Include="ZOOM.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="1.bmp" />
-    <Image Include="1ON.bmp" />
-    <Image Include="2.bmp" />
-    <Image Include="2ON.bmp" />
-    <Image Include="4.bmp" />
-    <Image Include="4ON.bmp" />
-    <Image Include="Areas.bmp" />
-    <Image Include="BATTLE.bmp" />
-    <Image Include="BATTLEON.bmp" />
-    <Image Include="bitmap2.bmp" />
-    <Image Include="CHECKON.bmp" />
-    <Image Include="CHEST.bmp" />
-    <Image Include="CHESTON.bmp" />
-    <Image Include="ERASERON.bmp" />
-    <Image Include="FONT.bmp" />
-    <Image Include="FONTON.bmp" />
-    <Image Include="Hi.bmp" />
-    <Image Include="ITEM.bmp" />
-    <Image Include="ITEMON.bmp" />
-    <Image Include="LEFT2.bmp" />
-    <Image Include="List.bmp" />
-    <Image Include="liston.bmp" />
-    <Image Include="MID.bmp" />
-    <Image Include="MONSTER.bmp" />
-    <Image Include="MONSTERON.bmp" />
-    <Image Include="MOVEADD.bmp" />
-    <Image Include="MOVEDOWN.bmp" />
-    <Image Include="MOVELEFT.bmp" />
-    <Image Include="MOVERIGHT.bmp" />
-    <Image Include="MOVEUP.bmp" />
-    <Image Include="PENCIL.bmp" />
-    <Image Include="PENCILON.bmp" />
-    <Image Include="SHOP.bmp" />
-    <Image Include="SHOPON.bmp" />
-    <Image Include="SPELL.bmp" />
-    <Image Include="SPELLON.bmp" />
-    <Image Include="Tilesets\2.bmp" />
-    <Image Include="tilesets\bitmap2.bmp" />
-    <Image Include="tilesets\liston.bmp" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

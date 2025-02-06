@@ -48,9 +48,16 @@ void LoadChar(char *path,bool single=false){
 	}
 
 	if (NumChars == 30) {
+		fseek(fp, 0x23A6D, SEEK_SET);
+		fscanf(fp, "%c", &r);
+		NovaSprite = r;
 		CharView = 0;
 		select[mode] = 0;
 	}
+
+	fseek(fp, 0x68C1, SEEK_SET);
+	fscanf(fp, "%c", &r);
+	BlueFlameSprite = r; 
 
 	for (int i = 0; i < 64; i++) {
 		CharPromotedAt[i] = 0;

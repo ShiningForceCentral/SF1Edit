@@ -790,143 +790,179 @@
 
 			}
 
-			if(submode[mode]==3){
-				if(menu>0){
-					if(submenu==1){
+			if (submode[mode] == 3) {
+				if (menu > 0) {
+					if (submenu == 1) {
 						return true;
 					}
 
-					if(focus==1){
-						switch(SpriteScripts[select[mode]][menu-1]){
-							case 8:
-							case 12:
-							case 13:
-							case 14:
-							case 15:
-							case 16:
-							case 18:
-							case 19:
-							case 20:
-							case 21:
-							case 22:
-							case 24:
-								val=c-'0';
-								if(val>=0&&val<10){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu];
-									if(i<100){
-										i*=10;
-										i+=val;
-										SpriteScripts[select[mode]][menu]=i;
-									}
+					if (focus == 1) {
+						switch (SpriteScripts[select[mode]][menu - 1]) {
+						case 8:
+						case 12:
+						case 13:
+						case 14:
+						case 15:
+						case 16:
+						case 18:
+						case 19:
+						case 20:
+						case 21:
+						case 22:
+						case 24:
+							val = c - '0';
+							if (val >= 0 && val < 10) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu];
+								if (i < 100) {
+									i *= 10;
+									i += val;
+									SpriteScripts[select[mode]][menu] = i;
 								}
-								if(c==8){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu];
-									i=i-i%10;
-									i/=10;
-									SpriteScripts[select[mode]][menu]=i;
+							}
+							if (c == 8) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu];
+								i = i - i % 10;
+								i /= 10;
+								SpriteScripts[select[mode]][menu] = i;
+							}
+							SpriteScripts[select[mode]][menu] %= 256;
+							break;
+						case 17:
+							val = c - '0';
+							if (val >= 0 && val < 10) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu] * 256 + SpriteScripts[select[mode]][menu + 1];
+								if (i < 10000) {
+									i *= 10;
+									i += val;
+									SpriteScripts[select[mode]][menu + 1] = i % 256;
+									SpriteScripts[select[mode]][menu] = (i - SpriteScripts[select[mode]][menu + 1]) / 256;
 								}
-								SpriteScripts[select[mode]][menu]%=256;
-								break;
-							case 17:
-								val=c-'0';
-								if(val>=0&&val<10){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu]*256+SpriteScripts[select[mode]][menu+1];
-									if(i<10000){
-										i*=10;
-										i+=val;
-										SpriteScripts[select[mode]][menu+1]=i%256;
-										SpriteScripts[select[mode]][menu]=(i-SpriteScripts[select[mode]][menu+1])/256;
-									}
-								}
-								if(c==8){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu]*256+SpriteScripts[select[mode]][menu+1];
-									i=i-i%10;
-									i/=10;
-									SpriteScripts[select[mode]][menu+1]=i%256;
-									SpriteScripts[select[mode]][menu]=(i-SpriteScripts[select[mode]][menu+1])/256;
-								}
-								break;
+							}
+							if (c == 8) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu] * 256 + SpriteScripts[select[mode]][menu + 1];
+								i = i - i % 10;
+								i /= 10;
+								SpriteScripts[select[mode]][menu + 1] = i % 256;
+								SpriteScripts[select[mode]][menu] = (i - SpriteScripts[select[mode]][menu + 1]) / 256;
+							}
+							break;
 						}
 					}
 
-					if(focus==2){
-						switch(SpriteScripts[select[mode]][menu-1]){
-							case 15:
-							case 20:
-							case 21:
-							case 22:
-							case 24:
-								val=c-'0';
-								if(val>=0&&val<10){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu+1];
-									if(i<100){
-										i*=10;
-										i+=val;
-										SpriteScripts[select[mode]][menu+1]=i;
-									}
+					if (focus == 2) {
+						switch (SpriteScripts[select[mode]][menu - 1]) {
+						case 15:
+						case 20:
+						case 21:
+						case 22:
+						case 24:
+							val = c - '0';
+							if (val >= 0 && val < 10) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu + 1];
+								if (i < 100) {
+									i *= 10;
+									i += val;
+									SpriteScripts[select[mode]][menu + 1] = i;
 								}
-								if(c==8){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu+1];
-									i=i-i%10;
-									i/=10;
-									SpriteScripts[select[mode]][menu+1]=i;
-								}
-								SpriteScripts[select[mode]][menu+1]%=256;
-								break;
+							}
+							if (c == 8) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu + 1];
+								i = i - i % 10;
+								i /= 10;
+								SpriteScripts[select[mode]][menu + 1] = i;
+							}
+							SpriteScripts[select[mode]][menu + 1] %= 256;
+							break;
 						}
 					}
 
-					if(focus==3){
-						switch(SpriteScripts[select[mode]][menu-1]){
-							case 24:
-								val=c-'0';
-								if(val>=0&&val<10){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu+2];
-									if(i<100){
-										i*=10;
-										i+=val;
-										SpriteScripts[select[mode]][menu+2]=i;
-									}
+					if (focus == 3) {
+						switch (SpriteScripts[select[mode]][menu - 1]) {
+						case 24:
+							val = c - '0';
+							if (val >= 0 && val < 10) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu + 2];
+								if (i < 100) {
+									i *= 10;
+									i += val;
+									SpriteScripts[select[mode]][menu + 2] = i;
 								}
-								if(c==8){
-									MapChanged=true;
-									i=SpriteScripts[select[mode]][menu+2];
-									i=i-i%10;
-									i/=10;
-									SpriteScripts[select[mode]][menu+2]=i;
-								}
-								SpriteScripts[select[mode]][menu+2]%=256;
-								break;
+							}
+							if (c == 8) {
+								MapChanged = true;
+								i = SpriteScripts[select[mode]][menu + 2];
+								i = i - i % 10;
+								i /= 10;
+								SpriteScripts[select[mode]][menu + 2] = i;
+							}
+							SpriteScripts[select[mode]][menu + 2] %= 256;
+							break;
 						}
 					}
 
 					return true;
 				}
-				if(focus==1){
-					val=c-'0';
-					if(val>=0&&val<10){
-						i=select[mode];
-						if(i<100){
-							i*=10;
-							i+=val;
-							select[mode]=i;
+				if (focus == 1) {
+					val = c - '0';
+					if (val >= 0 && val < 10) {
+						i = select[mode];
+						if (i < 100) {
+							i *= 10;
+							i += val;
+							select[mode] = i;
 						}
 					}
-					if(c==8){
-						i=select[mode];
-						i=i-i%10;
-						i/=10;
-						select[mode]=i;
+					if (c == 8) {
+						i = select[mode];
+						i = i - i % 10;
+						i /= 10;
+						select[mode] = i;
 					}
-					select[mode]%=172;
+					select[mode] %= 172;
 
 					LastNPCScript = select[mode];
 				}
 			}
+				if (submode[mode] == 4) {
+					if (focus == 1) {
+						val = c - '0';
+						if (val >= 0 && val < 10) {
+							i = NovaSprite;
+							if (i < 100) {
+								i *= 10;
+								i += val;
+								NovaSprite = i;
+							}
+						}
+						if (c == 8) {
+							i = NovaSprite;
+							i = i - i % 10;
+							i /= 10;
+							NovaSprite = i;
+						}
+					}
+					if (focus == 2) {
+						val = c - '0';
+						if (val >= 0 && val < 10) {
+							i = BlueFlameSprite;
+							if (i < 100) {
+								i *= 10;
+								i += val;
+								BlueFlameSprite = i;
+							}
+						}
+						if (c == 8) {
+							i = BlueFlameSprite;
+							i = i - i % 10;
+							i /= 10;
+							BlueFlameSprite = i;
+						}
+					}
+				}
