@@ -60,11 +60,11 @@ if(submode[mode]==0){
 				}
 			}
 
-			if(p.x>=650&&p.x<=670&&p.y>=23&&p.y<=43){
+			if(p.x>=675&&p.x<=695&&p.y>=23&&p.y<=43){
 				Item[select[mode]][6]++;
 				if(Item[select[mode]][6]==7)Item[select[mode]][6]=255;
 			}
-			if(p.x>=675&&p.x<=695&&p.y>=23&&p.y<=43){
+			if(p.x>=700&&p.x<=725&&p.y>=23&&p.y<=43){
 				Item[select[mode]][6]--;
 				if(Item[select[mode]][6]==254)Item[select[mode]][6]=6;
 			}

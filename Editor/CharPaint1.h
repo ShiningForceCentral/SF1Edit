@@ -578,9 +578,14 @@ if(submode[mode]==0){
 					TextOut(memdc,562,445,out,strlen(out));
 				}
 
+				TextOut(memdc, 495, 465, "Portrait:", 9);
+
+				SelectObject(bmpdc, zoom);
+				BitBlt(memdc, 640, 465, 20, 20, bmpdc, 0, 0, SRCCOPY);
+
 				if (NumChars == MAX_CHARS) {
 
-				TextOut(memdc, 592, 445, "/", 1);
+					TextOut(memdc, 592, 445, "/", 1);
 
 					if (focus == 41 && cursor) {
 						sprintf(out, "%d|", BattleSprite2[select[mode]][1]);
@@ -590,15 +595,11 @@ if(submode[mode]==0){
 						TextOut(memdc, 612, 445, out, strlen(out));
 					}
 
-					SelectObject(bmpdc, zoom);
-					BitBlt(memdc, 640, 465, 20, 20, bmpdc, 0, 0, SRCCOPY);
-
-					TextOut(memdc, 495, 465, "Portrait:", 9);
-
 					if (focus == 36 && cursor) {
 						sprintf(out, "%d|", CharPortrait[select[mode]]);
 						TextOut(memdc, 562, 465, out, strlen(out));
-					} else {
+					}
+					else {
 						sprintf(out, "%d", CharPortrait[select[mode]]);
 						TextOut(memdc, 562, 465, out, strlen(out));
 					}
@@ -641,7 +642,20 @@ if(submode[mode]==0){
 					SelectObject(bmpdc, downarrow);
 					BitBlt(memdc, 43, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
 					SelectObject(bmpdc, checkon);
-				} else SelectObject(bmpdc, checkoff);
+				}
+				else {
+
+					if (focus == 38 && cursor) {
+						sprintf(out, "%d|", CharPortrait2[select[mode]]);
+						TextOut(memdc, 562, 465, out, strlen(out));
+					}
+					else {
+						sprintf(out, "%d", CharPortrait2[select[mode]]);
+						TextOut(memdc, 562, 465, out, strlen(out));
+					}
+
+					SelectObject(bmpdc, checkoff);
+				}
 
 
 				TextOut(memdc, 515, 512, "Extend Chars", 12);

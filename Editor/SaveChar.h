@@ -791,6 +791,11 @@
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0x75);
 		} else {
+			fseek(fp, 0x23A1E, SEEK_SET);
+			for (int i = 0; i < NumChars; i++) {
+				fprintf(fp, "%c", (CharPortrait2[i]));
+			}
+
 			fseek(fp, 0x23B3B, SEEK_SET);
 			fprintf(fp, "%c", 0x44);
 
