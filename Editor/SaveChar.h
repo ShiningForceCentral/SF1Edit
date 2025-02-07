@@ -972,10 +972,16 @@
 
 			fseek(fp, 0x21B3A, SEEK_SET);
 			fprintf(fp, "%c", 0x70);
-			if (JogurtLevels) {
-				fprintf(fp, "%c", 0x1D);
-			} else {
-				fprintf(fp, "%c", 0x1C);
+			if (NumChars == MAX_CHARS) {
+				fprintf(fp, "%c", 0x31); // moveq   #49,d0
+			}
+			else {
+				if (JogurtLevels) {
+					fprintf(fp, "%c", 0x1D); // moveq   #29,d0
+				}
+				else {
+					fprintf(fp, "%c", 0x1C); // moveq   #28,d0
+				}
 			}
 
 			fseek(fp, 0x21B3E, SEEK_SET);

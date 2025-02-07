@@ -497,37 +497,35 @@ void SaveMech(){
 
 		if(JogurtLevels){
 			fseek(fp,0x24718,SEEK_SET);
-			fprintf(fp,"%c",0x4E);
-			fprintf(fp,"%c",0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
 
 			fseek(fp,0x2488C,SEEK_SET);
-			fprintf(fp,"%c",0x60);
-			fprintf(fp,"%c",0x0C);
+			fprintf(fp, "%c", 0x60); // bra.s   byte_2489A
+			fprintf(fp, "%c", 0x0C);
 
-			if (NumChars != MAX_CHARS) {
-				fseek(fp, 0x21B3B, SEEK_SET);
-				fprintf(fp, "%c", 0x31);
-			}
+			fseek(fp, 0x17436, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
 
 			fseek(fp, 0x1755A, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
 		} else {
 			fseek(fp,0x24718,SEEK_SET);
-			fprintf(fp,"%c",0x67);
-			fprintf(fp,"%c",0x08);
+			fprintf(fp, "%c", 0x67); // beq.s   loc_24722
+			fprintf(fp, "%c", 0x08);
 
 			fseek(fp,0x2488C,SEEK_SET);
-			fprintf(fp,"%c",0x66);
-			fprintf(fp,"%c",0x0C);
+			fprintf(fp, "%c", 0x66); // bne.s   byte_2489A
+			fprintf(fp, "%c", 0x0C);
 
-			if (NumChars != MAX_CHARS) {
-				fseek(fp, 0x21B3B, SEEK_SET);
-				fprintf(fp, "%c", 0x1C);
-			}
+			fseek(fp, 0x17436, SEEK_SET);
+			fprintf(fp, "%c", 0x67); // beq.s   loc_17456
+			fprintf(fp, "%c", 0x1E);
 
 			fseek(fp, 0x1755A, SEEK_SET);
-			fprintf(fp, "%c", 0x67);
+			fprintf(fp, "%c", 0x67); // beq.s   loc_17562
 			fprintf(fp, "%c", 0x06);
 		}
 
