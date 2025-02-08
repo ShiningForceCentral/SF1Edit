@@ -85,12 +85,13 @@ if(submode[mode]==0){
 					}
 				}
 
+				if (p.x >= 640 && p.x <= 660 && p.y >= 465 && p.y < 485) {
+					submode[16] = 6;
+					subselect[16][submode[16]] = CharPortrait[select[mode]];
+					mode = 16;
+				}
+
 				if (NumChars == MAX_CHARS) {
-					if (p.x >= 640 && p.x <= 660 && p.y >= 465 && p.y < 485) {
-						submode[16] = 6;
-						subselect[16][submode[16]] = CharPortrait[select[mode]];
-						mode = 16;
-					}
 					if (p.x >= 640 && p.x <= 660 && p.y >= 485 && p.y < 505) {
 						submode[16] = 7;
 						subselect[16][submode[16]] = CharMapSprite[select[mode]];
@@ -180,16 +181,21 @@ if(submode[mode]==0){
 					focus = 35;
 				}
 
-				if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
-					focus = 38;
+				if (NumChars == MAX_CHARS) {
+					if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
+						focus = 36;
+					}
+					if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
+						focus = 38;
+					}
+				} else {
+					if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
+						focus = 38;
+					}
 				}
 
 				if (p.x >= 612 && p.x <= 650 && p.y >= 485 && p.y <= 504) {
 					focus = 39;
-				}
-
-				if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
-					focus = 36;
 				}
 
 				if (p.x >= 562 && p.x <= 590 && p.y >= 485 && p.y <= 504) {

@@ -167,7 +167,7 @@
 				if(submode[mode]==0){
 					TextOut(memdc,400,382,"AI Target Priority:",19);
 
-					sprintf(out,"%d",Priority[select[mode]]);
+					sprintf(out,"%d",Priority0[select[mode]]);
 					if(focus==12&&cursor){
 						sprintf(out,"%s|",out);
 					}
@@ -184,7 +184,7 @@
 				}
 
 				TextOut(memdc,646,186,"Regenerate:",11);
-				TextOut(memdc,646,202,"?:",2);
+				TextOut(memdc,646,202,"Undefined:",10);
 				//TextOut(memdc,646,218,"?:",2);
 				//TextOut(memdc,646,234,"?:",2);
 				//TextOut(memdc,646,250,"?:",2);
@@ -203,14 +203,14 @@
 				TextOut(memdc,530,26,"25%",3);
 				TextOut(memdc,580,26,"50%",3);
 				TextOut(memdc,630,26,"25% Weakness",12);
-				TextOut(memdc,390,42,"Evasion",7);
-				TextOut(memdc,390,58,"?",1);
-				TextOut(memdc,390,74,"Slow",4);
-				TextOut(memdc,390,90,"Muddle",6);
-				TextOut(memdc,390,106,"Sleep/Desoul",12);
-				TextOut(memdc,390,122,"Bolt",4);
-				TextOut(memdc,390,138,"Freeze",6);
-				TextOut(memdc,390,154,"Blaze",5);
+				TextOut(memdc,380,42,"Evasion",7);
+				TextOut(memdc,380,58,"Undefined",9);
+				TextOut(memdc,380,74,"Chaos Breaker",13);
+				TextOut(memdc,380,90,"Anti-Air",8);
+				TextOut(memdc,380,106,"Sleep/Desoul",12);
+				TextOut(memdc,380,122,"Bolt",4);
+				TextOut(memdc,380,138,"Freeze",6);
+				TextOut(memdc,380,154,"Blaze/Status",12);
 
 				if((ClassData[select[mode]][2]&0xC0)/0x40==0)SelectObject(bmpdc,checkon);
 				else SelectObject(bmpdc,checkoff);

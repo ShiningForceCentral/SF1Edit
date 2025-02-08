@@ -88,9 +88,9 @@ if(submode[mode]==0){
 			TextOut(memdc,612,25,Atts[i],strlen(Atts[i]));
 
 			SelectObject(bmpdc,plus);
-			BitBlt(memdc,650,23,20,20,bmpdc,0,0,SRCCOPY);
-			SelectObject(bmpdc,minus);
 			BitBlt(memdc,675,23,20,20,bmpdc,0,0,SRCCOPY);
+			SelectObject(bmpdc,minus);
+			BitBlt(memdc,700,23,20,20,bmpdc,0,0,SRCCOPY);
 
 			TextOut(memdc,500,40,"Attribute Bonus:",16);
 			if(focus==2&&cursor){

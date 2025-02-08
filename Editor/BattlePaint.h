@@ -467,7 +467,7 @@
 										ftn.SourceConstantAlpha = 128;
 										ftn.AlphaFormat = 0;
 
-										//AlphaBlend(memdc, 50 + u * 48 / MapZoom, 40 + v * 48 / MapZoom, 48 / MapZoom, 48 / MapZoom, bmpdc, 0, 0, 48 / MapZoom, 48 / MapZoom, ftn);
+										AlphaBlend(memdc, 50 + u * 48 / MapZoom, 40 + v * 48 / MapZoom, 48 / MapZoom, 48 / MapZoom, bmpdc, 0, 0, 48 / MapZoom, 48 / MapZoom, ftn);
 
 
 									}

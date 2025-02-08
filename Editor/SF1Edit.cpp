@@ -200,7 +200,7 @@ bool searchmulti = false;
 
 BITMAPINFOHEADER bi;
 
-char Atts[8][8] = {"ATT","DEF","AGI","MOVE","?","?","YGRT","NONE"};
+char Atts[8][10] = {"ATT","DEF","AGI","MOVE","ATT/CRIT","ATT/DEF","YGRT","NONE"};
 char Ranges[48][16] = {"1","2-3","2","1-2","1A","1-2A","1-3A","1A","1-3A Area 5","1-3A Area 14","1-3A Area 14","Party","1A","1A","1A","1-2","1-3A","1-2","1-2A","1-2","1-2","1-2 Area 5","1-2 Area 5","1-2","1-2","1-2 Area 5","2-3 Area 5","2-3","1-2 Area 5","1-3 Area 14","1-3 Area 14","1-3","1-2","1-2 Area 5","Egress","Nothing","1-2","1","Laser Eye","1-2","1-3 Area 5","1-3 Area 14","1-2","1A","1A","Level Party","1-2A Area 5","1-2 Area 5"};
 char RangeTypes[19][16] = {"None","1","2","1-2","1-3","2-3","1-2 Area 5","2-3 Area 5","1-3 Area 14","1A","1-2A","1-3A","1-2A Area 5","1-3A Area 5","1-3A Area 14","Party","Egress","Laser Eye","Level Party"};
 int RangeVals[19] = {239,0,2,3,31,1,21,26,29,4,5,6,46,8,9,11,34,38,45};

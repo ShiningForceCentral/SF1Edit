@@ -37,19 +37,19 @@
 					case 12://spell priority
 						val=c-'0';
 						if(val>=0&&val<10){
-							i=Priority[select[mode]];
+							i=Priority0[select[mode]];
 							if(i<100){
 								i*=10;
 								i+=val;
-								Priority[select[mode]]=i;
+								Priority0[select[mode]]=i;
 							}
 						}
 						if(c==8){
-							i=Priority[select[mode]];
+							i=Priority0[select[mode]];
 							i=i-i%10;
 							i/=10;
-							Priority[select[mode]]=i;
+							Priority0[select[mode]]=i;
 						}
-						if(Priority[select[mode]]>100)Priority[select[mode]]=100;
+						if(Priority0[select[mode]]>100)Priority0[select[mode]]=100;
 						break;
 				}

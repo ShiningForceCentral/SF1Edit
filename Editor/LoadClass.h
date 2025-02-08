@@ -1,13 +1,21 @@
 char Classes[64][5];
 unsigned char ClassData[210][8];
 
-unsigned char Priority[64];
+unsigned char Priority0[64]; // Null
+unsigned char Priority1[64]; // Standard
+unsigned char Priority2[64]; // Mounted
+unsigned char Priority3[64]; // Aquatic
+unsigned char Priority4[64]; // Forest
+unsigned char Priority5[64]; // Mechanical
+unsigned char Priority6[64]; // Flying
+unsigned char Priority7[64]; // Hovering
+unsigned char Priority8[64]; // Undefined
 
 long ClassNamesOffset;
 long ClassOffset;
 
 char ClassMovements[][16] = { "","Standard","Mounted","Aquatic","Forest","Mechanical","Flying","Hovering" };
-char ClassActions[][20] = { "Default","Caster","Use Items","Fire Breath","Fire Breath 2","Fire Breath 3","Ice Breath","Fire Breath 4","Ice Breath 2", "Unused?","Machine Gun","Laser","Demon Blaze","Dark Dragon Mid","Dark Dragon Side" };
+char ClassActions[][20] = { "Default","Caster","Use Items","Fire Breath","Fire Breath 2","Fire Breath 3","Ice Breath","Fire Breath 4","Ice Breath 2", "Electric Breath","Machine Gun","Laser","Demon Blaze","Dark Dragon Mid","Dark Dragon Side" };
 char ActionChances[][6] = { "100%","25%","50%","75%" };
 char SpecialAttacks[][20] = { "None","150% Damage Crit","200% Damage Crit","Steal MP","Steal HP","Steal HP 2","Poison Chance","Sleep Chance","Sleep Chance 2","Death Chance" };
 char SpecialChances[][6] = { "0%","25%","50%","75%" };
@@ -30,7 +38,15 @@ void LoadClass(char *path,bool single=false){
 	if (!single) {
 		for (i = 0; i < 64; i++) {
 			sprintf(Classes[i], "-");
-			Priority[i] = 0;
+			Priority0[i] = 0;
+			Priority1[i] = 25;
+			Priority2[i] = 0;
+			Priority3[i] = 25;
+			Priority4[i] = 25;
+			Priority5[i] = 25;
+			Priority6[i] = 25;
+			Priority7[i] = 25;
+			Priority8[i] = 0;
 			if (i < 14) {
 				ClassPromote[i] = i + 16;
 			} else {
@@ -55,19 +71,28 @@ void LoadClass(char *path,bool single=false){
 	}
 
 	if (NumClasses == 64) {
+		/* table_PromotedClasses */
 		fseek(fp, 0x16FE20, SEEK_SET);
 		for (i = 0; i < 64; i++) {
 			fscanf(fp, "%c", &(ClassPromote[i]));
 		}
-		fseek(fp, 0x16FD40, SEEK_SET);
+		fseek(fp, 0x16FAC0, SEEK_SET);
 	} else {
 		fseek(fp, 0x243AA, SEEK_SET);
 	}
 
-	
+	/* table_AiPriority */
 	for(i=0; i<NumClasses; i++){
 		fscanf(fp,"%c",&r);
-		Priority[i]=r;
+		Priority0[i] = r;
+		Priority1[i] = r;
+		Priority2[i] = r;
+		Priority3[i] = r;
+		Priority4[i] = r;
+		Priority5[i] = r;
+		Priority6[i] = r;
+		Priority7[i] = r;
+		Priority8[i] = r;
 	}
 
 	fseek(fp,132032,SEEK_SET);
