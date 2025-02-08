@@ -31,6 +31,7 @@ unsigned char PromotePercent;
 
 unsigned char HPEXPPercent;
 unsigned char HPEXPMin;
+unsigned char DetoxEXP;
 
 unsigned char ProLevel;
 unsigned char ProLevelAdd;

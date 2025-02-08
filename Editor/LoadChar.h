@@ -291,8 +291,6 @@ void LoadChar(char *path,bool single=false){
 		}
 	}
 
-	int q = NumChars;
-
 	fseek(fp, 0x203F0, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	PStatOffset = r;
@@ -302,6 +300,9 @@ void LoadChar(char *path,bool single=false){
 	PStatOffset = PStatOffset * 256 + r;
 	fscanf(fp, "%c", &r);
 	PStatOffset = PStatOffset * 256 + r;
+
+	int q = NumChars;
+	if (PStatOffset == 0x26CCE)q = 27;
 
 	for(j=0;j<q;j++){
 		fseek(fp, PStatOffset+6*j,SEEK_SET);
