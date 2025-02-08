@@ -51,247 +51,440 @@ void SaveClass(){
 		
 
 		
+		/* (Hardcoded) Fix Dark Dragon finisher check */
+		fseek(fp, 0x214D4, SEEK_SET);
+		fprintf(fp, "%c", 0x0C); // cmpi.b  #NumClasses + 59,d1
+		fprintf(fp, "%c", 0x01);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", NumClasses + 59);
+		fseek(fp, 0x214DA, SEEK_SET);
+		fprintf(fp, "%c", 0x0C); // cmpi.b  #NumClasses + 72,d1
+		fprintf(fp, "%c", 0x01);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", NumClasses + 72);
 
 
-
-		fseek(fp, 0x22C3E, SEEK_SET);
+		/* Extend Classes */
 		if (NumClasses == 64) {
-			fprintf(fp, "%c", 0x4E);
+			/* table_PromotedClasses */
+			fseek(fp, 0x16FE20, SEEK_SET);
+			for (i = 0; i < 64; i++) {
+				fprintf(fp, "%c", ClassPromote[i]);
+			}
+			/* ExecuteChurchMenu */
+			fseek(fp, 0x1744A, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     IsClassPromotable
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0xFA);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x67); // beq.s   loc_17470
+			fprintf(fp, "%c", 0x1A);
+			fseek(fp, 0x174F4, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     IsClassPromotable
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0xFA);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x66); // bne.s   loc_17510
+			fprintf(fp, "%c", 0x0D);
+
+			/* IsClassPromotable */
+			fseek(fp, 0x16FA80, SEEK_SET);
+			fprintf(fp, "%c", 0x48); // movem.l a0,-(sp)
+			fprintf(fp, "%c", 0xE7);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedClass
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0xFE);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #-1,d1
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0xFF);
+			fprintf(fp, "%c", 0x4C); // movem.l (sp)+,a0
+			fprintf(fp, "%c", 0xDF);
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* IsAtLevelCap */
+			fseek(fp, 0x22C3E, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     AdjustLevelCapIfNotPromotable
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1F);
 			fprintf(fp, "%c", 0xFD);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
 
+			/* AdjustLevelCapIfNotPromotable */
 			fseek(fp, 0x1FFD00, SEEK_SET);
-
-			fprintf(fp, "%c", 0x48);
+			fprintf(fp, "%c", 0x48); // movem.l d0-d1,-(sp)
 			fprintf(fp, "%c", 0xE7);
 			fprintf(fp, "%c", 0xC0);
 			fprintf(fp, "%c", 0x00);
-
-			fprintf(fp, "%c", 0x10);
+			fprintf(fp, "%c", 0x10); // move.b  d1,d0
 			fprintf(fp, "%c", 0x01);
-
-			fprintf(fp, "%c", 0x43);
+			fprintf(fp, "%c", 0x43); // lea     (table_PromotedClasses).l,a1
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x16);
 			fprintf(fp, "%c", 0xFE);
 			fprintf(fp, "%c", 0x20);
-			
-			fprintf(fp, "%c", 0x12);
+			fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
 			fprintf(fp, "%c", 0x31);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x00);
-
-			fprintf(fp, "%c", 0x0C);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #-1,d1
 			fprintf(fp, "%c", 0x01);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0xFF);
-
-			fprintf(fp, "%c", 0x67);
+			fprintf(fp, "%c", 0x66); // bne.s   loc_1FFD18
 			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x74);
+			fprintf(fp, "%c", 0x74); // moveq   #FORCE_LEVEL_CAP_PROMOTED,d2
 			fprintf(fp, "%c", 0x63);
-
-
-			fprintf(fp, "%c", 0x4C);
+			fprintf(fp, "%c", 0x4C); // movem.l (sp)+,d0-d1
 			fprintf(fp, "%c", 0xDF);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x03);
-
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
-		} else {
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x0E);
-			fprintf(fp, "%c", 0x65);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x74);
-			fprintf(fp, "%c", 0x63);
-
-
-		}
-
-
-		fseek(fp, 0x22F8E, SEEK_SET);
-		if (NumClasses == 32) {
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x78);
-			fprintf(fp, "%c", 0x26);
-			fprintf(fp, "%c", 0x11);
-		} else {
+			/* IsItemEquippable */
+			fseek(fp, 0x22F8C, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     GetEquipFlags
+			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x16);
 			fprintf(fp, "%c", 0xFF);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
 
+			/* GetEquipFlags */
 			fseek(fp, 0x16FF00, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x78);
-			fprintf(fp, "%c", 0x0C);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #32,d1
 			fprintf(fp, "%c", 0x01);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0x6C);
+			fprintf(fp, "%c", 0x6C); // bge.s   loc_16FF10
 			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x26);
+			fprintf(fp, "%c", 0x26); // move.l  (a1),d3
 			fprintf(fp, "%c", 0x11);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
-			fprintf(fp, "%c", 0x26);
+			fprintf(fp, "%c", 0x26); // move.l  16(a1),d3
 			fprintf(fp, "%c", 0x29);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x04);
+			fprintf(fp, "%c", 0x04); // subi.w  #32,d1
 			fprintf(fp, "%c", 0x41);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
-		}
-
-		if (NumClasses == 64) {
-			fseek(fp, 0x16FE20, SEEK_SET);
-			for (i = 0; i < 64; i++) {
-				fprintf(fp, "%c", ClassPromote[i]);
-			}
-
-			fseek(fp, 0x1744C, SEEK_SET);
+			/* ApplyClassToTargetPriority */
+			fseek(fp, 0x2438A, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     GetAiPriority
+			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0xFD);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x67);
+			fprintf(fp, "%c", 0xFA);
+			fprintf(fp, "%c", 0xA0);
 
-			fseek(fp, 0x16FD00, SEEK_SET);
-			fprintf(fp, "%c", 0x48);
-			fprintf(fp, "%c", 0xE7);
+			/* GetAiPriority */
+			fseek(fp, 0x16FAA0, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     (table_AiPriority).l,a0
+			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0xFA);
+			fprintf(fp, "%c", 0xC0);
+			fprintf(fp, "%c", 0x30); // move.w  (a1),d0
+			fprintf(fp, "%c", 0x11);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* Promote */
+			fseek(fp, 0x24928, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedClass
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x16);
 			fprintf(fp, "%c", 0xFE);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0x4C);
-			fprintf(fp, "%c", 0xDF);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fseek(fp, 0x2492A, SEEK_SET);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0xFE);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
 
+			/* GetPromotedClass */
 			fseek(fp, 0x16FE00, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x78);
-			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x41); // lea     (table_PromotedClasses).l,a0
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x16);
 			fprintf(fp, "%c", 0xFE);
 			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0xD0);
+			fprintf(fp, "%c", 0xD0); // adda.w  d1,a0
 			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x12);
+			fprintf(fp, "%c", 0x12); // move.b  (a0),d1
 			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
-		} else {
-			fseek(fp, 0x1744C, SEEK_SET);
+
+			/* CalculateInitialStatValue */
+			fseek(fp, 0x24A10, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedAtLevelIfRegularForceMember
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1F);
+			fprintf(fp, "%c", 0xFC);
+			fprintf(fp, "%c", 0x60);
+			fprintf(fp, "%c", 0x4A); // tst.b   d1
+			fprintf(fp, "%c", 0x01);
+
+			/* GetPromotedAtLevelIfRegularForceMember */
+			fseek(fp, 0x1FFC60, SEEK_SET);
+			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #27,d0
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1B);
+			fprintf(fp, "%c", 0x65); // blo.s   loc_1FFC70
+			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #29,d0
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1D);
+			fprintf(fp, "%c", 0x63); // bls.s   loc_1FFC76
+			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x4E); // jmp     GetPromotedAtLevel
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x4A);
+			fprintf(fp, "%c", 0xE6);
+			fprintf(fp, "%c", 0x42); // clr.w   d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* CalculateEffectiveLevel */
+			fseek(fp, 0x24BB6, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     IsCombatantPromoted
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1F);
+			fprintf(fp, "%c", 0xFC);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x67); // beq.s   loc_24BCC
+			fprintf(fp, "%c", 0x0E);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+
+			/* IsCombatantPromoted */
+			fseek(fp, 0x1FFC80, SEEK_SET);
+			fprintf(fp, "%c", 0x48); // movem.w d0,-(sp)
+			fprintf(fp, "%c", 0xA7);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x4E); // jsr     alt_GetEntity
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x25);
+			fprintf(fp, "%c", 0xB0);
+			fprintf(fp, "%c", 0x4E); // jsr     IsPromoted
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x4A);
+			fprintf(fp, "%c", 0xDA);
+			fprintf(fp, "%c", 0x4C); // movem.w (sp)+,d0
+			fprintf(fp, "%c", 0x9F);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* table_AiPriority */
+			fseek(fp, 0x16FAC0, SEEK_SET);
+		}
+		else {
+			/* ExecuteChurchMenu */
+			fseek(fp, 0x1744A, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
+			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x78);
-			fprintf(fp, "%c", 0x0C);
+			fprintf(fp, "%c", 0x0C); // cmpi.w  #BASE_CLASSES_END,d1
 			fprintf(fp, "%c", 0x41);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x0D);
-			fprintf(fp, "%c", 0x6E);
-
-			fseek(fp, 0x2492A, SEEK_SET);
+			fprintf(fp, "%c", 0x6E); // bgt.s   loc_17470
+			fprintf(fp, "%c", 0x1A);
+			fseek(fp, 0x174F4, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
+			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x78);
-			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x0C); // cmpi.w  #BASE_CLASSES_END,d1
 			fprintf(fp, "%c", 0x41);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x10);
-		}
-		if (NumClasses == 64) {
-			fseek(fp, 0x2438A, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x0D);
+			fprintf(fp, "%c", 0x6F); // ble.s   loc_17510
+			fprintf(fp, "%c", 0x0D);
+
+			/* IsAtLevelCap */
+			fseek(fp, 0x22C3E, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.w  #PROMOTED_CLASSES_START,d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0E);
+			fprintf(fp, "%c", 0x65); // bcs.s   loc_22C46
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x74); // moveq   #FORCE_LEVEL_CAP_PROMOTED,d2
+			fprintf(fp, "%c", 0x63);
+
+			/* IsItemEquippable */
+			fseek(fp, 0x22F8C, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0xFD);
-			fprintf(fp, "%c", 0x20);
-
-			fseek(fp, 0x16FD20, SEEK_SET);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0xFD);
-			fprintf(fp, "%c", 0x40);
-			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x78);
+			fprintf(fp, "%c", 0x26); // move.l  (a1),d3
 			fprintf(fp, "%c", 0x11);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0x16FD40, SEEK_SET);
-		} else {
+			/* ApplyClassToTargetPriority */
 			fseek(fp, 0x2438A, SEEK_SET);
-			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x41); // lea     table_AiPriority(pc), a0
 			fprintf(fp, "%c", 0xFA);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30); // move.w  (a1),d0
 			fprintf(fp, "%c", 0x11);
 
-			fseek(fp, 0x243AA, SEEK_SET);
+			/* Promote */
+			fseek(fp, 0x24928, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClass
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x78);
+			fprintf(fp, "%c", 0x06); // addi.w  #16,d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x10);
 
+			/* CalculateInitialStatValue */
+			fseek(fp, 0x24A10, SEEK_SET);
+			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x61); // bsr.w   GetPromotedAtLevel
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0xD0);
+
+			/* CalculateEffectiveLevel */
+			fseek(fp, 0x24BB6, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetClassForCombatant
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0xAC);
+			fprintf(fp, "%c", 0x0C); // cmpi.w  #PROMOTED_CLASSES_START,d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0E);
+			fprintf(fp, "%c", 0x65); // bcs.s   loc_24BCC
+			fprintf(fp, "%c", 0x0A);
+			fprintf(fp, "%c", 0x0C); // cmpi.w  #CLASS_YGRT,d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x64); // bcc.s   loc_24BCC
+			fprintf(fp, "%c", 0x04);
+
+			/* table_AiPriority */
+			fseek(fp, 0x243AA, SEEK_SET);
 		}
-		for(i=0; i<NumClasses; i++){
-			fprintf(fp,"%c",Priority[i]);
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority0[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority1[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority2[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority3[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority4[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority5[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority6[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority7[i]);
+		}
+		for (i = 0; i < NumClasses; i++) {
+			fprintf(fp, "%c", Priority8[i]);
 		}
 
 		fseek(fp,132032,SEEK_SET);

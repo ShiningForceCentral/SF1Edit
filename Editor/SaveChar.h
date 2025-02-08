@@ -1110,52 +1110,52 @@
 
 		if (romsize >= 0x200000) {
 			fseek(fp, 0x21B30, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     sub_1FFC00
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1F);
 			fprintf(fp, "%c", 0xFC);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
 
 			fseek(fp, 0x1FFC00, SEEK_SET);
-			fprintf(fp, "%c", 0x43);
+			fprintf(fp, "%c", 0x43); // lea     (byte_1E6000).l,a1
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0x60);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
 			fprintf(fp, "%c", 0x3C);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", NumChars);
+			fprintf(fp, "%c", NumChars-1);
 
-			fprintf(fp, "%c", 0x12);
+			fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
 			fprintf(fp, "%c", 0x31);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x11);
+			fprintf(fp, "%c", 0x11); // move.b  d1,(a0,d0.w)
 			fprintf(fp, "%c", 0x81);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x51);
+			fprintf(fp, "%c", 0x51); // dbf     d0,loc_1FFC0A
 			fprintf(fp, "%c", 0xC8);
 			fprintf(fp, "%c", 0xFF);
 			fprintf(fp, "%c", 0xF6);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 		}
 			/*revert
-			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30); // move.w  #30,d0
 			fprintf(fp, "%c", 0x3C);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x42);
+			fprintf(fp, "%c", 0x42); // clr.b   (a0)+
 			fprintf(fp, "%c", 0x18);
-			fprintf(fp, "%c", 0x51);
+			fprintf(fp, "%c", 0x51); // dbf     d0,loc_21B34
 			fprintf(fp, "%c", 0xC8);
 			fprintf(fp, "%c", 0xFF);
 			fprintf(fp, "%c", 0xFC);

@@ -167,7 +167,7 @@
 				if(submode[mode]==0){
 					TextOut(memdc,400,382,"AI Target Priority:",19);
 
-					sprintf(out,"%d",Priority[select[mode]]);
+					sprintf(out,"%d",Priority0[select[mode]]);
 					if(focus==12&&cursor){
 						sprintf(out,"%s|",out);
 					}

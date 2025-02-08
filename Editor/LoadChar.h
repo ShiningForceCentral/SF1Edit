@@ -60,7 +60,12 @@ void LoadChar(char *path,bool single=false){
 	BlueFlameSprite = r; 
 
 	for (int i = 0; i < 64; i++) {
-		CharPromotedAt[i] = 0;
+		if (i == 27 || i == 28) {
+			CharPromotedAt[i] = 20; // Musashi and Hanzou start already promoted
+		}
+		else {
+			CharPromotedAt[i] = 0;
+		}
 	}
 	if (romsize >= 0x200000) {
 		fseek(fp, 0x1E6000, SEEK_SET);
