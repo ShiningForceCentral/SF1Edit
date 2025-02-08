@@ -683,7 +683,7 @@ if(submode[mode]==0){
 
 				TextOut(memdc,270,35," STAT GROWTH ",13);
 				TextOut(memdc,212,55,"UNPROMOTED",10);
-				if(select[mode]>=0&&select[mode]<27 || select[mode]>29)TextOut(memdc,352,55,"PROMOTED",8);
+				if (select[mode] >= 0 && select[mode] < NumChars)TextOut(memdc,352,55,"PROMOTED",8);
 
 				SetBkMode(memdc, TRANSPARENT);
 				SetBkColor(memdc, RGB(255, 255, 255));
@@ -697,7 +697,7 @@ if(submode[mode]==0){
 						sprintf(out,"%d",Stats[select[mode]][i]%64);
 						TextOut(memdc, 212,110+70*i,out,strlen(out));
 					}
-					if(select[mode]>=0&&select[mode]<27 || select[mode]>29){
+					if(select[mode]>=0&&select[mode]<30 || select[mode]>31){
 					TextOut(memdc,342,90+70*i,StatN[i],strlen(StatN[i]));
 					if(focus==27+i&&cursor){
 						sprintf(out,"%d|",Stats[select[mode]][i+6]%64);
@@ -711,7 +711,7 @@ if(submode[mode]==0){
 						if(Stats[select[mode]][i]/64==j)SelectObject(bmpdc,rateon[j]);
 						else SelectObject(bmpdc,rate[j]);
 						BitBlt(memdc,260+30*(j%2),90+70*i+30*(j/2),20,20,bmpdc,0,0,SRCCOPY);
-						if(select[mode]>=0&&select[mode]<27 || select[mode]>29){
+						if(select[mode]>=0&&select[mode]<30 || select[mode]>31){
 						if(Stats[select[mode]][i+6]/64==j)SelectObject(bmpdc,rateon[j]);
 						else SelectObject(bmpdc,rate[j]);
 						BitBlt(memdc,390+30*(j%2),90+70*i+30*(j/2),20,20,bmpdc,0,0,SRCCOPY);

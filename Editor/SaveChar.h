@@ -1286,7 +1286,6 @@
 		}
 
 		int q = NumChars;
-		if (q == 30)q = 27;
 
 		if (NumChars == MAX_CHARS) {
 			PStatOffset = 0x71180;

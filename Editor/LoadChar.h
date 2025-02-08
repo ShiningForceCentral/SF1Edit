@@ -292,7 +292,6 @@ void LoadChar(char *path,bool single=false){
 	}
 
 	int q = NumChars;
-	if (q == 30)q = 27;
 
 	fseek(fp, 0x203F0, SEEK_SET);
 	fscanf(fp, "%c", &r);
