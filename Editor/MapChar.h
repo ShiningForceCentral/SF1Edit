@@ -965,4 +965,21 @@
 							BlueFlameSprite = i;
 						}
 					}
+					if (focus == 3) {
+						val = c - '0';
+						if (val >= 0 && val < 10) {
+							i = JogurtStatusSprite;
+							if (i < 100) {
+								i *= 10;
+								i += val;
+								JogurtStatusSprite = i;
+							}
+						}
+						if (c == 8) {
+							i = JogurtStatusSprite;
+							i = i - i % 10;
+							i /= 10;
+							JogurtStatusSprite = i;
+						}
+					}
 				}

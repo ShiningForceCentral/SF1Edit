@@ -52,6 +52,9 @@ void SaveMap(){
 		fseek(fp, 0x68C1, SEEK_SET);
 		fprintf(fp, "%c", BlueFlameSprite);
 
+		fseek(fp, 0x23A79, SEEK_SET);
+		fprintf(fp, "%c", JogurtStatusSprite);
+
 		long o;
 
 		o = 0x1EA000;

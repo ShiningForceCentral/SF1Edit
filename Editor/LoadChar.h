@@ -59,6 +59,10 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp, "%c", &r);
 	BlueFlameSprite = r; 
 
+	fseek(fp, 0x23A79, SEEK_SET);
+	fscanf(fp, "%c", &r);
+	JogurtStatusSprite = r;
+
 	for (int i = 0; i < 64; i++) {
 		CharPromotedAt[i] = 0;
 	}

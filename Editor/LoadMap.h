@@ -55,6 +55,8 @@ byte NovaSprite;
 
 byte BlueFlameSprite;
 
+byte JogurtStatusSprite;
+
 char MapGraphics[NUM_MAPS][2];
 
 long SpriteOffsets[54];
