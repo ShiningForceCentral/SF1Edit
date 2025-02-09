@@ -1298,8 +1298,9 @@
 
 		int q = NumChars;
 
-		PStatOffset = 0x1E6040;
-
+		if (NumChars == MAX_CHARS) {
+			PStatOffset = 0x71180;
+		}
 
 		fseek(fp, 0x203F0, SEEK_SET);
 		fprintf(fp, "%c", (PStatOffset & 0xFF000000) / 0x1000000);
