@@ -2,7 +2,7 @@ if(submode[mode]==0){
 				Rectangle(memdc,58+160*((select[mode] - CharView) /32),10+16*((select[mode] - CharView) %32),58+160*((select[mode] - CharView) /32)+120,10+16*((select[mode] - CharView) %32)+16);
 
 				int q;
-				q = 31;
+				q = MIN_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -612,14 +612,18 @@ if(submode[mode]==0){
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 485, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
-				/* Arrows */
+				/* Arrows and checkbox */
 				if (NumChars == MAX_CHARS) {
 					SelectObject(bmpdc, uparrow);
 					BitBlt(memdc, 20, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
 					SelectObject(bmpdc, downarrow);
 					BitBlt(memdc, 43, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
+					SelectObject(bmpdc, checkon);
 				}
-				SelectObject(bmpdc, checkoff);
+				else {
+					SelectObject(bmpdc, checkoff);
+				}
+				
 
 				TextOut(memdc, 515, 512, "Extend Chars", 12);
 				BitBlt(memdc, 492, 513, 13, 13, bmpdc, 0, 0, SRCCOPY);

@@ -103,7 +103,7 @@ if(submode[mode]==0){
 				}
 
 				int q;
-				q = 31;
+				q = MIN_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -199,17 +199,17 @@ if(submode[mode]==0){
 				/* Arrows */
 				if (NumChars == MAX_CHARS) {
 					if (p.x >= 20 && p.x <= 40 && p.y >= 520 && p.y <= 540) {
-						CharView += 31;
-						CharView %= 62;
-						select[mode] += 31;
-						select[mode] %= 62;
+						CharView += MIN_CHARS;
+						CharView %= (MIN_CHARS * 2);
+						select[mode] += MIN_CHARS;
+						select[mode] %= (MIN_CHARS * 2);
 						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 					if (p.x >= 43 && p.x <= 63 && p.y >= 520 && p.y <= 540) {
-						CharView += 31;
-						CharView %= 62;
-						select[mode] += 31;
-						select[mode] %= 62;
+						CharView += MIN_CHARS;
+						CharView %= (MIN_CHARS *2);
+						select[mode] += MIN_CHARS;
+						select[mode] %= (MIN_CHARS * 2);
 						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 				}
@@ -223,12 +223,12 @@ if(submode[mode]==0){
 					if (NumChars == MAX_CHARS) {
 						NumChars = MIN_CHARS;
 						CharView = 0;
-						select[mode] %= 31;
+						select[mode] %= MIN_CHARS;
 					} else {
 						NumChars = MAX_CHARS;
 						MessageBox(NULL, "To fully enable extended characters, remember to use 'Assign Messages' in the text editor to move the HQ messages and copy the old ones.\r\n\r\nAlso note that old save states will not work after extending the number of characters!", "Note", MB_OK);
 
-						for (int i = 29; i < 50; i++) {
+						for (int i = MIN_CHARS; i < MAX_CHARS; i++) {
 							if (!Char[i][1]) {
 								Char[i][1] = 1;
 								Char[i][16] = 255;

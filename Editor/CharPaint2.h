@@ -1,7 +1,7 @@
 				Rectangle(memdc, 58 + 160 * ((select[mode] - CharView) / 32), 10 + 16 * ((select[mode] - CharView) % 32), 58 + 160 * ((select[mode] - CharView) / 32) + 120, 10 + 16 * ((select[mode] - CharView) % 32) + 16);
 
 				int q;
-				q = 31;
+				q = MIN_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for (i = 0; i < q; i++) {

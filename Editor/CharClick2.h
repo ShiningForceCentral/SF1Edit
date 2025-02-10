@@ -20,7 +20,7 @@
 				}
 
 				int q;
-				q = 31;
+				q = MIN_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for (i = 0; i<q; i++) {
@@ -56,16 +56,16 @@
 
 				if (NumChars == MAX_CHARS) {
 					if (p.x >= 20 && p.x <= 40 && p.y >= 520 && p.y <= 540) {
-						CharView += 31;
-						CharView %= 62;
-						select[mode] += 31;
-						select[mode] %= 62;
+						CharView += MIN_CHARS;
+						CharView %= (MIN_CHARS * 2);
+						select[mode] += MIN_CHARS;
+						select[mode] %= (MIN_CHARS * 2);
 					}
 					if (p.x >= 43 && p.x <= 63 && p.y >= 520 && p.y <= 540) {
-						CharView += 31;
-						CharView %= 62;
-						select[mode] += 31;
-						select[mode] %= 62;
+						CharView += MIN_CHARS;
+						CharView %= (MIN_CHARS * 2);
+						select[mode] += MIN_CHARS;
+						select[mode] %= (MIN_CHARS * 2);
 					}
 				}
 
