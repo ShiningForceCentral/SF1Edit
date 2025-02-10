@@ -16,7 +16,7 @@ char RangeGroups[][16] = { "None", "Allies", "Enemies", "Both","None","All Allie
 
 char RangeRoutines[][32] = { "Default (Use Effect)", "Egress", "Level Party", "Laser Eye","+ATT (Equip Effect)", "+DEF (Equip Effect)"
 	, "+AGI (Equip Effect)", "+MOVE (Equip Effect)", "+ATT/CRIT (Equip Effect)", "+ATT/DEF (Equip Effect)", "+Jogurt (Equip Effect)"
-	, "Nothing (Equip Effect)", "+HP (Unused)", "+MP (Unused)", "+Max HP (Unused)", "+ATK (Unused)"
+	, "Nothing (Equip Effect)", "+HP (Unused)", "+MP (Unused)", "+Max HP (Unused)", "+ATT (Unused)"
 	, "+DEF (Unused)", "+AGI (Unused)", "+MOVE (Unused)" };
 long RangeRoutineOffsets[] = { 0x20C1C,0x23524,0x2352A,0x20BDC,0x23418,0x23426,0x23434,0x23442,0x234B2,0x234CA,0x2350A,0x23378,0x23450,0x2345E
 	,0x2346C,0x2347A,0x23488,0x23496,0x234A4 };

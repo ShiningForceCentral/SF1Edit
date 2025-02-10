@@ -2,7 +2,7 @@ if(submode[mode]==0){
 				Rectangle(memdc,58+160*((select[mode] - CharView) /32),10+16*((select[mode] - CharView) %32),58+160*((select[mode] - CharView) /32)+120,10+16*((select[mode] - CharView) %32)+16);
 
 				int q;
-				q = 30;
+				q = 31;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -17,11 +17,7 @@ if(submode[mode]==0){
 						width = MSSize[0][0][0];
 						height = MSSize[0][0][1];
 
-						if (NumChars == 30) {
-							m = i;
-						} else {
-							m = CharMapSprite[i + CharView];
-						}
+						m = CharMapSprite[i + CharView];
 
 						for (x = 0; x < width / 2; x++) {
 							for (y = 0; y < height; y++) {
@@ -49,11 +45,7 @@ if(submode[mode]==0){
 					width = POSize[select[mode]][0];
 					height = POSize[select[mode]][1];
 
-					if (NumChars == 30) {
-						m = select[mode];
-					} else {
-						m = CharPortrait[select[mode]];
-					}
+					m = CharPortrait[select[mode]];
 
 					for (int px = 0; px < width * 3 / 4; px++) {
 						for (int py = 0; py < height; py++) {
@@ -86,11 +78,7 @@ if(submode[mode]==0){
 					width = MSSize[0][0][0];
 					height = MSSize[0][0][1];
 
-					if (NumChars == 30) {
-						m = select[mode];
-					} else {
-						m = CharMapSprite[select[mode]];
-					}
+					m = CharMapSprite[select[mode]];
 
 					for (x = 0; x < width / 2; x++) {
 						for (y = 0; y < height; y++) {
@@ -106,11 +94,7 @@ if(submode[mode]==0){
 						}
 					}
 
-					if (NumChars == 30) {
-						m = select[mode]+30;
-					} else {
-						m = CharMapSprite2[select[mode]];
-					}
+					m = CharMapSprite2[select[mode]];
 
 					for (x = 0; x < width / 2; x++) {
 						for (y = 0; y < height; y++) {
@@ -127,7 +111,7 @@ if(submode[mode]==0){
 					}
 				}
 				/*
-				for(i=0;i<30;i++){
+				for(i=0;i<q;i++){
 					sprintf(out,"%d",Char[select[mode]][i]);
 					TextOut(memdc,200,i*16+10,out,strlen(out));
 				}*/
@@ -162,16 +146,14 @@ if(submode[mode]==0){
 					TextOut(memdc, 582,45,out,strlen(out));
 				}
 
-				if (romsize >= 0x200000) {
-					TextOut(memdc, 620, 45, "Promoted At:", 12);
+				TextOut(memdc, 620, 45, "Promoted At:", 12);
 
-					if (focus == 42 && cursor) {
-						sprintf(out, "%d|", CharPromotedAt[select[mode]]);
-						TextOut(memdc, 707, 45, out, strlen(out));
-					} else {
-						sprintf(out, "%d", CharPromotedAt[select[mode]]);
-						TextOut(memdc, 707, 45, out, strlen(out));
-					}
+				if (focus == 42 && cursor) {
+					sprintf(out, "%d|", CharPromotedAt[select[mode]]);
+					TextOut(memdc, 707, 45, out, strlen(out));
+				} else {
+					sprintf(out, "%d", CharPromotedAt[select[mode]]);
+					TextOut(memdc, 707, 45, out, strlen(out));
 				}
 
 
@@ -538,125 +520,106 @@ if(submode[mode]==0){
 						}
 					}
 
+
+				/* Battle sprite selection */
 				TextOut(memdc,495,425,"Battle:",7);
-
-				if(focus==34&&cursor){
-					sprintf(out,"%d|",BattleSprite[select[mode]][0]);
-					TextOut(memdc,562,425,out,strlen(out));
-				} else {
-					sprintf(out,"%d",BattleSprite[select[mode]][0]);
-					TextOut(memdc,562,425,out,strlen(out));
+				if(focus == 34 && cursor) {
+					sprintf(out, "%d|", BattleSprite[select[mode]][0]);
+					TextOut(memdc, 562, 425, out, strlen(out));
 				}
-
-				if (NumChars == MAX_CHARS) {
-					TextOut(memdc, 592, 425, "/", 1);
-
-					if (focus == 40 && cursor) {
-						sprintf(out, "%d|", BattleSprite2[select[mode]][0]);
-						TextOut(memdc, 612, 425, out, strlen(out));
-					} else {
-						sprintf(out, "%d", BattleSprite2[select[mode]][0]);
-						TextOut(memdc, 612, 425, out, strlen(out));
-					}
+				else {
+					sprintf(out, "%d", BattleSprite[select[mode]][0]);
+					TextOut(memdc, 562, 425, out, strlen(out));
 				}
-
-
-
+				TextOut(memdc, 592, 425, "/", 1);
+				if (focus == 40 && cursor) {
+					sprintf(out, "%d|", BattleSprite2[select[mode]][0]);
+					TextOut(memdc, 612, 425, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", BattleSprite2[select[mode]][0]);
+					TextOut(memdc, 612, 425, out, strlen(out));
+				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 425, 20, 20, bmpdc, 0, 0, SRCCOPY);
+
+
+				/* Battle palette selection */
+				TextOut(memdc,495,445,"Palette:",8);
+				if(focus==35&&cursor){
+					sprintf(out, "%d|", BattleSprite[select[mode]][1]);
+					TextOut(memdc, 562, 445, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", BattleSprite[select[mode]][1]);
+					TextOut(memdc, 562, 445, out, strlen(out));
+				}
+				TextOut(memdc, 592, 445, "/", 1);
+				if (focus == 41 && cursor) {
+					sprintf(out, "%d|", BattleSprite2[select[mode]][1]);
+					TextOut(memdc, 612, 445, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", BattleSprite2[select[mode]][1]);
+					TextOut(memdc, 612, 445, out, strlen(out));
+				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 445, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
 
-				TextOut(memdc,495,445,"Palette:",8);
-
-				if(focus==35&&cursor){
-					sprintf(out,"%d|",BattleSprite[select[mode]][1]);
-					TextOut(memdc,562,445,out,strlen(out));
-				} else {
-					sprintf(out,"%d",BattleSprite[select[mode]][1]);
-					TextOut(memdc,562,445,out,strlen(out));
-				}
-
+				/* Portrait selection */
 				TextOut(memdc, 495, 465, "Portrait:", 9);
-
+				if (focus == 36 && cursor) {
+					sprintf(out, "%d|", CharPortrait[select[mode]]);
+					TextOut(memdc, 562, 465, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", CharPortrait[select[mode]]);
+					TextOut(memdc, 562, 465, out, strlen(out));
+				}
+				TextOut(memdc, 592, 465, "/", 1);
+				if (focus == 38 && cursor) {
+					sprintf(out, "%d|", CharPortrait2[select[mode]]);
+					TextOut(memdc, 612, 465, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", CharPortrait2[select[mode]]);
+					TextOut(memdc, 612, 465, out, strlen(out));
+				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 465, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
+
+				/* Map sprite selection */
+				TextOut(memdc, 495, 485, "Map:", 4);
+				if (focus == 37 && cursor) {
+					sprintf(out, "%d|", CharMapSprite[select[mode]]);
+					TextOut(memdc, 562, 485, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", CharMapSprite[select[mode]]);
+					TextOut(memdc, 562, 485, out, strlen(out));
+				}
+				TextOut(memdc, 592, 485, "/", 1);
+				if (focus == 39 && cursor) {
+					sprintf(out, "%d|", CharMapSprite2[select[mode]]);
+					TextOut(memdc, 612, 485, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", CharMapSprite2[select[mode]]);
+					TextOut(memdc, 612, 485, out, strlen(out));
+				}
+				SelectObject(bmpdc, zoom);
+				BitBlt(memdc, 640, 485, 20, 20, bmpdc, 0, 0, SRCCOPY);
+
+				/* Arrows */
 				if (NumChars == MAX_CHARS) {
-
-					TextOut(memdc, 592, 445, "/", 1);
-
-					if (focus == 41 && cursor) {
-						sprintf(out, "%d|", BattleSprite2[select[mode]][1]);
-						TextOut(memdc, 612, 445, out, strlen(out));
-					} else {
-						sprintf(out, "%d", BattleSprite2[select[mode]][1]);
-						TextOut(memdc, 612, 445, out, strlen(out));
-					}
-
-					if (focus == 36 && cursor) {
-						sprintf(out, "%d|", CharPortrait[select[mode]]);
-						TextOut(memdc, 562, 465, out, strlen(out));
-					}
-					else {
-						sprintf(out, "%d", CharPortrait[select[mode]]);
-						TextOut(memdc, 562, 465, out, strlen(out));
-					}
-
-					TextOut(memdc, 592, 465, "/", 1);
-
-					if (focus == 38 && cursor) {
-						sprintf(out, "%d|", CharPortrait2[select[mode]]);
-						TextOut(memdc, 612, 465, out, strlen(out));
-					} else {
-						sprintf(out, "%d", CharPortrait2[select[mode]]);
-						TextOut(memdc, 612, 465, out, strlen(out));
-					}
-
-					SelectObject(bmpdc, zoom);
-					BitBlt(memdc, 640, 485, 20, 20, bmpdc, 0, 0, SRCCOPY);
-
-					TextOut(memdc, 495, 485, "Map:", 4);
-
-					if (focus == 37 && cursor) {
-						sprintf(out, "%d|", CharMapSprite[select[mode]]);
-						TextOut(memdc, 562, 485, out, strlen(out));
-					} else {
-						sprintf(out, "%d", CharMapSprite[select[mode]]);
-						TextOut(memdc, 562, 485, out, strlen(out));
-					}
-
-					TextOut(memdc, 592, 485, "/", 1);
-
-					if (focus == 39 && cursor) {
-						sprintf(out, "%d|", CharMapSprite2[select[mode]]);
-						TextOut(memdc, 612, 485, out, strlen(out));
-					} else {
-						sprintf(out, "%d", CharMapSprite2[select[mode]]);
-						TextOut(memdc, 612, 485, out, strlen(out));
-					}
-
 					SelectObject(bmpdc, uparrow);
 					BitBlt(memdc, 20, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
 					SelectObject(bmpdc, downarrow);
 					BitBlt(memdc, 43, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
-					SelectObject(bmpdc, checkon);
 				}
-				else {
-
-					if (focus == 38 && cursor) {
-						sprintf(out, "%d|", CharPortrait2[select[mode]]);
-						TextOut(memdc, 562, 465, out, strlen(out));
-					}
-					else {
-						sprintf(out, "%d", CharPortrait2[select[mode]]);
-						TextOut(memdc, 562, 465, out, strlen(out));
-					}
-
-					SelectObject(bmpdc, checkoff);
-				}
-
+				SelectObject(bmpdc, checkoff);
 
 				TextOut(memdc, 515, 512, "Extend Chars", 12);
 				BitBlt(memdc, 492, 513, 13, 13, bmpdc, 0, 0, SRCCOPY);
@@ -666,7 +629,8 @@ if(submode[mode]==0){
 				SetBkMode(memdc, OPAQUE);
 				SetBkColor(memdc, RGB(128, 128, 128));
 
-				if (select[mode] > 0) {
+				/* Display HQ messages box for everyone but Max and Nova */
+				if (select[mode] > 0 && select[mode] != 30) {
 
 					RoundRect(memdc, 630, 120, 770, 220, 12, 12);
 					TextOut(memdc, 646, 112, " HQ MESSAGES ", 13);
@@ -711,7 +675,6 @@ if(submode[mode]==0){
 						sprintf(out,"%d",Stats[select[mode]][i]%64);
 						TextOut(memdc, 212,110+70*i,out,strlen(out));
 					}
-					if(select[mode]>=0&&select[mode]<30 || select[mode]>31){
 					TextOut(memdc,342,90+70*i,StatN[i],strlen(StatN[i]));
 					if(focus==27+i&&cursor){
 						sprintf(out,"%d|",Stats[select[mode]][i+6]%64);
@@ -720,16 +683,13 @@ if(submode[mode]==0){
 						sprintf(out,"%d",Stats[select[mode]][i+6]%64);
 						TextOut(memdc,342,110+70*i,out,strlen(out));
 					}
-					}
 					for(int j=0;j<4;j++){
 						if(Stats[select[mode]][i]/64==j)SelectObject(bmpdc,rateon[j]);
 						else SelectObject(bmpdc,rate[j]);
 						BitBlt(memdc,260+30*(j%2),90+70*i+30*(j/2),20,20,bmpdc,0,0,SRCCOPY);
-						if(select[mode]>=0&&select[mode]<30 || select[mode]>31){
 						if(Stats[select[mode]][i+6]/64==j)SelectObject(bmpdc,rateon[j]);
 						else SelectObject(bmpdc,rate[j]);
 						BitBlt(memdc,390+30*(j%2),90+70*i+30*(j/2),20,20,bmpdc,0,0,SRCCOPY);
-						}
 					}
 				}
 

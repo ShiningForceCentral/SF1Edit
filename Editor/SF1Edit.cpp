@@ -220,12 +220,9 @@ bool ExpandedGraphics = false;
 #include "UpperLevel.h" 
 #include "Pixel.h" 
 
-unsigned char NumItems = 64;
-int NumChars = 30;
-long EffectOffset;
-
 bool ScriptsLoaded = false;
 
+#define MIN_CHARS 31
 #define MAX_CHARS 50
 #define NUM_DIALOG    35
 #define NUM_BE        30
@@ -233,6 +230,10 @@ bool ScriptsLoaded = false;
 #define NUM_CS    8
 #define NUM_BS    30
 #define NUM_WC    5
+
+unsigned char NumItems = 64;
+int NumChars = MIN_CHARS;
+long EffectOffset;
 
 void FromClipboard(unsigned char * data, unsigned int size[2], unsigned char pal[16][3], bool tileset = false, bool weapon = false, bool resize=false, bool recolor=false);
 void ToClipboard(unsigned char * data, unsigned int size[2], unsigned char pal[16][3], bool tileset = false, bool weapon = false);

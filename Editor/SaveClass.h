@@ -42,7 +42,7 @@ void SaveClass(){
 			ClassNamesOffset = 0x1DC000;
 		}
 		
-		if(ClassOffset+10000>romsize){
+		if (romsize < 0x200000) {
 			MessageBox(NULL,"Rom is too small, expand rom to save class changes.","Error",MB_OK);
 			fclose(fp);
 			return;
@@ -63,6 +63,60 @@ void SaveClass(){
 		fprintf(fp, "%c", 0x00);
 		fprintf(fp, "%c", NumClasses + 72);
 
+		/* Is instruction at 0x21B30 patched ? */
+		fseek(fp, 0x21B30, SEEK_SET);
+		fscanf(fp, "%c", &r);
+		/* CalculateInitialStatValue */
+		fseek(fp, 0x24A10, SEEK_SET);
+		if (r != 0x4E) {
+			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedAtLevelIfRegularForceMember
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1F);
+			fprintf(fp, "%c", 0xFC);
+			fprintf(fp, "%c", 0x60);
+			fprintf(fp, "%c", 0x4A); // tst.b   d1
+			fprintf(fp, "%c", 0x01);
+
+			/* GetPromotedAtLevelIfRegularForceMember */
+			fseek(fp, 0x1FFC60, SEEK_SET);
+			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_MUSASHI,d0
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1B);
+			fprintf(fp, "%c", 0x65); // blo.s   loc_1FFC70
+			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_JOGURT,d0
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1D);
+			fprintf(fp, "%c", 0x63); // bls.s   loc_1FFC76
+			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x4E); // jmp     GetPromotedAtLevel
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x4A);
+			fprintf(fp, "%c", 0xE6);
+			fprintf(fp, "%c", 0x42); // clr.w   d1
+			fprintf(fp, "%c", 0x41);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+		}
+		else {
+			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x61); // bsr.w   GetPromotedAtLevel
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0xD0);
+		}
 
 		/* Extend Classes */
 		if (NumClasses == 64) {
@@ -262,46 +316,6 @@ void SaveClass(){
 			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
-			/* CalculateInitialStatValue */
-			fseek(fp, 0x24A10, SEEK_SET);
-			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedAtLevelIfRegularForceMember
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1F);
-			fprintf(fp, "%c", 0xFC);
-			fprintf(fp, "%c", 0x60);
-			fprintf(fp, "%c", 0x4A); // tst.b   d1
-			fprintf(fp, "%c", 0x01);
-
-			/* GetPromotedAtLevelIfRegularForceMember */
-			fseek(fp, 0x1FFC60, SEEK_SET);
-			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x0C); // cmpi.b  #27,d0
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1B);
-			fprintf(fp, "%c", 0x65); // blo.s   loc_1FFC70
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x0C); // cmpi.b  #29,d0
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1D);
-			fprintf(fp, "%c", 0x63); // bls.s   loc_1FFC76
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x4E); // jmp     GetPromotedAtLevel
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x4A);
-			fprintf(fp, "%c", 0xE6);
-			fprintf(fp, "%c", 0x42); // clr.w   d1
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x4E); // rts
-			fprintf(fp, "%c", 0x75);
-
 			/* CalculateEffectiveLevel */
 			fseek(fp, 0x24BB6, SEEK_SET);
 			fprintf(fp, "%c", 0x4E); // jsr     IsCombatantPromoted
@@ -423,17 +437,6 @@ void SaveClass(){
 			fprintf(fp, "%c", 0x41);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x10);
-
-			/* CalculateInitialStatValue */
-			fseek(fp, 0x24A10, SEEK_SET);
-			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x61); // bsr.w   GetPromotedAtLevel
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0xD0);
 
 			/* CalculateEffectiveLevel */
 			fseek(fp, 0x24BB6, SEEK_SET);

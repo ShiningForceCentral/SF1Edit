@@ -91,12 +91,10 @@ if(submode[mode]==0){
 					mode = 16;
 				}
 
-				if (NumChars == MAX_CHARS) {
-					if (p.x >= 640 && p.x <= 660 && p.y >= 485 && p.y < 505) {
-						submode[16] = 7;
-						subselect[16][submode[16]] = CharMapSprite[select[mode]];
-						mode = 16;
-					}
+				if (p.x >= 640 && p.x <= 660 && p.y >= 485 && p.y < 505) {
+					submode[16] = 7;
+					subselect[16][submode[16]] = CharMapSprite[select[mode]];
+					mode = 16;
 				}
 
 				if(p.x>=220&&p.x<=460&&p.y>=500&&p.y<=520){
@@ -105,7 +103,7 @@ if(submode[mode]==0){
 				}
 
 				int q;
-				q = 30;
+				q = 31;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -166,7 +164,7 @@ if(submode[mode]==0){
 					}
 				}
 
-
+				/* Battle sprite selection */
 				if(p.x>=612&&p.x<=650&&p.y>=425&&p.y<=444){
 					focus=40;
 				}
@@ -174,6 +172,7 @@ if(submode[mode]==0){
 					focus = 34;
 				}
 
+				/* Battle palette selection */
 				if(p.x>=612&&p.x<=650&&p.y>=445&&p.y<=464){
 					focus = 41;
 				}
@@ -181,41 +180,37 @@ if(submode[mode]==0){
 					focus = 35;
 				}
 
-				if (NumChars == MAX_CHARS) {
-					if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
-						focus = 36;
-					}
-					if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
-						focus = 38;
-					}
-				} else {
-					if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
-						focus = 38;
-					}
+				/* Portrait selection */
+				if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
+					focus = 36;
+				}
+				if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
+					focus = 38;
 				}
 
+				/* Map sprite selection */
 				if (p.x >= 612 && p.x <= 650 && p.y >= 485 && p.y <= 504) {
 					focus = 39;
 				}
-
 				if (p.x >= 562 && p.x <= 590 && p.y >= 485 && p.y <= 504) {
 					focus = 37;
 				}
 
+				/* Arrows */
 				if (NumChars == MAX_CHARS) {
 					if (p.x >= 20 && p.x <= 40 && p.y >= 520 && p.y <= 540) {
-						CharView += 30;
-						CharView %= 60;
-						select[mode] += 30;
-						select[mode] %= 60;
-						if (select[mode] > NumChars - 1)select[mode] = NumChars - 1;
+						CharView += 31;
+						CharView %= 62;
+						select[mode] += 31;
+						select[mode] %= 62;
+						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 					if (p.x >= 43 && p.x <= 63 && p.y >= 520 && p.y <= 540) {
-						CharView += 30;
-						CharView %= 60;
-						select[mode] += 30;
-						select[mode] %= 60;
-						if (select[mode] > NumChars - 1)select[mode] = NumChars - 1;
+						CharView += 31;
+						CharView %= 62;
+						select[mode] += 31;
+						select[mode] %= 62;
+						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 				}
 
@@ -226,9 +221,9 @@ if(submode[mode]==0){
 
 				if (p.x >= 492 && p.x <= 505 && p.y >= 513 && p.y <= 526) {
 					if (NumChars == MAX_CHARS) {
-						NumChars = 30;
+						NumChars = MIN_CHARS;
 						CharView = 0;
-						select[mode] %= 30;
+						select[mode] %= 31;
 					} else {
 						NumChars = MAX_CHARS;
 						MessageBox(NULL, "To fully enable extended characters, remember to use 'Assign Messages' in the text editor to move the HQ messages and copy the old ones.\r\n\r\nAlso note that old save states will not work after extending the number of characters!", "Note", MB_OK);

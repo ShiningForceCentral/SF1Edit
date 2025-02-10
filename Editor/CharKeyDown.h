@@ -12,15 +12,15 @@
 					}
 					break;
 				case VK_UP:
-					select[mode]+=29;
-					select[mode]%=30;
+					select[mode]+=30;
+					select[mode]%=31;
 					select[mode] += CharView;
 
 					if (select[mode] >= MAX_CHARS)select[mode] = MAX_CHARS - 1;
 					break;
 				case VK_DOWN:
 					select[mode]+=1;
-					select[mode]%=30;
+					select[mode]%=31;
 					select[mode] += CharView;
 
 					if (select[mode] >= MAX_CHARS)select[mode] = MAX_CHARS - 1;

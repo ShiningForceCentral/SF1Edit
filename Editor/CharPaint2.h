@@ -1,10 +1,10 @@
 				Rectangle(memdc, 58 + 160 * ((select[mode] - CharView) / 32), 10 + 16 * ((select[mode] - CharView) % 32), 58 + 160 * ((select[mode] - CharView) / 32) + 120, 10 + 16 * ((select[mode] - CharView) % 32) + 16);
 
 				int q;
-				q = 30;
+				q = 31;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
-				for (i = 0; i<q; i++) {
+				for (i = 0; i < q; i++) {
 					if (i + CharView == select[mode] && focus == 1 && cursor) {
 						sprintf(out, "%s|", CharName[i + CharView]);
 						TextOut(memdc, 58, i * 16 + 10, out, strlen(out));
@@ -16,11 +16,7 @@
 						width = MSSize[0][0][0];
 						height = MSSize[0][0][1];
 
-						if (NumChars == 30) {
-							m = i;
-						} else {
-							m = CharMapSprite[i + CharView];
-						}
+						m = CharMapSprite[i + CharView];
 
 						for (x = 0; x < width / 2; x++) {
 							for (y = 0; y < height; y++) {

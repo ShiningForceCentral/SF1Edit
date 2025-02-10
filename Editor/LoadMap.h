@@ -51,10 +51,9 @@ int  numEvents   = 6;
 char EventNums[] = {8,12,20,76,100,112};
 char EventDesc[][32] = {"Can Talk Through","Teleport","Door","No NPC Wander","Readable","Chest"};
 
+byte NovaPortrait;
 byte NovaSprite;
-
 byte BlueFlameSprite;
-
 byte JogurtStatusSprite;
 
 char MapGraphics[NUM_MAPS][2];

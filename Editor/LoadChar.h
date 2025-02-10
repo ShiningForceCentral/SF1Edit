@@ -1,5 +1,5 @@
 
-int CharView = 0;
+int CharView;
 
 unsigned char Char[64][30];
 char CharName[64][11];
@@ -36,23 +36,21 @@ bool LearnAdded=false;
 void LoadChar(char *path,bool single=false){
 	unsigned char r;
 	unsigned char c,l,z;
+	int q;
 	FILE * fp = fopen(path,"rb");
 	char in=0;
 
-	fseek(fp, 0x23A7C, SEEK_SET);
+	CharView = 0;
+	select[mode] = 0;
+
+	/* Is instruction at 0x221D4 patched ? */
+	fseek(fp, 0x221D4, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	if (r != 0x4E) {
-		NumChars = 30;
-	} else {
-		NumChars = MAX_CHARS;
+		NumChars = MIN_CHARS;
 	}
-
-	if (NumChars == 30) {
-		fseek(fp, 0x23A6D, SEEK_SET);
-		fscanf(fp, "%c", &r);
-		NovaSprite = r;
-		CharView = 0;
-		select[mode] = 0;
+	else {
+		NumChars = MAX_CHARS;
 	}
 
 	fseek(fp, 0x68C1, SEEK_SET);
@@ -63,66 +61,81 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp, "%c", &r);
 	JogurtStatusSprite = r;
 
-	for (int i = 0; i < 64; i++) {
-		if (i == 27 || i == 28) {
-			CharPromotedAt[i] = 20; // Musashi and Hanzou start already promoted
-		}
-		else {
-			CharPromotedAt[i] = 0;
-		}
-	}
-	if (romsize >= 0x200000) {
-		fseek(fp, 0x1E6000, SEEK_SET);
-		for (int i = 0; i < NumChars; i++) {
-			fscanf(fp, "%c", &r);
-			if (r < 100)CharPromotedAt[i] = r;
-		}
-	}
+	fseek(fp, 0x140000, SEEK_SET);
+	fscanf(fp, "%c", &r);
+	if (r == 0xFF) {
 
-	if (NumChars == 30) {
-		for (int i = 0;i < 30;i++) {
+		/* Initialize data */
+		fseek(fp, 0x239FB, SEEK_SET);
+		fscanf(fp, "%c", &r);
+		NovaPortrait = r;
+
+		fseek(fp, 0x23A6D, SEEK_SET);
+		fscanf(fp, "%c", &r);
+		NovaSprite = r;
+
+		for (int i = 0; i < 30; i++) {
 			CharPortrait[i] = i;
 			CharMapSprite[i] = i;
 			CharMapSprite2[i] = i + 30;
+			if (i == 27 || i == 28) {
+				CharPromotedAt[i] = 20; // Musashi and Hanzou start already promoted
+			}
+			else {
+				CharPromotedAt[i] = 0;
+			}
 		}
-		for (int i = 30;i < MAX_CHARS;i++) {
+		for (int i = 30; i < MAX_CHARS; i++) {
 			CharPortrait[i] = 0;
+			CharPortrait2[i] = 0;
 			CharMapSprite[i] = 0;
 			CharMapSprite2[i] = 0;
+			CharPromotedAt[i] = 0;
 		}
-
-		CharMapSprite[30] = 57;
-		CharPortrait[30] = 41;
-		CharPortrait2[30] = 41;
-		sprintf(CharName[30], "Nova");
 
 		fseek(fp, 0x23A1E, SEEK_SET);
-		for (int i = 0;i < NumChars;i++) {
+		for (int i = 0; i < MIN_CHARS; i++) {
 			fscanf(fp, "%c", &(CharPortrait2[i]));
 		}
 
-	} else {
-		fseek(fp, 0x70000, SEEK_SET);
-		for (int i = 0;i < NumChars;i++) {
+		CharMapSprite2[13] = CharMapSprite[13]; // Domingo
+		CharMapSprite2[27] = CharMapSprite[27]; // Musashi
+		CharMapSprite2[28] = CharMapSprite[28]; // Hanzou
+		CharMapSprite2[29] = CharMapSprite[29]; // Jogurt
+
+		CharMapSprite[30] = NovaSprite;
+		CharMapSprite2[30] = NovaSprite;
+		CharPortrait[30] = NovaPortrait;
+		CharPortrait2[30] = NovaPortrait;
+
+	}
+	else {
+
+		/* Load data */
+		fseek(fp, 0x140000, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
 			fscanf(fp, "%c", &(CharPortrait[i]));
 		}
-		fseek(fp, 0x70040, SEEK_SET);
-		for (int i = 0;i < NumChars;i++) {
+		fseek(fp, 0x140040, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
 			fscanf(fp, "%c", &(CharPortrait2[i]));
 		}
-		fseek(fp, 0x70100, SEEK_SET);
-		for (int i = 0;i < NumChars;i++) {
+		fseek(fp, 0x140100, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
 			fscanf(fp, "%c", &(CharMapSprite[i]));
 		}
-		fseek(fp, 0x70140, SEEK_SET);
-		for (int i = 0; i < NumChars; i++) {
+		fseek(fp, 0x140140, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
 			fscanf(fp, "%c", &(CharMapSprite2[i]));
 		}
+		fseek(fp, 0x143C20, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			fscanf(fp, "%c", &r);
+			if (r <= 20)CharPromotedAt[i] = r; // promoted at level can not exceed 20 (i.e., the stat growth projection level)
+		}
 
-		if(CharMapSprite2[0]==162)
-			for (int i = 0; i < NumChars; i++) {
-				CharMapSprite2[i] = CharMapSprite[i] + 30;
-			}
+		NovaPortrait = CharPortrait[30];
+		NovaSprite = CharMapSprite[30];
 	}
 
 	ChangeCurves=false;
@@ -200,6 +213,8 @@ void LoadChar(char *path,bool single=false){
 		fscanf(fp,"%c",&r);
 	}
 
+
+	/* table_InitialForceData */
 	fseek(fp,0x203A8,SEEK_SET);
 	fscanf(fp,"%c",&r);
 	CharOffset = r;
@@ -210,28 +225,43 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp,"%c",&r);
 	CharOffset = CharOffset*256+r;
 
+	q = MAX_CHARS;
+	if (CharOffset == 0x25154)q = 30;
+
 	fseek(fp,CharOffset,SEEK_SET);
-	int i,j;
-	if(!single||mode==0)
-	for(i=0; i<NumChars; i++){
-		for(j=0; j<10; j++){
-			if(single&&i!=select[mode]){
-				fscanf(fp,"%c",&c);
+	int i, j;
+	if(!single || mode == 0)
+	for(i = 0; i < q; i++) {
+		for(j = 0; j < 10; j++) {
+			if (single && i != select[mode]) {
+				fscanf(fp, "%c", &c);
 				continue;
 			}
-			fscanf(fp,"%c",&(CharName[i][j]));
-			if(CharName[i][j]==9)CharName[i][j]=32;
+			fscanf(fp, "%c", &(CharName[i][j]));
+			if (CharName[i][j] == 9) CharName[i][j] = 32;
 		}
-		if(!single||i==select[mode])CharName[i][10]=0;
-		for(j=0; j<30; j++){
-			if(single&&i!=select[mode]){
-				fscanf(fp,"%c",&c);
+		if (!single || i == select[mode]) CharName[i][10] = 0;
+		for(j = 0; j < 30; j++){
+			if(single && i != select[mode]){
+				fscanf(fp, "%c", &c);
 				continue;
 			}
-			fscanf(fp,"%c",&(Char[i][j]));
+			fscanf(fp, "%c", &(Char[i][j]));
+		}
+	}
+	if (q == 30) {
+		/* Initialize character data for Nova */
+		sprintf(CharName[30], "Nova");
+		for (j = 0; j < 14; j++) {
+			Char[30][j] = Char[0][j];
+		}
+		for (j = 0; j < 8; j++) {
+			Char[30][j + 16] = 255;
 		}
 	}
 
+
+	/* table_BattlespriteData */
 	fseek(fp, 0x203AC, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	BSprOffset = r;
@@ -242,39 +272,50 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp, "%c", &r);
 	BSprOffset = BSprOffset * 256 + r;
 
+	q = MAX_CHARS;
+	if (BSprOffset == 0x25604)q = 30;
+
+	/* Load base battle sprites */
 	fseek(fp, BSprOffset, SEEK_SET);
-	if (!single || mode == 0)
-		for (int i = 0; i<NumChars; i++) {
+	if (!single || mode == 0) {
+		for (int i = 0; i < q; i++) {
 			fscanf(fp, "%c", &r);
 			fscanf(fp, "%c", &c);
-			if (single&&i != select[mode])continue;
+			if (single && i != select[mode])continue;
 			BattleSprite[i][0] = r;
 			BattleSprite[i][1] = c;
 		}
+	}
 
-	if (NumChars == MAX_CHARS) {
-		fseek(fp, 0x71380, SEEK_SET);
-		for (int i = 0; i<NumChars; i++) {
-			fscanf(fp, "%c", &r);
-			fscanf(fp, "%c", &c);
-			if (single&&i != select[mode])continue;
-			BattleSprite2[i][0] = r;
-			BattleSprite2[i][1] = c;
-		}
-
-		if (BattleSprite2[0][0] == 125) {
-			for (int i = 0; i<NumChars; i++) {
-				BattleSprite2[i][0] = BattleSprite[i][0]+19;
+	/* Load promoted battle sprites */
+	if (q == 30) {
+		/* Initialize */
+		for (int i = 0; i < 30; i++) {
+			if (i == 13 || (i >= 27 && i <= 29)) {
+				// If either Domingo, Musashi, Hanzou, or Jogurt; Promoted battle sprite = Base battle sprite
+				BattleSprite2[i][0] = BattleSprite[i][0];
+				BattleSprite2[i][1] = BattleSprite[i][1];
+			}
+			else {
+				BattleSprite2[i][0] = BattleSprite[i][0] + 19;
 				BattleSprite2[i][1] = BattleSprite[i][1];
 			}
 		}
-	} else {
-		for (int i = 0; i<NumChars; i++) {
-			BattleSprite2[i][0] = BattleSprite[i][0] + 19;
-			BattleSprite2[i][1] = BattleSprite[i][1];
+	}
+	else {
+		/* Load */
+		fseek(fp, 0x141380, SEEK_SET);
+		for (int i = 0; i < q; i++) {
+			fscanf(fp, "%c", &r);
+			fscanf(fp, "%c", &c);
+			if (single && i != select[mode])continue;
+			BattleSprite2[i][0] = r;
+			BattleSprite2[i][1] = c;
 		}
 	}
 
+
+	/* table_UnpromotedGrowths */
 	fseek(fp, 0x203EC, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	UStatOffset = r;
@@ -285,17 +326,22 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp, "%c", &r);
 	UStatOffset = UStatOffset * 256 + r;
 
-	for(j=0;j<NumChars;j++){
+	q = MAX_CHARS;
+	if (UStatOffset == 0x26C1A)q = 30;
+
+	for(j = 0; j < q; j++) {
 		fseek(fp, UStatOffset +6*j,SEEK_SET);
-		for(i=0;i<6;i++){
-			if(single&&j!=select[mode]){
-				fscanf(fp,"%c",&c);
+		for(i = 0; i < 6; i++) {
+			if(single && j != select[mode]) {
+				fscanf(fp, "%c", &c);
 				continue;
 			}
-			fscanf(fp,"%c",&(Stats[j][i]));
+			fscanf(fp, "%c", &(Stats[j][i]));
 		}
 	}
 
+
+	/* table_PromotedGrowths */
 	fseek(fp, 0x203F0, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	PStatOffset = r;
@@ -306,19 +352,29 @@ void LoadChar(char *path,bool single=false){
 	fscanf(fp, "%c", &r);
 	PStatOffset = PStatOffset * 256 + r;
 
-	int q = NumChars;
+	q = MAX_CHARS;
 	if (PStatOffset == 0x26CCE)q = 27;
 
-	for(j=0;j<q;j++){
-		fseek(fp, PStatOffset+6*j,SEEK_SET);
-		for(i=0;i<6;i++){
-			if(single&&j!=select[mode]){
-				fscanf(fp,"%c",&c);
+	for(j = 0; j < q; j++) {
+		fseek(fp, PStatOffset + 6 * j, SEEK_SET);
+		for(i = 0; i < 6; i++) {
+			if(single && j != select[mode]) {
+				fscanf(fp, "%c", &c);
 				continue;
 			}
-			fscanf(fp,"%c",&(Stats[j][i+6]));
+			fscanf(fp, "%c", &(Stats[j][i + 6]));
 		}
 	}
+	if (q == 27) {
+		/* Initialize promoted growths for Musashi and Hanzou */
+		for (i = 0; i < 6; i++) {
+			Stats[27][i + 6] = Stats[27][i];
+			Stats[28][i + 6] = Stats[28][i];
+			Stats[27][i] = 0;
+			Stats[28][i] = 0;
+		}
+	}
+
 	fclose(fp);
 	sprintf(file,path);
 }

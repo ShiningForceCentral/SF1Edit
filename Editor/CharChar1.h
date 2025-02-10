@@ -290,25 +290,23 @@ if(submode[mode]==0){
 						}
 						break;
 					case 42:
-						if (romsize >= 0x200000) {
-							val = c - '0';
-							if (val >= 0 && val<10) {
-								i = CharPromotedAt[select[mode]];
-								if (i<100) {
-									i *= 10;
-									i += val;
+						val = c - '0';
+						if (val >= 0 && val<10) {
+							i = CharPromotedAt[select[mode]];
+							if (i<100) {
+								i *= 10;
+								i += val;
 
-									if (i >= 100)i = 99;
+								if (i >= 100)i = 99;
 
-									CharPromotedAt[select[mode]] = i;
-								}
-							}
-							if (c == 8) {
-								i = CharPromotedAt[select[mode]];
-								i = i - i % 10;
-								i /= 10;
 								CharPromotedAt[select[mode]] = i;
 							}
+						}
+						if (c == 8) {
+							i = CharPromotedAt[select[mode]];
+							i = i - i % 10;
+							i /= 10;
+							CharPromotedAt[select[mode]] = i;
 						}
 						break;
 				}

@@ -1,4 +1,6 @@
 ﻿void SaveChar(){
+	unsigned char r;
+
 	if(!strlen(file)){
 		int ret=IDYES;
 		OPENFILENAME openFileName;
@@ -44,368 +46,518 @@
 			return;
 		}
 
-		fseek(fp, 0x6C05, SEEK_SET);
-		fprintf(fp, "%c", 2*NumChars - 3);
-		fseek(fp, 0x6C11, SEEK_SET);
-		fprintf(fp, "%c", NumChars-2);
+		/* GetPortrait */
+		fseek(fp, 0x239E4, SEEK_SET);
+		fprintf(fp, "%c", 0x6C); // bge.s   @isChangedIntoJogurt
+		fprintf(fp, "%c", 0x18);
+		fseek(fp, 0x23A0A, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     GetBaseOrPromotedPortrait
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x13);
+		fprintf(fp, "%c", 0xFF);
+		fprintf(fp, "%c", 0xE0);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+
+		/* GetBaseOrPromotedPortrait */
+		fseek(fp, 0x13FFE0, SEEK_SET);
+		fprintf(fp, "%c", 0x42); // clr.w   d1
+		fprintf(fp, "%c", 0x41);
+		fprintf(fp, "%c", 0x4E); // jsr     IsPromoted
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x4A);
+		fprintf(fp, "%c", 0xDA);
+		fprintf(fp, "%c", 0x66); // bne.s   @promoted
+		fprintf(fp, "%c", 0x06);
+		fprintf(fp, "%c", 0x12); // move.b  table_Portraits1(pc,d0.w),d1
+		fprintf(fp, "%c", 0x3B);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+		fprintf(fp, "%c", 0x12); // move.b  table_Portraits2(pc,d0.w),d1
+		fprintf(fp, "%c", 0x3B);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x4E);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+
+		CharPortrait[30] = NovaPortrait;
+
+		/* table_Portraits1 */
+		fseek(fp, 0x140000, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			fprintf(fp, "%c", (CharPortrait[i]));
+		}
+		/* table_Portraits2 */
+		fseek(fp, 0x140040, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			fprintf(fp, "%c", (CharPortrait2[i]));
+		}
+
+		/* GetMapsprite */
+		fseek(fp, 0x23A56, SEEK_SET);
+		fprintf(fp, "%c", 0x6C); // bge.s   @isChangedIntoJogurt
+		fprintf(fp, "%c", 0x18);
+		fseek(fp, 0x23A7C, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     GetBaseOrPromotedMapsprite
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0xE0);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+
+		/* GetBaseOrPromotedMapsprite */
+		fseek(fp, 0x1400E0, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     ApplyOutfitItems
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x3A);
+		fprintf(fp, "%c", 0x94);
+		fprintf(fp, "%c", 0x64); // bcc.s   @return
+		fprintf(fp, "%c", 0x0E);
+		fprintf(fp, "%c", 0x42); // clr.w   d1
+		fprintf(fp, "%c", 0x41);
+		fprintf(fp, "%c", 0x4E); // jsr     IsPromoted
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x4A);
+		fprintf(fp, "%c", 0xDA);
+		fprintf(fp, "%c", 0x66); // bne.s   @promoted
+		fprintf(fp, "%c", 0x06);
+		fprintf(fp, "%c", 0x12); // move.b  table_Mapsprites1(pc,d0.w),d1
+		fprintf(fp, "%c", 0x3B);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x0C);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+		fprintf(fp, "%c", 0x12); // move.b  table_Mapsprites2(pc,d0.w),d1
+		fprintf(fp, "%c", 0x3B);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x46);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+
+		CharMapSprite[30] = NovaSprite;
+
+		/* table_Mapsprites1 */
+		fseek(fp, 0x140100, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			fprintf(fp, "%c", (CharMapSprite[i]));
+		}
+		/* table_Mapsprites2 */
+		fseek(fp, 0x140140, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			fprintf(fp, "%c", (CharMapSprite2[i]));
+		}
+
+		/* readerScreenAction_New */
+		fseek(fp, 0x3490, SEEK_SET);
+		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-1,d7
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* debugMode_ChapterTest */
+		fseek(fp, 0x4DFA, SEEK_SET);
+		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-2,d7
+		fprintf(fp, "%c", NumChars - 2);
+
+		/* debugMode_BattleTest */
+		fseek(fp, 0x4F60, SEEK_SET);
+		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-2,d7
+		fprintf(fp, "%c", NumChars - 2);
+
+		/* InitializeHeadquarters */
+		fseek(fp, 0x67BE, SEEK_SET);
+		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-1,d7
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* TalkMenuAction */
+		fseek(fp, 0x6C04, SEEK_SET);
+		fprintf(fp, "%c", 0x74); // moveq   #MAPSPRITE_NOVA,d2
+		fprintf(fp, "%c", NovaSprite);
+		fseek(fp, 0x6C10, SEEK_SET);
+		fprintf(fp, "%c", 0x74); // moveq   #NumChars-2,d2
+		fprintf(fp, "%c", NumChars - 2);
+
+		/* InitializeNewGame */
+		fseek(fp, 0x21B30, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     InitializePromotedAtlevels
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x3C);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* InitializePromotedAtlevels */
+		fseek(fp, 0x143C00, SEEK_SET);
+		fprintf(fp, "%c", 0x43); // lea     (table_InitialPromotedAtLevels).l,a1
+		fprintf(fp, "%c", 0xF9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x3C);
+		fprintf(fp, "%c", 0x20);
+		fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
+		fprintf(fp, "%c", 0x3C);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", NumChars - 1);
+		fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
+		fprintf(fp, "%c", 0x31);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x11); // move.b  d1,(a0,d0.w)
+		fprintf(fp, "%c", 0x81);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x51); // dbf     d0,@loop
+		fprintf(fp, "%c", 0xC8);
+		fprintf(fp, "%c", 0xFF);
+		fprintf(fp, "%c", 0xF6);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+
+		/* table_InitialPromotedAtLevels */
+		fseek(fp, 0x143C20, SEEK_SET);
+		for (int i = 0; i < MAX_CHARS; i++) {
+			if (CharPromotedAt[i] <= 20)fprintf(fp, "%c", CharPromotedAt[i]); // promoted at level can not exceed 20 (i.e., the stat growth projection level)
+		}
+
+		/* ResetCombatants */
+		fseek(fp, 0x22032, SEEK_SET);
+		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* RefreshMembersList */
+		fseek(fp, 0x2207E, SEEK_SET);
+		fprintf(fp, "%c", 0x0C); // cmpi.b  #NumChars,d0
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", NumChars);
+
+		/* RefillWholeForceHp */
+		fseek(fp, 0x22222, SEEK_SET);
+		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* KindanNoHako */
+		fseek(fp, 0x23532, SEEK_SET);
+		fprintf(fp, "%c", 0x74); // moveq   #NumChars-1,d2
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* ResetForceMemberStats */
+		fseek(fp, 0x24D12, SEEK_SET);
+		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* IsItemHeldByForce */
+		fseek(fp, 0x24F06, SEEK_SET);
+		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
+		fprintf(fp, "%c", NumChars - 1);
+
+		/* LoadBattlespriteAndPaletteIndexes */
+		fseek(fp, 0x23B60, SEEK_SET);
+		fprintf(fp, "%c", 0xD0); // adda.w  d0,a0
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0xD0); // adda.w  d0,a0
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0x4E); // jsr     GetBaseOrPromotedBattlesprite
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x16);
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0x12); // move.b  (a0)+,d1
+		fprintf(fp, "%c", 0x18);
+		fprintf(fp, "%c", 0x14); // move.b  (a0),d2
+		fprintf(fp, "%c", 0x10);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x31); // move.w  d1,((BATTLESCENE_SPRITE_INDEX-$1000000)).w
+		fprintf(fp, "%c", 0xC1);
+		fprintf(fp, "%c", 0xCB);
+		fprintf(fp, "%c", 0xA6);
+		fprintf(fp, "%c", 0x31); // move.w  d2,((BATTLESCENE_PALETTE_INDEX-$1000000)).w
+		fprintf(fp, "%c", 0xC2);
+		fprintf(fp, "%c", 0xCB);
+		fprintf(fp, "%c", 0xA8);
+
+		/* GetBaseOrPromotedBattlesprite */
+		fseek(fp, 0x1416C0, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     IsPromoted
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x4A);
+		fprintf(fp, "%c", 0xDA);
+		fprintf(fp, "%c", 0x66); // bne.s   @promoted
+		fprintf(fp, "%c", 0x08);
+		fprintf(fp, "%c", 0x20);
+		fprintf(fp, "%c", 0x79); // movea.l (p_BattlespriteData).l,a0
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x03);
+		fprintf(fp, "%c", 0xAC);
+		fprintf(fp, "%c", 0x60); // bra.s   loc_1416D6
+		fprintf(fp, "%c", 0x06);
+		fprintf(fp, "%c", 0x41); // lea     (table_Battlesprites2).l,a0
+		fprintf(fp, "%c", 0xF9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x13);
+		fprintf(fp, "%c", 0x80);
+		fprintf(fp, "%c", 0xD0); // adda.w  d0,a0
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0xD0); // adda.w  d0,a0
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
 
 		if (NumChars == MAX_CHARS) {
-			if (MSBankOffset == 0x39928) {
-				MessageBox(NULL, "Graphics must first be saved before characters can be extended.", "Error", MB_OK);
-				fclose(fp);
-				return;
-			}
 
-			fseek(fp, 0x23A0A, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
+			/* Header: SRAM end address */
+			fseek(fp, 0x1B8, SEEK_SET);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x06);
+			fprintf(fp, "%c", 0x20);
 			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xE0);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0xFF);
 
-			fseek(fp, 0x23A64, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0xE0);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-
-			fseek(fp, 0x23A7C, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x64);
-			fprintf(fp, "%c", 0x0E);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-
-			fseek(fp, 0x6FFE0, SEEK_SET);
-			fprintf(fp, "%c", 0x42);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x4A);
-			fprintf(fp, "%c", 0xDA);
-			fprintf(fp, "%c", 0x66);
-			fprintf(fp, "%c", 0x06);//
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x3B);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x14);//
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x3B);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E);//
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fseek(fp, 0x700E0, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x3A);
-			fprintf(fp, "%c", 0x94);
-			fprintf(fp, "%c", 0x64);
-			fprintf(fp, "%c", 0x0E);//
-
-			fprintf(fp, "%c", 0x42);
-			fprintf(fp, "%c", 0x41);
-
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x4A);
-			fprintf(fp, "%c", 0xDA);
-			fprintf(fp, "%c", 0x66);
-			fprintf(fp, "%c", 0x06);//
-
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x3B);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x0C);//
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x3B);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x46);//
-
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fseek(fp, 0x70000, SEEK_SET);
-			for (int i = 0;i < NumChars;i++) {
-				fprintf(fp, "%c", (CharPortrait[i]));
-			}
-			fseek(fp, 0x70040, SEEK_SET);
-			for (int i = 0;i < NumChars;i++) {
-				fprintf(fp, "%c", (CharPortrait2[i]));
-			}
-			fseek(fp, 0x70100, SEEK_SET);
-			for (int i = 0;i < NumChars;i++) {
-				fprintf(fp, "%c", (CharMapSprite[i]));
-			}
-
-			fseek(fp, 0x70140, SEEK_SET);
-			for (int i = 0; i < NumChars; i++) {
-				fprintf(fp, "%c", (CharMapSprite2[i]));
-			}
-
-			fseek(fp, 0x21B20, SEEK_SET);
+			/* InitializeNewGame */
+			fseek(fp, 0x21B1E, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a1
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xF0);
 			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30); // move.w  #MAX_CHARS*40,d0
 			fprintf(fp, "%c", 0x3C);
 			fprintf(fp, "%c", 0x07);
 			fprintf(fp, "%c", 0xD0);
-
-			fseek(fp, 0x22602, SEEK_SET);
-			fprintf(fp, "%c", 0xF0);
-			fprintf(fp, "%c", 0x20);
-
-			fseek(fp, 0x1643BC, SEEK_SET);
-			fprintf(fp, "%c", 0xF0);
-			fprintf(fp, "%c", 0x20);
-
-			fseek(fp, 0x21B2E, SEEK_SET);
+			fseek(fp, 0x21B2C, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xCC);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x3C);
-
-			fseek(fp, 0x24922, SEEK_SET);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x24AEC, SEEK_SET);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x24B98, SEEK_SET);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x220B8, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x221D4, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x71400, SEEK_SET);
-			fprintf(fp, "%c", 0x48);
-			fprintf(fp, "%c", 0xE7);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0x00);
-
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x6C);
-			fprintf(fp, "%c", 0x0C);
-
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x8A);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x4C);
-			fprintf(fp, "%c", 0xDF);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x4C);
-			fprintf(fp, "%c", 0xDF);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fseek(fp, 0x221B6, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fseek(fp, 0x21B3C, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     ClearForceMemberFlags2
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
 			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x40);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x71);
-
-			fseek(fp, 0x71440, SEEK_SET);
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-
-			fprintf(fp, "%c", 0x6C);
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x8A);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x21);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x8A);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x21);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0xCC);
-			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-	
-			fseek(fp, 0x21B3E, SEEK_SET);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
 			fprintf(fp, "%c", 0x14);
 			fprintf(fp, "%c", 0x80);
 
-			fseek(fp, 0x71480, SEEK_SET);
-			fprintf(fp, "%c", 0x42);
+			/* ClearForceMemberFlags2 */
+			fseek(fp, 0x141480, SEEK_SET);
+			fprintf(fp, "%c", 0x42); // clr.l   ((FORCE_MEMBER_FLAGS_2-$1000000)).w
 			fprintf(fp, "%c", 0xB8);
 			fprintf(fp, "%c", 0xCC);
 			fprintf(fp, "%c", 0x80);
-
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetLevel
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x7C);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0x21B3A, SEEK_SET);
-			fprintf(fp, "%c", 0x70);
-			fprintf(fp, "%c", 0x31);
+			/* GetEntityEntryAddress */
+			fseek(fp, 0x22600, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xF0);
+			fprintf(fp, "%c", 0x20);
 
-			fseek(fp, 0x21CE5, SEEK_SET);
-			fprintf(fp, "%c", 0x40);
+			/* CheckSavedGames */
+			fseek(fp, 0x1643BA, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xF0);
+			fprintf(fp, "%c", 0x20);
 
-			fseek(fp, 0x21BE2, SEEK_SET);
+			/* Promote */
+			fseek(fp, 0x24920, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x00);
+
+			/* GetPromotedAtLevel */
+			fseek(fp, 0x24AEA, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a1
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x00);
+
+			/* CalculateTotalLevel */
+			fseek(fp, 0x24B96, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x00);
+
+			/* IsInForce */
+			fseek(fp, 0x220B8, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jmp     GetForceMemberFlag
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+
+			/* dup_IsInForce */
+			fseek(fp, 0x221D4, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jmp     GetForceMemberFlag
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+
+			/* GetForceMemberFlag */
+			fseek(fp, 0x141400, SEEK_SET);
+			fprintf(fp, "%c", 0x48); // 
+			fprintf(fp, "%c", 0xE7);
+			fprintf(fp, "%c", 0xC0);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x0C); // 
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x6C); // 
+			fprintf(fp, "%c", 0x0C);
+			fprintf(fp, "%c", 0x22); // 
+			fprintf(fp, "%c", 0x38);
 			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x21BE6, SEEK_SET);
+			fprintf(fp, "%c", 0x8A);
+			fprintf(fp, "%c", 0x01); // 
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x4C); // 
+			fprintf(fp, "%c", 0xDF);
+			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x03);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+			fprintf(fp, "%c", 0x04); // 
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x22); // move.l  ((FORCE_MEMBER_FLAGS_2-$1000000)).w,d1
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x01); // 
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x4C); // 
+			fprintf(fp, "%c", 0xDF);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x03);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0x225BA, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x225E8, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x22033, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
-
-
-			fseek(fp, 0x98AA, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x9942, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x9AA4, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0xAB5E, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x94);
-
-			fseek(fp, 0x12D5A, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			/* JoinForce */
+			fseek(fp, 0x221B6, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     SetForceMemberFlag
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x40);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+
+			/* SetForceMemberFlag */
+			fseek(fp, 0x141440, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // 
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x6C); // 
+			fprintf(fp, "%c", 0x0C);
+			fprintf(fp, "%c", 0x22); // 
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+			fprintf(fp, "%c", 0x01); // 
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0x21); // 
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+			fprintf(fp, "%c", 0x04); // 
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x22); // move.l  ((FORCE_MEMBER_FLAGS_2-$1000000)).w,d1
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x01); // 
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0x21); // move.l  d1,((FORCE_MEMBER_FLAGS_2-$1000000)).w
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0xCC);
+			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x06); // 
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* MapTeleports */
+			fseek(fp, 0x12D5A, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     GetEventFlagsAddress
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x14);
 			fprintf(fp, "%c", 0x15);
 			fprintf(fp, "%c", 0x00);
 
-			fseek(fp, 0x71500, SEEK_SET);
+			/* GetEventFlagsAddress */
+			fseek(fp, 0x141500, SEEK_SET);
 			fprintf(fp, "%c", 0x0C);
 			fprintf(fp, "%c", 0x01);
 			fprintf(fp, "%c", 0x00);
@@ -429,54 +581,124 @@
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0xA778, SEEK_SET);
+			/* ClearCombatantData */
+			fseek(fp, 0x21BE0, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x94);
 
-			fseek(fp, 0xA0F4, SEEK_SET);
+			/* alt_GetEntity */
+			fseek(fp, 0x225B8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x94);
 
-			fseek(fp, 0xB54E, SEEK_SET);
+			/* GetCombatantEntryAddress */
+			fseek(fp, 0x225E6, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x94);
 
-			fseek(fp, 0xB476, SEEK_SET);
+			fseek(fp, 0x98A8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0x9940, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0x9AA2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0xAB5C, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0xA776, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0xA0F2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0xB54C, SEEK_SET);
+			fprintf(fp, "%c", 0x45); // lea     ((COMBATANT_DATA-$1000000)).w,a2
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x94);
+
+			fseek(fp, 0xB474, SEEK_SET);
+			fprintf(fp, "%c", 0x30); // move.w  #2047,d0
+			fprintf(fp, "%c", 0x3C);
 			fprintf(fp, "%c", 0x07);
 			fprintf(fp, "%c", 0xFF);
 
-			fseek(fp, 0x22081, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
-
-			fseek(fp, 0x17354, SEEK_SET);
+			/* ExecuteChurchMenu */
+			fseek(fp, 0x17352, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xCC);
 			fprintf(fp, "%c", 0x00);
 
-			fseek(fp, 0xA148, SEEK_SET);
+			fseek(fp, 0xA144, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0xA4);
 
-			fseek(fp, 0x9828, SEEK_SET);
+			fseek(fp, 0x9824, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0xA4);
 
-			fseek(fp, 0x5A8C, SEEK_SET);
+			/* mainMenuAction_Talk */
+			fseek(fp, 0x5A88, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0xA4);
 
-			fseek(fp, 0x24D13, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
+			/* InitializeHeadquarters */
+			fseek(fp, 0x6822, SEEK_SET);
+			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x15);
+			fprintf(fp, "%c", 0x80);
+			fseek(fp, 0x6856, SEEK_SET);
+			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x15);
+			fprintf(fp, "%c", 0xA0);
 
-			fseek(fp, 0x225CB, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
-
-			fseek(fp, 0x225CF, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
-
-			fseek(fp, 0x73D7, SEEK_SET);
-			fprintf(fp, "%c", 0x32);
-
-			fseek(fp, 0x71580, SEEK_SET);
+			fseek(fp, 0x141580, SEEK_SET);
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
@@ -502,7 +724,7 @@
 			fprintf(fp, "%c", 0x68);
 			fprintf(fp, "%c", 0x28);
 
-			fseek(fp, 0x715A0, SEEK_SET);
+			fseek(fp, 0x1415A0, SEEK_SET);
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
@@ -528,24 +750,25 @@
 			fprintf(fp, "%c", 0x68);
 			fprintf(fp, "%c", 0x5C);
 
-			fseek(fp, 0x6822, SEEK_SET);
+			/* CopyBytesToSram */
+			fseek(fp, 0x37D0, SEEK_SET);
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x15);
-			fprintf(fp, "%c", 0x80);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0x00);
 
-			fseek(fp, 0x6856, SEEK_SET);
+			/* CopyBytesFromSram */
+			fseek(fp, 0x37E8, SEEK_SET);
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x15);
-			fprintf(fp, "%c", 0xA0);
+			fprintf(fp, "%c", 0x14);
+			fprintf(fp, "%c", 0x16);
+			fprintf(fp, "%c", 0x60);
 
-
-			fseek(fp, 0x71600, SEEK_SET);
+			fseek(fp, 0x141600, SEEK_SET);
 			fprintf(fp, "%c", 0x12);
 			fprintf(fp, "%c", 0x80);
 			fprintf(fp, "%c", 0x54);
@@ -623,7 +846,7 @@
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0x71660, SEEK_SET);
+			fseek(fp, 0x141660, SEEK_SET);
 			fprintf(fp, "%c", 0xB0);
 			fprintf(fp, "%c", 0x11);
 			fprintf(fp, "%c", 0x54);
@@ -701,473 +924,251 @@
 			fprintf(fp, "%c", 0x4E);
 			fprintf(fp, "%c", 0x75);
 
-			fseek(fp, 0x37D0, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0x00);
-
-			fseek(fp, 0x37E8, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0x60);
-
-			fseek(fp, 0x1BA, SEEK_SET);
-			fprintf(fp, "%c", 0xFF);
-
-			fseek(fp, 0x23B3B, SEEK_SET);
-			fprintf(fp, "%c", 0x3A);
-
-			fseek(fp, 0x23B51, SEEK_SET);
-			fprintf(fp, "%c", 0x1C);
-
-			fseek(fp, 0x23B5F, SEEK_SET);
-			fprintf(fp, "%c", 0x0E);
-
-			fseek(fp, 0x23B60, SEEK_SET);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
+		}
+		else {
 			
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
+			/* Header: SRAM end address */
+			fseek(fp, 0x1B8, SEEK_SET);
 			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0xC0);
-
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x18);
-			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0xCB);
-			fprintf(fp, "%c", 0xA6);
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0xC2);
-			fprintf(fp, "%c", 0xCB);
-			fprintf(fp, "%c", 0xA8);
-			fprintf(fp, "%c", 0x4C);
-			fprintf(fp, "%c", 0xDF);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-			fseek(fp, 0x716C0, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x4A);
-			fprintf(fp, "%c", 0xDA);
-			fprintf(fp, "%c", 0x66);
-			fprintf(fp, "%c", 0x08);
 			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0x79);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0xAC);
-			fprintf(fp, "%c", 0x60);
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x13);
-			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-		} else {
-			fseek(fp, 0x23A1E, SEEK_SET);
-			for (int i = 0; i < NumChars; i++) {
-				fprintf(fp, "%c", (CharPortrait2[i]));
-			}
+			fprintf(fp, "%c", 0x3F);
+			fprintf(fp, "%c", 0xFF);
 
-			fseek(fp, 0x23B3B, SEEK_SET);
-			fprintf(fp, "%c", 0x44);
-
-			fseek(fp, 0x23B51, SEEK_SET);
-			fprintf(fp, "%c", 0x26);
-
-			fseek(fp, 0x23B5F, SEEK_SET);
-			fprintf(fp, "%c", 0x18);
-
-			fseek(fp, 0x23B60, SEEK_SET);
-			fprintf(fp, "%c", 0x20);
-			fprintf(fp, "%c", 0x79);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x02);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0xAC);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0xD0);
-			fprintf(fp, "%c", 0xC0);
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x18);
-			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x61);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x0F);
-			fprintf(fp, "%c", 0x6A);
-			fprintf(fp, "%c", 0x67);
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x13);
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0xCB);
-			fprintf(fp, "%c", 0xA6);
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0xC2);
-			fprintf(fp, "%c", 0xCB);
-			fprintf(fp, "%c", 0xA8);
-			fprintf(fp, "%c", 0x4C);
-			fprintf(fp, "%c", 0xDF);
-			fprintf(fp, "%c", 0x03);
-			fprintf(fp, "%c", 0x07);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x75);
-
-
+			/* CopyBytesToSram */
 			fseek(fp, 0x37D0, SEEK_SET);
-			fprintf(fp, "%c", 0x12);
+			fprintf(fp, "%c", 0x12); // move.b  d0,(a1)
 			fprintf(fp, "%c", 0x80);
-			fprintf(fp, "%c", 0x54);
+			fprintf(fp, "%c", 0x54); // addq.l  #2,a1
 			fprintf(fp, "%c", 0x89);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
+			/* CopyBytesFromSram */
 			fseek(fp, 0x37E8, SEEK_SET);
-			fprintf(fp, "%c", 0xB0);
+			fprintf(fp, "%c", 0xB0); // cmp.b   (a1),d0
 			fprintf(fp, "%c", 0x11);
-			fprintf(fp, "%c", 0x54);
+			fprintf(fp, "%c", 0x54); // addq.l  #2,a1
 			fprintf(fp, "%c", 0x89);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // rts
 			fprintf(fp, "%c", 0x75);
 
+			/* InitializeHeadquarters */
 			fseek(fp, 0x6822, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     j_SetCombatantY
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x01);
 			fprintf(fp, "%c", 0x0C);
-
 			fseek(fp, 0x6856, SEEK_SET);
-			fprintf(fp, "%c", 0x4E);
+			fprintf(fp, "%c", 0x4E); // jsr     j_SetCombatantY
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x01);
 			fprintf(fp, "%c", 0x0C);
 
-			fseek(fp, 0x73D7, SEEK_SET);
-			fprintf(fp, "%c", 0x1F);
-
-			fseek(fp, 0x24D13, SEEK_SET);
+			fseek(fp, 0xA144, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x1E);
-
-			fseek(fp, 0x225CB, SEEK_SET);
-			fprintf(fp, "%c", 0x1F);
-
-			fseek(fp, 0x225CF, SEEK_SET);
-			fprintf(fp, "%c", 0x1F);
-
-			fseek(fp, 0xA148, SEEK_SET);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xC6);
 
-			fseek(fp, 0x9828, SEEK_SET);
+			fseek(fp, 0x9824, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xC6);
 
-			fseek(fp, 0x5A8C, SEEK_SET);
+			/* mainMenuAction_Talk */
+			fseek(fp, 0x5A88, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xC6);
 
-			fseek(fp, 0x17354, SEEK_SET);
+			/* ExecuteChurchMenu */
+			fseek(fp, 0x17352, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0x6A);
 
-			fseek(fp, 0x22081, SEEK_SET);
-			fprintf(fp, "%c", 0x1F);
-
-			fseek(fp, 0xB476, SEEK_SET);
-			fprintf(fp, "%c", 0x09);
-			fprintf(fp, "%c", 0x7F);
-
-			fseek(fp, 0xB54E, SEEK_SET);
+			fseek(fp, 0xB54C, SEEK_SET);
+			fprintf(fp, "%c", 0x45); // lea     ((COMBATANT_DATA-$1000000)).w,a2
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
-			fseek(fp, 0xA778, SEEK_SET);
+			fseek(fp, 0xA776, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
-			fseek(fp, 0xA0F4, SEEK_SET);
+			fseek(fp, 0xA0F2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
+			fseek(fp, 0x98A8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xA1);
+			fprintf(fp, "%c", 0xB6);
+
+			fseek(fp, 0x9940, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xA1);
+			fprintf(fp, "%c", 0xB6);
+
+			fseek(fp, 0x9AA2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xA1);
+			fprintf(fp, "%c", 0xB6);
+
+			fseek(fp, 0xAB5C, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0xA1);
+			fprintf(fp, "%c", 0xB6);
+
+			/* MapTeleports */
 			fseek(fp, 0x12D5A, SEEK_SET);
-			fprintf(fp, "%c", 0x43);
+			fprintf(fp, "%c", 0x43); // lea     (EVENT_FLAGS).l,a1
 			fprintf(fp, "%c", 0xF9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0xFF);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x4E);
 
-			fseek(fp, 0x98AA, SEEK_SET);
+			/* ClearCombatantData */
+			fseek(fp, 0x21BE0, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
-			fseek(fp, 0x9942, SEEK_SET);
+			/* alt_GetEntity */
+			fseek(fp, 0x225B8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
-			fseek(fp, 0x9AA4, SEEK_SET);
+			/* GetCombatantEntryAddress */
+			fseek(fp, 0x225E6, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
 			fprintf(fp, "%c", 0xB6);
 
-			fseek(fp, 0xAB5E, SEEK_SET);
+			/* JoinForce */
+			fseek(fp, 0x221B6, SEEK_SET);
+			fprintf(fp, "%c", 0x22); // move.l  ((FORCE_MEMBER_FLAGS-$1000000)).w,d1
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+			fprintf(fp, "%c", 0x01); // bset    d0,d1
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0x21); // move.l  d1,((FORCE_MEMBER_FLAGS-$1000000)).w
+			fprintf(fp, "%c", 0xC1);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+
+			/* IsInForce */
+			fseek(fp, 0x220B8, SEEK_SET);
+			fprintf(fp, "%c", 0x48); // movem.l d1,-(sp)
+			fprintf(fp, "%c", 0xE7);
+			fprintf(fp, "%c", 0x40);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x22); // move.l  ((FORCE_MEMBER_FLAGS-$1000000)).w,d1
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+
+			/* dup_IsInForce */
+			fseek(fp, 0x221D4, SEEK_SET);
+			fprintf(fp, "%c", 0x48); // movem.l d1,-(sp)
+			fprintf(fp, "%c", 0xE7);
+			fprintf(fp, "%c", 0x40);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x22); // move.l  ((FORCE_MEMBER_FLAGS-$1000000)).w,d1
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x8A);
+
+			/* Promote */
+			fseek(fp, 0x24920, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0xB6);
+			fprintf(fp, "%c", 0x6A);
 
-			fseek(fp, 0x22033, SEEK_SET);
-			fprintf(fp, "%c", 0x1E);
-
-			fseek(fp, 0x21CE5, SEEK_SET);
-			fprintf(fp, "%c", 0x20);
-
-			fseek(fp, 0x21BE2, SEEK_SET);
+			/* GetPromotedAtLevel */
+			fseek(fp, 0x24AEA, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a1
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0xB6);
+			fprintf(fp, "%c", 0x6A);
 
-			fseek(fp, 0x21BE6, SEEK_SET);
-			fprintf(fp, "%c", 0x01);
-
-			fseek(fp, 0x225BA, SEEK_SET);
+			/* CalculateTotalLevel */
+			fseek(fp, 0x24B96, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0xB6);
+			fprintf(fp, "%c", 0x6A);
 
-			fseek(fp, 0x225E8, SEEK_SET);
+			/* InitializeNewGame */
+			fseek(fp, 0x21B1E, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", 0x9C);
+			fprintf(fp, "%c", 0x92);
+			fprintf(fp, "%c", 0x30); // move.w  #FORCE_MEMBERS_DATA_BYTES_COUNTER,d0
+			fprintf(fp, "%c", 0x3C);
+			fprintf(fp, "%c", 0x04);
+			fprintf(fp, "%c", 0xD7);
+			fseek(fp, 0x21B2C, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((PROMOTED_AT_LEVELS-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0xB6);
-
-			fseek(fp, 0x21B3A, SEEK_SET);
-			fprintf(fp, "%c", 0x70);
-			if (NumChars == MAX_CHARS) {
-				fprintf(fp, "%c", 0x31); // moveq   #49,d0
-			}
-			else {
-				if (JogurtLevels) {
-					fprintf(fp, "%c", 0x1D); // moveq   #29,d0
-				}
-				else {
-					fprintf(fp, "%c", 0x1C); // moveq   #28,d0
-				}
-			}
-
-			fseek(fp, 0x21B3E, SEEK_SET);
+			fprintf(fp, "%c", 0x6A);
+			fseek(fp, 0x21B3C, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_GetLevel
+			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x7C);
 
-			fseek(fp, 0x221B6, SEEK_SET);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x8A);
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x21);
-			fprintf(fp, "%c", 0xC1);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x8A);
-
-			fseek(fp, 0x220B8, SEEK_SET);
-			fprintf(fp, "%c", 0x48);
-			fprintf(fp, "%c", 0xE7);
-			fprintf(fp, "%c", 0x40);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-
-			fseek(fp, 0x221D4, SEEK_SET);
-			fprintf(fp, "%c", 0x48);
-			fprintf(fp, "%c", 0xE7);
-			fprintf(fp, "%c", 0x40);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x22);
-			fprintf(fp, "%c", 0x38);
-
-			fseek(fp, 0x21B2E, SEEK_SET);
-			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0x6A);
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-
-			fseek(fp, 0x24922, SEEK_SET);
-			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0x6A);
-
-			fseek(fp, 0x24AEC, SEEK_SET);
-			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0x6A);
-
-			fseek(fp, 0x24B98, SEEK_SET);
-			fprintf(fp, "%c", 0xA1);
-			fprintf(fp, "%c", 0x6A);
-
-			fseek(fp, 0x21B20, SEEK_SET);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x92);
-			fprintf(fp, "%c", 0x30);
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0xD7);
-
-			fseek(fp, 0x22602, SEEK_SET);
+			/* GetEntityEntryAddress */
+			fseek(fp, 0x22600, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x92);
 
-			fseek(fp, 0x1643BC, SEEK_SET);
+			/* CheckSavedGames */
+			fseek(fp, 0x1643BA, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((FORCE_MEMBERS_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
 			fprintf(fp, "%c", 0x9C);
 			fprintf(fp, "%c", 0x92);
-
-			fseek(fp, 0x23A0A, SEEK_SET);
-			fprintf(fp, "%c", 0x42);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x61);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0xCA);
-			fprintf(fp, "%c", 0x67);
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x3B);
-			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x08);
-
-			fseek(fp, 0x23A64, SEEK_SET);
-			fprintf(fp, "%c", 0x0C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x66);
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x32);
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", NovaSprite);
-			fprintf(fp, "%c", 0x60);
-			fprintf(fp, "%c", 0x1E);
-
-			fseek(fp, 0x23A7C, SEEK_SET);
-			fprintf(fp, "%c", 0x61);
-			fprintf(fp, "%c", 0x16);
-			fprintf(fp, "%c", 0x64);
-			fprintf(fp, "%c", 0x0E);
-			fprintf(fp, "%c", 0x42);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x12);
-			fprintf(fp, "%c", 0x00);
-
-			fprintf(fp, "%c", 0x61);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x10);
-			fprintf(fp, "%c", 0x54);
-			fprintf(fp, "%c", 0x67);
-			fprintf(fp, "%c", 0x04);
-			fprintf(fp, "%c", 0x06);
-			fprintf(fp, "%c", 0x41);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
 		}
 
 
 
-		if (romsize >= 0x200000) {
-			fseek(fp, 0x21B30, SEEK_SET);
-			fprintf(fp, "%c", 0x4E); // jsr     sub_1FFC00
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1F);
-			fprintf(fp, "%c", 0xFC);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E); // nop
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E); // nop
-			fprintf(fp, "%c", 0x71);
 
-			fseek(fp, 0x1FFC00, SEEK_SET);
-			fprintf(fp, "%c", 0x43); // lea     (byte_1E6000).l,a1
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x60);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", NumChars-1);
-
-			fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x11); // move.b  d1,(a0,d0.w)
-			fprintf(fp, "%c", 0x81);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x51); // dbf     d0,loc_1FFC0A
-			fprintf(fp, "%c", 0xC8);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xF6);
-			fprintf(fp, "%c", 0x4E); // rts
-			fprintf(fp, "%c", 0x75);
-		}
-			/*revert
-			fprintf(fp, "%c", 0x30); // move.w  #30,d0
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1E);
-			fprintf(fp, "%c", 0x42); // clr.b   (a0)+
-			fprintf(fp, "%c", 0x18);
-			fprintf(fp, "%c", 0x51); // dbf     d0,loc_21B34
-			fprintf(fp, "%c", 0xC8);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xFC);
-
-		*/
-
-		if (romsize >= 0x200000) {
-			fseek(fp, 0x1E6000, SEEK_SET);
-			for (int i = 0; i < NumChars; i++) {
-				fprintf(fp, "%c", CharPromotedAt[i]);
-			}
-		}
 
 		fseek(fp,0x203E8,SEEK_SET);
 		fprintf(fp,"%c",(CurvesOffset&0xFF000000)/0x1000000);
@@ -1207,7 +1208,7 @@
 
 		fseek(fp,LearnOffset,SEEK_SET);
 
-		for(i=0;i<NumChars;i++){
+		for (i = 0;i < MAX_CHARS; i++) {
 
 			for(int x=0;x<NumLearn[i];x++){
 				for(int y=x+1;y<NumLearn[i];y++){
@@ -1236,28 +1237,29 @@
 		fprintf(fp,"%c",255);
 		fprintf(fp,"%c",255);
 
-		if (NumChars == MAX_CHARS)CharOffset = 0x70200;
+		/* table_InitialForceData */
+		CharOffset = 0x140200;
 
-		fseek(fp,132008,SEEK_SET);
+		fseek(fp,0x203A8,SEEK_SET);
 		fprintf(fp,"%c",(CharOffset&0xFF000000)/0x1000000);
 		fprintf(fp,"%c",(CharOffset&0x00FF0000)/0x10000);
 		fprintf(fp,"%c",(CharOffset&0x0000FF00)/0x100);
 		fprintf(fp,"%c",(CharOffset&0x000000FF));
 
-		fseek(fp,CharOffset,SEEK_SET);
-		for(i=0; i<NumChars; i++){
-			for(j=0; j<10; j++){
-				fprintf(fp,"%c",CharName[i][j]);
+		fseek(fp, CharOffset, SEEK_SET);
+		for(i = 0; i < MAX_CHARS; i++){
+			for(j = 0; j < 10; j++){
+				fprintf(fp, "%c", CharName[i][j]);
 			}
-			CharName[i][10]=0;
-			for(j=0; j<30; j++){
-				fprintf(fp,"%c",Char[i][j]);
+			CharName[i][10] = 0;
+			for(j = 0; j < 30; j++){
+				fprintf(fp, "%c", Char[i][j]);
 			}
 		}
 
-		if (NumChars == MAX_CHARS) {
-			BSprOffset = 0x71300;
-		}
+
+		/* table_BattlespriteData */
+		BSprOffset = 0x141300;
 
 		fseek(fp, 0x203AC, SEEK_SET);
 		fprintf(fp, "%c", (BSprOffset & 0xFF000000) / 0x1000000);
@@ -1266,22 +1268,19 @@
 		fprintf(fp, "%c", (BSprOffset & 0x000000FF));
 
 		fseek(fp, BSprOffset, SEEK_SET);
-		for (i = 0; i<NumChars; i++) {
+		for (i = 0; i < MAX_CHARS; i++) {
 			fprintf(fp, "%c", BattleSprite[i][0]);
 			fprintf(fp, "%c", BattleSprite[i][1]);
 		}
-
-		if (NumChars == MAX_CHARS) {
-			fseek(fp, 0x71380, SEEK_SET);
-			for (i = 0; i<NumChars; i++) {
-				fprintf(fp, "%c", BattleSprite2[i][0]);
-				fprintf(fp, "%c", BattleSprite2[i][1]);
-			}
+		fseek(fp, 0x141380, SEEK_SET);
+		for (i = 0; i < MAX_CHARS; i++) {
+			fprintf(fp, "%c", BattleSprite2[i][0]);
+			fprintf(fp, "%c", BattleSprite2[i][1]);
 		}
 
-		if (NumChars == MAX_CHARS) {
-			UStatOffset = 0x71000;
-		}
+
+		/* table_UnpromotedGrowths */
+		UStatOffset = 0x141000;
 
 		fseek(fp, 0x203EC, SEEK_SET);
 		fprintf(fp, "%c", (UStatOffset & 0xFF000000) / 0x1000000);
@@ -1289,18 +1288,16 @@
 		fprintf(fp, "%c", (UStatOffset & 0x0000FF00) / 0x100);
 		fprintf(fp, "%c", (UStatOffset & 0x000000FF));
 
-		for(j=0;j<NumChars;j++){
-			fseek(fp, UStatOffset +6*j,SEEK_SET);
-			for(i=0;i<6;i++){
-				fprintf(fp,"%c",Stats[j][i]);
+		for (j = 0; j < MAX_CHARS; j++) {
+			fseek(fp, UStatOffset + 6 * j,SEEK_SET);
+			for(i = 0; i < 6; i++){
+				fprintf(fp, "%c", Stats[j][i]);
 			}
 		}
 
-		int q = NumChars;
 
-		if (NumChars == MAX_CHARS) {
-			PStatOffset = 0x71180;
-		}
+		/* table_PromotedGrowths */
+		PStatOffset = 0x141180;
 
 		fseek(fp, 0x203F0, SEEK_SET);
 		fprintf(fp, "%c", (PStatOffset & 0xFF000000) / 0x1000000);
@@ -1308,10 +1305,10 @@
 		fprintf(fp, "%c", (PStatOffset & 0x0000FF00) / 0x100);
 		fprintf(fp, "%c", (PStatOffset & 0x000000FF));
 
-		for(j=0;j<q;j++){
-			fseek(fp, PStatOffset +6*j,SEEK_SET);
-			for(i=0;i<6;i++){
-				fprintf(fp,"%c",Stats[j][i+6]);
+		for (j = 0; j < MAX_CHARS; j++) {
+			fseek(fp, PStatOffset + 6 * j, SEEK_SET);
+			for (i= 0; i < 6; i++) {
+				fprintf(fp, "%c", Stats[j][i + 6]);
 			}
 		}
 
