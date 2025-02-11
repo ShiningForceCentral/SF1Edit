@@ -304,6 +304,46 @@
 		fprintf(fp, "%c", 0x74); // moveq   #NumChars-1,d2
 		fprintf(fp, "%c", NumChars - 1);
 
+		/* CalculateInitialStatValue */
+		fseek(fp, 0x24A1A, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     ApplyGrowthTargetToInitialStatValue
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x17);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+
+		/* ApplyGrowthTargetToInitialStatValue */
+		fseek(fp, 0x141700, SEEK_SET);
+		fprintf(fp, "%c", 0x4E); // jsr     CalculateGrowthTarget
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x4A);
+		fprintf(fp, "%c", 0x44);
+		fprintf(fp, "%c", 0x4A); // tst.w   d1
+		fprintf(fp, "%c", 0x41);
+		fprintf(fp, "%c", 0x67); // beq.s   @return
+		fprintf(fp, "%c", 0x0A);
+		fprintf(fp, "%c", 0xD8); // add.w   d1,d4
+		fprintf(fp, "%c", 0x41);
+		fprintf(fp, "%c", 0xC9); // muls.w  #85,d4
+		fprintf(fp, "%c", 0xFC);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x55);
+		fprintf(fp, "%c", 0x89); // divs.w  #100,d4
+		fprintf(fp, "%c", 0xFC);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x64);
+		fprintf(fp, "%c", 0x4E); // rts
+		fprintf(fp, "%c", 0x75);
+
 		/* ResetForceMemberStats */
 		fseek(fp, 0x24D12, SEEK_SET);
 		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0

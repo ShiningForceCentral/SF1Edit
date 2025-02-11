@@ -1,6 +1,8 @@
 long ArmorOffsets[] = {0x6CB6,0x70C8,0x71A2,0xD774,0xDB76,0xDAC4};
 
 void SaveMech(){
+	unsigned char r;
+
 	if(!strlen(file)){
 		int ret=IDYES;
 		OPENFILENAME openFileName;
@@ -445,8 +447,18 @@ void SaveMech(){
 		fseek(fp, 0x20CD5, SEEK_SET);
 		fprintf(fp, "%c", HPEXPMin);
 
-		fseek(fp, 0x24A21, SEEK_SET);
+		/* CalculateInitialStatValue */
+		fseek(fp, 0x24A1A, SEEK_SET);
+		fscanf(fp, "%c", &r);
+
+		if (r == 0x4E) {
+			fseek(fp, 0x14170F, SEEK_SET);
+		}
+		else {
+			fseek(fp, 0x24A21, SEEK_SET);
+		}
 		fprintf(fp, "%c", PromotePercent);
+
 
 		fseek(fp,150742,SEEK_SET);
 		fprintf(fp,"%c",(PoisonOffset&0xFF000000)/0x1000000);

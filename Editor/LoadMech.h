@@ -87,8 +87,18 @@ void LoadMech(char *path){
 	fseek(fp,0x17441,SEEK_SET);
 	fscanf(fp,"%c",&ProLevel);
 
-	fseek(fp, 0x24A21, SEEK_SET);
+	/* CalculateInitialStatValue */
+	fseek(fp, 0x24A1A, SEEK_SET);
+	fscanf(fp, "%c", &r);
+
+	if (r == 0x4E) {
+		fseek(fp, 0x14170F, SEEK_SET);
+	}
+	else {
+		fseek(fp, 0x24A21, SEEK_SET);
+	}
 	fscanf(fp, "%c", &PromotePercent);
+
 
 	fseek(fp,0x17361,SEEK_SET);
 	fscanf(fp,"%c",&ProLevelAdd);
