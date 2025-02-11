@@ -446,6 +446,13 @@ void SaveMech(){
 
 		fseek(fp, 0x20CD5, SEEK_SET);
 		fprintf(fp, "%c", HPEXPMin);
+		
+
+		/* effect_InflictStatus */
+		fseek(fp, 0x20F94, SEEK_SET);
+		fprintf(fp, "%c", 0x74); // moveq   #StatusElement,d2
+		fprintf(fp, "%c", StatusElement);
+
 
 		/* CalculateInitialStatValue */
 		fseek(fp, 0x24A1A, SEEK_SET);

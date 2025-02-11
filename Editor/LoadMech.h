@@ -26,6 +26,7 @@ bool FixDoubles;
 bool ShowCrit;
 bool FixMuddle;
 
+unsigned char StatusElement;
 
 unsigned char PromotePercent;
 
@@ -86,6 +87,21 @@ void LoadMech(char *path){
 
 	fseek(fp,0x17441,SEEK_SET);
 	fscanf(fp,"%c",&ProLevel);
+
+
+	/* effect_InflictStatus */
+	fseek(fp, 0x20F94, SEEK_SET);
+	fscanf(fp, "%c", &r);
+
+	if (r == 0x74) {
+		fseek(fp, 0x20F95, SEEK_SET);
+		fscanf(fp, "%c", &r);
+		StatusElement = r;
+	}
+	else {
+		StatusElement = 0;
+	}
+
 
 	/* CalculateInitialStatValue */
 	fseek(fp, 0x24A1A, SEEK_SET);
