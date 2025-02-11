@@ -191,16 +191,48 @@
 
 		/* InitializeHeadquarters */
 		fseek(fp, 0x67BE, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-1,d7
-		fprintf(fp, "%c", NumChars - 1);
+		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER-1,d7
+		fprintf(fp, "%c", 0x1E);
+		fseek(fp, 0x6808, SEEK_SET);
+		fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,d1
+		fprintf(fp, "%c", 0x01);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x1E);
+		fprintf(fp, "%c", 0x67); // beq.s   @next
+		fprintf(fp, "%c", 0x1A);
+		fprintf(fp, "%c", 0x4E); // jsr     GetEntityMapspriteForBattlePartyMember
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x14);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0xC0);
+		fprintf(fp, "%c", 0x4E); // nop
+		fprintf(fp, "%c", 0x71);
+
+		/* GetEntityMapspriteForBattlePartyMember */
+		fseek(fp, 0x1400C0, SEEK_SET);
+		fprintf(fp, "%c", 0x42); // clr.w   d2
+		fprintf(fp, "%c", 0x42);
+		fprintf(fp, "%c", 0x14); // move.b  (a1)+,d2
+		fprintf(fp, "%c", 0x19);
+		fprintf(fp, "%c", 0x4E); // jsr     j_SetEntityIndex
+		fprintf(fp, "%c", 0xB9);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", 0x02);
+		fprintf(fp, "%c", 0x01);
+		fprintf(fp, "%c", 0x04);
+		fprintf(fp, "%c", 0x4E); // jmp     (LoadHeadquartersMapsprite).w
+		fprintf(fp, "%c", 0xF8);
+		fprintf(fp, "%c", 0x68);
+		fprintf(fp, "%c", 0x9C);
 
 		/* TalkMenuAction */
 		fseek(fp, 0x6C04, SEEK_SET);
 		fprintf(fp, "%c", 0x74); // moveq   #MAPSPRITE_NOVA,d2
 		fprintf(fp, "%c", NovaSprite);
 		fseek(fp, 0x6C10, SEEK_SET);
-		fprintf(fp, "%c", 0x74); // moveq   #NumChars-2,d2
-		fprintf(fp, "%c", NumChars - 2);
+		fprintf(fp, "%c", 0x74); // moveq   #28,d2
+		fprintf(fp, "%c", 0x1C);
 
 		/* InitializeNewGame */
 		fseek(fp, 0x21B30, SEEK_SET);

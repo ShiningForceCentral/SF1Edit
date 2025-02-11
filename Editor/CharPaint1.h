@@ -634,6 +634,7 @@ if(submode[mode]==0){
 				SetBkColor(memdc, RGB(128, 128, 128));
 
 				/* Display HQ messages box for everyone but Max and Nova */
+				if (NumChars == MAX_CHARS)
 				if (select[mode] > 0 && select[mode] != 30) {
 
 					RoundRect(memdc, 630, 120, 770, 220, 12, 12);
@@ -658,7 +659,6 @@ if(submode[mode]==0){
 					BitBlt(memdc, 740, 176, 20, 20, bmpdc, 0, 0, SRCCOPY);
 				}
 
-				//SpecialMessages[255]
 
 
 				RoundRect(memdc, 200, 43, 452, 530, 12, 12);
