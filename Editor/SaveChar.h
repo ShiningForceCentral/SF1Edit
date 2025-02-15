@@ -10,6 +10,9 @@
 	int ForceFlagsAddress = 0xFF9C8A;
 	int CombatantDataAddress = 0xFFA1B6;
 
+	bool ExtendCombatants = false;
+	bool ExtendEventFlags = false;
+
 	if(!strlen(file)){
 		int ret=IDYES;
 		OPENFILENAME openFileName;
@@ -61,6 +64,88 @@
 		if (ChangeCurves)CurvesOffset = 0x1D8800;
 
 
+		if (NumChars > MIN_CHARS || NumClasses == 64) {
+
+			PromotedALevelsOffset = 0x1E6000;
+
+			/* InitializeNewGame */
+			fseek(fp, 0x21B30, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     InitializePromotedAtlevels
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1F);
+			fprintf(fp, "%c", 0xFC);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+			fprintf(fp, "%c", 0x4E); // nop
+			fprintf(fp, "%c", 0x71);
+
+			/* InitializePromotedAtlevels */
+			fseek(fp, 0x1FFC00, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     (table_InitialPromotedAtLevels).l,a1
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", (PromotedALevelsOffset & 0xFF000000) / 0x1000000);
+			fprintf(fp, "%c", (PromotedALevelsOffset & 0x00FF0000) / 0x10000);
+			fprintf(fp, "%c", (PromotedALevelsOffset & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (PromotedALevelsOffset & 0x000000FF));
+			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
+			fprintf(fp, "%c", 0x3C);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", NumChars - 1);
+			fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
+			fprintf(fp, "%c", 0x31);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x11); // move.b  d1,(a0,d0.w)
+			fprintf(fp, "%c", 0x81);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x51); // dbf     d0,@loop
+			fprintf(fp, "%c", 0xC8);
+			fprintf(fp, "%c", 0xFF);
+			fprintf(fp, "%c", 0xF6);
+			fprintf(fp, "%c", 0x4E); // rts
+			fprintf(fp, "%c", 0x75);
+
+			/* table_InitialPromotedAtLevels */
+			if (PromotedALevelsOffset != 0) {
+				fseek(fp, PromotedALevelsOffset, SEEK_SET);
+				for (int i = 0; i < MAX_CHARS; i++) {
+					if (CharPromotedAt[i] <= 20)fprintf(fp, "%c", CharPromotedAt[i]);
+				}
+			}
+
+			/* CalculateInitialStatValue */
+			fseek(fp, 0x24A10, SEEK_SET);
+			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x30);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x61); // bsr.w   GetPromotedAtLevel
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0xD0);
+
+		}
+		else {
+
+			/* InitializeNewGame */
+			fseek(fp, 0x21B30, SEEK_SET);
+			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
+			fprintf(fp, "%c", 0x3C);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", NumChars - 1);
+			fprintf(fp, "%c", 0x42); // clr.b   (a0)+
+			fprintf(fp, "%c", 0x18);
+			fprintf(fp, "%c", 0x51); // dbf     d0,@ClearPromotedAtLevels_Loop
+			fprintf(fp, "%c", 0xC8);
+			fprintf(fp, "%c", 0xFF);
+			fprintf(fp, "%c", 0xFC);
+
+		}
+
+
 		/* Extend Chars Data */
 		if (NumChars > MIN_CHARS) {
 
@@ -74,11 +159,10 @@
 			PStatOffset = UStatOffset + 384;
 			BSprOffset = 0x141300;
 			BSprOffset2 = BSprOffset + 128;
-			PromotedALevelsOffset = 0x1E6000;
 
 			if (NumCombatants == MAX_COMBATANTS) {
 				SRAMEndAddress = 0x20FFFF;
-				CombatantDataAddress = CombatantDataAddress + 2;
+				CombatantDataAddress = 0xFF9C94;
 				ForceMembersDataAddress = 0xFFF020;
 				PromotedAtLevelsAddress = 0xFFCC00;
 				ExtendedForceFlagsAddress = 0xFFCC80;
@@ -431,17 +515,6 @@
 			fprintf(fp, "%c", 0x75);
 
 			/* InitializeNewGame */
-			fseek(fp, 0x21B30, SEEK_SET);
-			fprintf(fp, "%c", 0x4E); // jsr     InitializePromotedAtlevels
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x1F);
-			fprintf(fp, "%c", 0xFC);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x4E); // nop
-			fprintf(fp, "%c", 0x71);
-			fprintf(fp, "%c", 0x4E); // nop
-			fprintf(fp, "%c", 0x71);
 			if (JogurtLevels) {
 				fseek(fp, 0x21B46, SEEK_SET);
 				fprintf(fp, "%c", 0x4E); // jsr     j_SetLevel
@@ -477,33 +550,6 @@
 				fprintf(fp, "%c", 0x4E); // rts
 				fprintf(fp, "%c", 0x75);
 			}
-			
-			/* InitializePromotedAtlevels */
-			fseek(fp, 0x1FFC00, SEEK_SET);
-			fprintf(fp, "%c", 0x43); // lea     (table_InitialPromotedAtLevels).l,a1
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", (PromotedALevelsOffset & 0xFF000000) / 0x1000000);
-			fprintf(fp, "%c", (PromotedALevelsOffset & 0x00FF0000) / 0x10000);
-			fprintf(fp, "%c", (PromotedALevelsOffset & 0x0000FF00) / 0x100);
-			fprintf(fp, "%c", (PromotedALevelsOffset & 0x000000FF));
-			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", NumChars - 1);
-			fprintf(fp, "%c", 0x12); // move.b  (a1,d0.w),d1
-			fprintf(fp, "%c", 0x31);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x11); // move.b  d1,(a0,d0.w)
-			fprintf(fp, "%c", 0x81);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x51); // dbf     d0,@loop
-			fprintf(fp, "%c", 0xC8);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xF6);
-			fprintf(fp, "%c", 0x4E); // rts
-			fprintf(fp, "%c", 0x75);
 
 		}
 		else {
@@ -693,18 +739,6 @@
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x64);
 
-			/* InitializeNewGame */
-			fseek(fp, 0x21B30, SEEK_SET);
-			fprintf(fp, "%c", 0x30); // move.w  #NumChars-1,d0
-			fprintf(fp, "%c", 0x3C);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", NumChars - 1);
-			fprintf(fp, "%c", 0x42); // clr.b   (a0)+
-			fprintf(fp, "%c", 0x18);
-			fprintf(fp, "%c", 0x51); // dbf     d0,@ClearPromotedAtLevels_Loop
-			fprintf(fp, "%c", 0xC8);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xFC);
 		}
 
 
@@ -850,41 +884,41 @@
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x7C);
 
-			/* MapTeleports */
-			/*
-			fseek(fp, 0x12D5A, SEEK_SET);
-			fprintf(fp, "%c", 0x4E); // jsr     GetEventFlagsAddress
-			fprintf(fp, "%c", 0xB9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0x14);
-			fprintf(fp, "%c", 0x15);
-			fprintf(fp, "%c", 0x00);
-			*/
+			if (ExtendEventFlags) {
+				/* MapTeleports */
+				fseek(fp, 0x12D5A, SEEK_SET);
+				fprintf(fp, "%c", 0x4E); // jsr     GetEventFlagsAddress
+				fprintf(fp, "%c", 0xB9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x14);
+				fprintf(fp, "%c", 0x15);
+				fprintf(fp, "%c", 0x00);
 
-			/* GetEventFlagsAddress */
-			fseek(fp, 0x141500, SEEK_SET);
-			fprintf(fp, "%c", 0x0C); // cmpi.b  #68,d1
-			fprintf(fp, "%c", 0x01);
-			fprintf(fp, "%c", 0x00); // bge.s   loc_14150E
-			fprintf(fp, "%c", 0x44);
-			fprintf(fp, "%c", 0x6C); // lea     (EVENT_FLAGS).l,a1
-			fprintf(fp, "%c", 0x08);
-			fprintf(fp, "%c", 0x43);
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0x9C);
-			fprintf(fp, "%c", 0x4E);
-			fprintf(fp, "%c", 0x4E); // rts
-			fprintf(fp, "%c", 0x75);
-			fprintf(fp, "%c", 0x43); // lea     ($FFEFDC).l,a1
-			fprintf(fp, "%c", 0xF9);
-			fprintf(fp, "%c", 0x00);
-			fprintf(fp, "%c", 0xFF);
-			fprintf(fp, "%c", 0xEF);
-			fprintf(fp, "%c", 0xDC);
-			fprintf(fp, "%c", 0x4E); // rts
-			fprintf(fp, "%c", 0x75);
+				/* GetEventFlagsAddress */
+				fseek(fp, 0x141500, SEEK_SET);
+				fprintf(fp, "%c", 0x0C); // cmpi.b  #68,d1
+				fprintf(fp, "%c", 0x01);
+				fprintf(fp, "%c", 0x00); // bge.s   loc_14150E
+				fprintf(fp, "%c", 0x44);
+				fprintf(fp, "%c", 0x6C); // lea     (EVENT_FLAGS).l,a1
+				fprintf(fp, "%c", 0x08);
+				fprintf(fp, "%c", 0x43);
+				fprintf(fp, "%c", 0xF9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0xFF);
+				fprintf(fp, "%c", 0x9C);
+				fprintf(fp, "%c", 0x4E);
+				fprintf(fp, "%c", 0x4E); // rts
+				fprintf(fp, "%c", 0x75);
+				fprintf(fp, "%c", 0x43); // lea     ($FFEFDC).l,a1
+				fprintf(fp, "%c", 0xF9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0xFF);
+				fprintf(fp, "%c", 0xEF);
+				fprintf(fp, "%c", 0xDC);
+				fprintf(fp, "%c", 0x4E); // rts
+				fprintf(fp, "%c", 0x75);
+			}
 
 			/* CopyBytesToSram */
 			fseek(fp, 0x37BA, SEEK_SET);
@@ -1248,14 +1282,6 @@
 		fprintf(fp, "%c", 0x70); // moveq   #q-1,d0
 		fprintf(fp, "%c", q - 1);
 
-		/* table_InitialPromotedAtLevels */
-		if (PromotedALevelsOffset != 0) {
-			fseek(fp, PromotedALevelsOffset, SEEK_SET);
-			for (int i = 0; i < MAX_CHARS; i++) {
-				if (CharPromotedAt[i] <= 20)fprintf(fp, "%c", CharPromotedAt[i]);
-			}
-		}
-
 		/* readerScreenAction_New */
 		fseek(fp, 0x3490, SEEK_SET);
 		fprintf(fp, "%c", 0x7E); // moveq   #NumChars-1,d7
@@ -1354,236 +1380,237 @@
 		fprintf(fp, "%c", 0x70); // moveq   #NumChars-1,d0
 		fprintf(fp, "%c", NumChars - 1);
 
-		/* LoadEndingCutsceneCombatantData */
-		/*
-		fseek(fp, 0x6A9E, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7 // Number of combatants during the ending overworld cutscene
-		fprintf(fp, "%c", NumCombatants - 1);
-		*/
-		fseek(fp, 0x6AA0, SEEK_SET);
-		fprintf(fp, "%c", 0x43); // lea     (COMBATANT_DATA).l,a1
-		fprintf(fp, "%c", 0xF9);
-		fprintf(fp, "%c", (CombatantDataAddress & 0xFF000000) / 0x1000000);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x00FF0000) / 0x10000);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+		if (ExtendCombatants) {
+			/* LoadEndingCutsceneCombatantData */
+			/*
+			fseek(fp, 0x6A9E, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7 // Number of combatants during the ending overworld cutscene
+			fprintf(fp, "%c", NumCombatants - 1);
+			*/
+			fseek(fp, 0x6AA0, SEEK_SET);
+			fprintf(fp, "%c", 0x43); // lea     (COMBATANT_DATA).l,a1
+			fprintf(fp, "%c", 0xF9);
+			fprintf(fp, "%c", (CombatantDataAddress & 0xFF000000) / 0x1000000);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x00FF0000) / 0x10000);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* FindCombatantSlot */
-		fseek(fp, 0x73D6, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* FindCombatantSlot */
+			fseek(fp, 0x73D6, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		 /* BattleLoop */
-		fseek(fp, 0x97FC, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0x9802, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0x9858, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER-1,d7
-		fprintf(fp, "%c", NumCombatants - 2);
-		fseek(fp, 0x985A, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* BattleLoop */
+			fseek(fp, 0x97FC, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0x9802, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0x9858, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER-1,d7
+			fprintf(fp, "%c", NumCombatants - 2);
+			fseek(fp, 0x985A, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* Minimap */
-		fseek(fp, 0x98A8, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
-		fseek(fp, 0x98B2, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0x98B4, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0xFB74, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* Minimap */
+			fseek(fp, 0x98A8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0x98B2, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0x98B4, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0xFB74, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* UpdateBattlefieldSprites */
-		fseek(fp, 0x9940, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
-		fseek(fp, 0x994A, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0x994E, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* UpdateBattlefieldSprites */
+			fseek(fp, 0x9940, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0x994A, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0x994E, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* StatusScreen */
-		fseek(fp, 0x9AA2, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			/* StatusScreen */
+			fseek(fp, 0x9AA2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		fseek(fp, 0xA0F2, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0xA0F2, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		fseek(fp, 0xA776, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0xA776, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		fseek(fp, 0xAB5C, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0xAB5C, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* CheckBattleEnd */
-		fseek(fp, 0xACE8, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* CheckBattleEnd */
+			fseek(fp, 0xACE8, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* BuildMemberStatusScreen */
-		fseek(fp, 0xB4B0, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0xB4E0, SEEK_SET);
-		fprintf(fp, "%c", 0x76); // moveq   #COMBATANT_ENTRIES_COUNTER,d3
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* BuildMemberStatusScreen */
+			fseek(fp, 0xB4B0, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0xB4E0, SEEK_SET);
+			fprintf(fp, "%c", 0x76); // moveq   #COMBATANT_ENTRIES_COUNTER,d3
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		fseek(fp, 0xB54C, SEEK_SET);
-		fprintf(fp, "%c", 0x45); // lea     ((COMBATANT_DATA-$1000000)).w,a2
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			fseek(fp, 0xB54C, SEEK_SET);
+			fprintf(fp, "%c", 0x45); // lea     ((COMBATANT_DATA-$1000000)).w,a2
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* BlockSpacesOccupiedByOpponents */
-		fseek(fp, 0x20546, SEEK_SET);
-		fprintf(fp, "%c", 0x30); // move.w  #NumCombatants-1,d0
-		fprintf(fp, "%c", 0x3C);
-		fprintf(fp, "%c", ((NumCombatants - 1) & 0xFF00) / 0x100);
-		fprintf(fp, "%c", ((NumCombatants - 1) & 0x00FF));
+			/* BlockSpacesOccupiedByOpponents */
+			fseek(fp, 0x20546, SEEK_SET);
+			fprintf(fp, "%c", 0x30); // move.w  #NumCombatants-1,d0
+			fprintf(fp, "%c", 0x3C);
+			fprintf(fp, "%c", ((NumCombatants - 1) & 0xFF00) / 0x100);
+			fprintf(fp, "%c", ((NumCombatants - 1) & 0x00FF));
 
-		/* ClearAllowedToStayAtFlags */
-		fseek(fp, 0x205EA, SEEK_SET);
-		fprintf(fp, "%c", 0x30); // move.w  #NumCombatants-1,d0
-		fprintf(fp, "%c", 0x3C);
-		fprintf(fp, "%c", ((NumCombatants - 1) & 0xFF00) / 0x100);
-		fprintf(fp, "%c", ((NumCombatants - 1) & 0x00FF));
+			/* ClearAllowedToStayAtFlags */
+			fseek(fp, 0x205EA, SEEK_SET);
+			fprintf(fp, "%c", 0x30); // move.w  #NumCombatants-1,d0
+			fprintf(fp, "%c", 0x3C);
+			fprintf(fp, "%c", ((NumCombatants - 1) & 0xFF00) / 0x100);
+			fprintf(fp, "%c", ((NumCombatants - 1) & 0x00FF));
 
-		/* BlockAllOccupiedSpaces */
-		fseek(fp, 0x2092E, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* BlockAllOccupiedSpaces */
+			fseek(fp, 0x2092E, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* IsSpaceOccupied */
-		fseek(fp, 0x2092E, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* IsSpaceOccupied */
+			fseek(fp, 0x2092E, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* RegenerateHp */
-		fseek(fp, 0x2092E, SEEK_SET);
-		fprintf(fp, "%c", 0x74); // moveq   #COMBATANT_ENTRIES_COUNTER,d2
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* RegenerateHp */
+			fseek(fp, 0x2092E, SEEK_SET);
+			fprintf(fp, "%c", 0x74); // moveq   #COMBATANT_ENTRIES_COUNTER,d2
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* ClearCombatantData */
-		fseek(fp, 0x21BE0, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			/* ClearCombatantData */
+			fseek(fp, 0x21BE0, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* alt_GetEntity */
-		fseek(fp, 0x225B8, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			/* alt_GetEntity */
+			fseek(fp, 0x225B8, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* FindCombatantEntry */
-		fseek(fp, 0x225CA, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
-		fseek(fp, 0x225CE, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* FindCombatantEntry */
+			fseek(fp, 0x225CA, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
+			fseek(fp, 0x225CE, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* GetCombatantEntryAddress */
-		fseek(fp, 0x225E6, SEEK_SET);
-		fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
+			/* GetCombatantEntryAddress */
+			fseek(fp, 0x225E6, SEEK_SET);
+			fprintf(fp, "%c", 0x41); // lea     ((COMBATANT_DATA-$1000000)).w,a0
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", (CombatantDataAddress & 0x000000FF));
 
-		/* PopulateTargetsList */
-		fseek(fp, 0x23810, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* PopulateTargetsList */
+			fseek(fp, 0x23810, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* TriggerAiRegions */
-		fseek(fp, 0x24266, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* TriggerAiRegions */
+			fseek(fp, 0x24266, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* ClearTerrainAtOccupiedSpaces */
-		fseek(fp, 0x250E2, SEEK_SET);
-		fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* ClearTerrainAtOccupiedSpaces */
+			fseek(fp, 0x250E2, SEEK_SET);
+			fprintf(fp, "%c", 0x70); // moveq   #COMBATANT_ENTRIES_COUNTER,d0
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* FindEntityForCutscene */
-		/*
-		fseek(fp, 0x12BFB8, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
-		*/
+			/* FindEntityForCutscene */
+			/*
+			fseek(fp, 0x12BFB8, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
+			*/
 
-		/* WasEntityKilledByLastAttack */
-		fseek(fp, 0x12BFD0, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* WasEntityKilledByLastAttack */
+			fseek(fp, 0x12BFD0, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* KillChosenEnemies */
-		fseek(fp, 0x12C1BA, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
-		fprintf(fp, "%c", NumCombatants - 1);
+			/* KillChosenEnemies */
+			fseek(fp, 0x12C1BA, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER,d7
+			fprintf(fp, "%c", NumCombatants - 1);
 
-		/* mainMenuAction_Talk */
-		fseek(fp, 0x5A88, SEEK_SET);
-		fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
-		fprintf(fp, "%c", 0x38);
-		fprintf(fp, "%c", 0x00);
-		fprintf(fp, "%c", 0x1E);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
+			/* mainMenuAction_Talk */
+			fseek(fp, 0x5A88, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
 
-		fseek(fp, 0x9824, SEEK_SET);
-		fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
-		fprintf(fp, "%c", 0x38);
-		fprintf(fp, "%c", 0x00);
-		fprintf(fp, "%c", 0x1E);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
+			fseek(fp, 0x9824, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
 
-		fseek(fp, 0xA144, SEEK_SET);
-		fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
-		fprintf(fp, "%c", 0x38);
-		fprintf(fp, "%c", 0x00);
-		fprintf(fp, "%c", 0x1E);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
+			fseek(fp, 0xA144, SEEK_SET);
+			fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_NOVA,((COMBATANT_1_ENTITY-$1000000)).w
+			fprintf(fp, "%c", 0x38);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x1E);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", ((CombatantDataAddress + 16) & 0x000000FF));
 
-		/* abcs29 */
-		fseek(fp, 0x12B69E, SEEK_SET);
-		fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER-1,d7
-		fprintf(fp, "%c", NumCombatants - 2);
-		fprintf(fp, "%c", 0x43); // lea     ((COMBATANT_1_Y-$1000000)).w,a1
-		fprintf(fp, "%c", 0xF8);
-		fprintf(fp, "%c", ((CombatantDataAddress + 18) & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", ((CombatantDataAddress + 18) & 0x000000FF));
-
+			/* abcs29 */
+			fseek(fp, 0x12B69E, SEEK_SET);
+			fprintf(fp, "%c", 0x7E); // moveq   #COMBATANT_ENTRIES_COUNTER-1,d7
+			fprintf(fp, "%c", NumCombatants - 2);
+			fprintf(fp, "%c", 0x43); // lea     ((COMBATANT_1_Y-$1000000)).w,a1
+			fprintf(fp, "%c", 0xF8);
+			fprintf(fp, "%c", ((CombatantDataAddress + 18) & 0x0000FF00) / 0x100);
+			fprintf(fp, "%c", ((CombatantDataAddress + 18) & 0x000000FF));
+		}
 
 
 

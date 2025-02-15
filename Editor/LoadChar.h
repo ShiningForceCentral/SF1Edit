@@ -79,7 +79,7 @@ void LoadChar(char *path,bool single=false){
 
 	NumChars = MIN_CHARS;
 	NumCombatants = MIN_COMBATANTS;
-	fseek(fp, 0x221D4, SEEK_SET);
+	fseek(fp, 0x23A0A, SEEK_SET);
 	fscanf(fp, "%c", &r);
 	if (r == 0x4E) {
 		NumChars = EXT_CHARS;

@@ -61,12 +61,12 @@ void SaveClass(){
 		fprintf(fp, "%c", 0x00);
 		fprintf(fp, "%c", NumClasses + 72);
 
-		/* Is instruction at 0x21B30 patched ? */
+		/* Is initial promoted at levels table implemented? */
 		fseek(fp, 0x21B30, SEEK_SET);
 		fscanf(fp, "%c", &r);
-		/* CalculateInitialStatValue */
-		fseek(fp, 0x24A10, SEEK_SET);
 		if (r != 0x4E) {
+			/* CalculateInitialStatValue */
+			fseek(fp, 0x24A10, SEEK_SET);
 			fprintf(fp, "%c", 0x4E); // jsr     GetPromotedAtLevelIfRegularForceMember
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
@@ -106,6 +106,8 @@ void SaveClass(){
 			fprintf(fp, "%c", 0x75);
 		}
 		else {
+			/* CalculateInitialStatValue */
+			fseek(fp, 0x24A10, SEEK_SET);
 			fprintf(fp, "%c", 0x18); // move.b  (a0,d3.w),d4
 			fprintf(fp, "%c", 0x30);
 			fprintf(fp, "%c", 0x30);
@@ -347,6 +349,14 @@ void SaveClass(){
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x25);
 			fprintf(fp, "%c", 0xB0);
+			fprintf(fp, "%c", 0x4A); // tst.b   d0
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x6A); // bpl.s   @continue
+			fprintf(fp, "%c", 0x04);
+			fprintf(fp, "%c", 0x42); // clr.w   d0
+			fprintf(fp, "%c", 0x40);
+			fprintf(fp, "%c", 0x60); // bra.s	@return
+			fprintf(fp, "%c", 0x06);
 			fprintf(fp, "%c", 0x4E); // jsr     IsPromoted
 			fprintf(fp, "%c", 0xB9);
 			fprintf(fp, "%c", 0x00);
