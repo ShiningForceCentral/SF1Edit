@@ -442,7 +442,42 @@
 			fprintf(fp, "%c", 0x71);
 			fprintf(fp, "%c", 0x4E); // nop
 			fprintf(fp, "%c", 0x71);
+			if (JogurtLevels) {
+				fseek(fp, 0x21B46, SEEK_SET);
+				fprintf(fp, "%c", 0x4E); // jsr     j_SetLevel
+				fprintf(fp, "%c", 0xB9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x02);
+				fprintf(fp, "%c", 0x01);
+				fprintf(fp, "%c", 0x2C);
+			}
+			else {
+				fseek(fp, 0x21B46, SEEK_SET);
+				fprintf(fp, "%c", 0x4E); // jsr     SetLevelIfNotJogurt
+				fprintf(fp, "%c", 0xB9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x14);
+				fprintf(fp, "%c", 0x14);
+				fprintf(fp, "%c", 0xC0);
 
+				/* SetLevelIfNotJogurt */
+				fseek(fp, 0x1414C0, SEEK_SET);
+				fprintf(fp, "%c", 0x0C); // cmpi.b  #ALLY_JOGURT,d0
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x1D);
+				fprintf(fp, "%c", 0x67); // beq.s   @return
+				fprintf(fp, "%c", 0x06);
+				fprintf(fp, "%c", 0x4E); // jmp     j_SetLevel
+				fprintf(fp, "%c", 0xF9);
+				fprintf(fp, "%c", 0x00);
+				fprintf(fp, "%c", 0x02);
+				fprintf(fp, "%c", 0x01);
+				fprintf(fp, "%c", 0x2C);
+				fprintf(fp, "%c", 0x4E); // rts
+				fprintf(fp, "%c", 0x75);
+			}
+			
 			/* InitializePromotedAtlevels */
 			fseek(fp, 0x1FFC00, SEEK_SET);
 			fprintf(fp, "%c", 0x43); // lea     (table_InitialPromotedAtLevels).l,a1
@@ -568,6 +603,13 @@
 			fprintf(fp, "%c", 0x02);
 			fprintf(fp, "%c", 0x00);
 			fprintf(fp, "%c", 0x7C);
+			fseek(fp, 0x21B46, SEEK_SET);
+			fprintf(fp, "%c", 0x4E); // jsr     j_SetLevel
+			fprintf(fp, "%c", 0xB9);
+			fprintf(fp, "%c", 0x00);
+			fprintf(fp, "%c", 0x02);
+			fprintf(fp, "%c", 0x01);
+			fprintf(fp, "%c", 0x2C);
 
 			/* InitializeHeadquarters */
 			fseek(fp, 0x6816, SEEK_SET);
