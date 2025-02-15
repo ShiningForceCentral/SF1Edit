@@ -53,7 +53,7 @@ struct DialogGraph{
 		lx = 0;
 		ly = 0;
 
-		gridsize = 16;
+		gridsize = 64;
 		sel = 0;
 		selplace=-1;
 		cpos=0;
@@ -516,18 +516,18 @@ struct DialogGraph{
 
 
 		int dx,dy;
-		dx=0-vx%gridsize;
-		while(dx<w*graphzoom){
-			MoveToEx(gdc,dx,0,0);
-			LineTo(gdc,dx,h*graphzoom);
-			dx+=gridsize;
+		dx = 0 - vx % gridsize;
+		while (dx < w * graphzoom) {
+			MoveToEx(gdc, dx, 0, 0);
+			LineTo(gdc, dx, h * graphzoom);
+			dx += gridsize * graphzoom;
 		}
 
-		dy=0-vy%gridsize;
-		while(dy<h*graphzoom){
-			MoveToEx(gdc,0,dy,0);
-			LineTo(gdc,w*graphzoom,dy);
-			dy+=gridsize;
+		dy = 0 - vy % gridsize;
+		while (dy < h * graphzoom) {
+			MoveToEx(gdc, 0, dy, 0);
+			LineTo(gdc, w * graphzoom, dy);
+			dy += gridsize * graphzoom;
 		}
 
 		SelectObject(gdc,temp);
@@ -542,6 +542,26 @@ struct DialogGraph{
 		cur = nodes.head;
 		while(cur){
 			//if(cur->data->x>=0-cur->data->w && cur->data->x<=w && cur->data->y>=0-cur->data->h && cur->data->y<=h){
+			bool draw = false;
+			if (cur->data->x < -(cur->data->w) || cur->data->x < -(cur->data->y)) {
+				LLNode<DialogGraphNode*>* curBranch = cur->data->out.head;
+				while (curBranch)
+				{
+					if (curBranch->data->x >= -(cur->data->w) || curBranch->data->y >= -(cur->data->y)) {
+						draw = true;
+						break;
+					}
+					curBranch = curBranch->next;
+				}
+			}
+			else if (cur->data->x < 1920 * graphzoom && cur->data->y < 1080 * graphzoom)
+			{
+				draw = true;
+			}
+			if (!draw) {
+				cur = cur->next;
+				continue;
+			}
 				if(cur->data->selected || selgroup.find(cur->data)){
 					SelectObject(gdc,selborder);
 					SelectObject(gdc,selnode);
