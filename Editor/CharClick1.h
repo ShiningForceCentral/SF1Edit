@@ -103,7 +103,7 @@ if(submode[mode]==0){
 				}
 
 				int q;
-				q = MIN_CHARS;
+				q = EXT_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -165,51 +165,51 @@ if(submode[mode]==0){
 				}
 
 				/* Battle sprite selection */
-				if(p.x>=612&&p.x<=650&&p.y>=425&&p.y<=444){
+				if (p.x >= 612 && p.x <= 650 && p.y >= 405 && p.y <= 424) {
 					focus=40;
 				}
-				if (p.x >= 562 && p.x <= 590 && p.y >= 425 && p.y <= 444) {
+				if (p.x >= 562 && p.x <= 590 && p.y >= 405 && p.y <= 424) {
 					focus = 34;
 				}
 
 				/* Battle palette selection */
-				if(p.x>=612&&p.x<=650&&p.y>=445&&p.y<=464){
+				if (p.x >= 612 && p.x <= 650 && p.y >= 425 && p.y <= 444) {
 					focus = 41;
 				}
-				if (p.x >= 562 && p.x <= 590 && p.y >= 445 && p.y <= 464) {
+				if (p.x >= 562 && p.x <= 590 && p.y >= 425 && p.y <= 444) {
 					focus = 35;
 				}
 
 				/* Portrait selection */
-				if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
+				if (p.x >= 562 && p.x <= 590 && p.y >= 445 && p.y <= 464) {
 					focus = 36;
 				}
-				if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
+				if (p.x >= 612 && p.x <= 650 && p.y >= 445 && p.y <= 464) {
 					focus = 38;
 				}
 
 				/* Map sprite selection */
-				if (p.x >= 612 && p.x <= 650 && p.y >= 485 && p.y <= 504) {
+				if (p.x >= 612 && p.x <= 650 && p.y >= 465 && p.y <= 484) {
 					focus = 39;
 				}
-				if (p.x >= 562 && p.x <= 590 && p.y >= 485 && p.y <= 504) {
+				if (p.x >= 562 && p.x <= 590 && p.y >= 465 && p.y <= 484) {
 					focus = 37;
 				}
 
 				/* Arrows */
 				if (NumChars == MAX_CHARS) {
 					if (p.x >= 20 && p.x <= 40 && p.y >= 520 && p.y <= 540) {
-						CharView += MIN_CHARS;
-						CharView %= (MIN_CHARS * 2);
-						select[mode] += MIN_CHARS;
-						select[mode] %= (MIN_CHARS * 2);
+						CharView += EXT_CHARS;
+						CharView %= (EXT_CHARS * 2);
+						select[mode] += EXT_CHARS;
+						select[mode] %= (EXT_CHARS * 2);
 						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 					if (p.x >= 43 && p.x <= 63 && p.y >= 520 && p.y <= 540) {
-						CharView += MIN_CHARS;
-						CharView %= (MIN_CHARS *2);
-						select[mode] += MIN_CHARS;
-						select[mode] %= (MIN_CHARS * 2);
+						CharView += EXT_CHARS;
+						CharView %= (EXT_CHARS *2);
+						select[mode] += EXT_CHARS;
+						select[mode] %= (EXT_CHARS * 2);
 						if (select[mode] > NumChars - 1) select[mode] = NumChars - 1;
 					}
 				}
@@ -219,30 +219,39 @@ if(submode[mode]==0){
 				SelectObject(bmpdc, downarrow);
 				BitBlt(memdc, 43, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
-				if (p.x >= 492 && p.x <= 505 && p.y >= 513 && p.y <= 526) {
-					if (NumChars == MAX_CHARS) {
+				if (p.x >= 492 && p.x <= 505 && p.y >= 493 && p.y <= 506) {
+					if (NumChars > MIN_CHARS) {
 						NumChars = MIN_CHARS;
+						NumCombatants = MIN_COMBATANTS;
 						CharView = 0;
-						select[mode] %= MIN_CHARS;
-					} else {
+						select[mode] %= EXT_CHARS;
+					}
+					else if (NumCombatants = MIN_COMBATANTS) {
+						NumChars = EXT_CHARS;
+					}
+					else {
 						NumChars = MAX_CHARS;
-						MessageBox(NULL, "To fully enable extended characters, remember to use 'Assign Messages' in the text editor to move the HQ messages and copy the old ones.\r\n\r\nAlso note that old save states will not work after extending the number of characters!", "Note", MB_OK);
+					}
+				}
 
-						for (int i = MIN_CHARS; i < MAX_CHARS; i++) {
-							if (!Char[i][1]) {
-								Char[i][1] = 1;
-								Char[i][16] = 255;
-								Char[i][17] = 255;
-								Char[i][18] = 255;
-								Char[i][19] = 255;
-								Char[i][20] = 255;
-								Char[i][21] = 255;
-								Char[i][22] = 255;
-								Char[i][23] = 255;
-							}
+				if (NumChars > MIN_CHARS) {
+					if (p.x >= 492 && p.x <= 505 && p.y >= 513 && p.y <= 526) {
+						if (NumCombatants > MIN_COMBATANTS) {
+							NumChars = EXT_CHARS;
+							NumCombatants = MIN_COMBATANTS;
+							CharView = 0;
+							select[mode] %= EXT_CHARS;
+						}
+						else {
+							NumChars = MAX_CHARS;
+							NumCombatants = MAX_COMBATANTS;
+							MessageBox(NULL, "To fully enable extended characters, remember to use 'Assign Messages' in the text editor to move the HQ messages and copy the old ones.\r\n\r\nAlso note that old save states will not work after extending the number of characters!", "Note", MB_OK);
 						}
 					}
 				}
+
+				SelectObject(bmpdc, checkon);
+				BitBlt(memdc, 492, 513, 13, 13, bmpdc, 0, 0, SRCCOPY);
 				
 }
 

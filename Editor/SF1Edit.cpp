@@ -222,17 +222,21 @@ bool ExpandedGraphics = false;
 
 bool ScriptsLoaded = false;
 
-#define MIN_CHARS 31
+#define MIN_CHARS 30
+#define EXT_CHARS 31
 #define MAX_CHARS 50
-#define NUM_DIALOG    35
-#define NUM_BE        30
-#define NUM_BEXIT    8
-#define NUM_CS    8
-#define NUM_BS    30
-#define NUM_WC    5
+#define MIN_COMBATANTS 32
+#define MAX_COMBATANTS 64
+#define NUM_DIALOG 35
+#define NUM_BE     30
+#define NUM_BEXIT   8
+#define NUM_CS  8
+#define NUM_BS 30
+#define NUM_WC  5
 
 unsigned char NumItems = 64;
 int NumChars = MIN_CHARS;
+int NumCombatants = MIN_COMBATANTS;
 long EffectOffset;
 
 void FromClipboard(unsigned char * data, unsigned int size[2], unsigned char pal[16][3], bool tileset = false, bool weapon = false, bool resize=false, bool recolor=false);

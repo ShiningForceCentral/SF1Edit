@@ -2,7 +2,7 @@ if(submode[mode]==0){
 				Rectangle(memdc,58+160*((select[mode] - CharView) /32),10+16*((select[mode] - CharView) %32),58+160*((select[mode] - CharView) /32)+120,10+16*((select[mode] - CharView) %32)+16);
 
 				int q;
-				q = MIN_CHARS;
+				q = EXT_CHARS;
 				if (CharView + q > NumChars) q = NumChars - CharView;
 
 				for(i=0;i<q;i++){
@@ -522,111 +522,125 @@ if(submode[mode]==0){
 
 
 				/* Battle sprite selection */
-				TextOut(memdc,495,425,"Battle:",7);
+				TextOut(memdc,495,405,"Battle:",7);
 				if(focus == 34 && cursor) {
 					sprintf(out, "%d|", BattleSprite[select[mode]][0]);
-					TextOut(memdc, 562, 425, out, strlen(out));
+					TextOut(memdc, 562, 405, out, strlen(out));
 				}
 				else {
 					sprintf(out, "%d", BattleSprite[select[mode]][0]);
-					TextOut(memdc, 562, 425, out, strlen(out));
+					TextOut(memdc, 562, 405, out, strlen(out));
 				}
-				TextOut(memdc, 592, 425, "/", 1);
+				TextOut(memdc, 592, 405, "/", 1);
 				if (focus == 40 && cursor) {
 					sprintf(out, "%d|", BattleSprite2[select[mode]][0]);
-					TextOut(memdc, 612, 425, out, strlen(out));
+					TextOut(memdc, 612, 405, out, strlen(out));
 				}
 				else {
 					sprintf(out, "%d", BattleSprite2[select[mode]][0]);
+					TextOut(memdc, 612, 405, out, strlen(out));
+				}
+				SelectObject(bmpdc, zoom);
+				BitBlt(memdc, 640, 405, 20, 20, bmpdc, 0, 0, SRCCOPY);
+
+
+				/* Battle palette selection */
+				TextOut(memdc,495,425,"Palette:",8);
+				if(focus==35&&cursor){
+					sprintf(out, "%d|", BattleSprite[select[mode]][1]);
+					TextOut(memdc, 562, 425, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", BattleSprite[select[mode]][1]);
+					TextOut(memdc, 562, 425, out, strlen(out));
+				}
+				TextOut(memdc, 592, 425, "/", 1);
+				if (focus == 41 && cursor) {
+					sprintf(out, "%d|", BattleSprite2[select[mode]][1]);
+					TextOut(memdc, 612, 425, out, strlen(out));
+				}
+				else {
+					sprintf(out, "%d", BattleSprite2[select[mode]][1]);
 					TextOut(memdc, 612, 425, out, strlen(out));
 				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 425, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
 
-				/* Battle palette selection */
-				TextOut(memdc,495,445,"Palette:",8);
-				if(focus==35&&cursor){
-					sprintf(out, "%d|", BattleSprite[select[mode]][1]);
+				/* Portrait selection */
+				TextOut(memdc, 495, 445, "Portrait:", 9);
+				if (focus == 36 && cursor) {
+					sprintf(out, "%d|", CharPortrait[select[mode]]);
 					TextOut(memdc, 562, 445, out, strlen(out));
 				}
 				else {
-					sprintf(out, "%d", BattleSprite[select[mode]][1]);
+					sprintf(out, "%d", CharPortrait[select[mode]]);
 					TextOut(memdc, 562, 445, out, strlen(out));
 				}
 				TextOut(memdc, 592, 445, "/", 1);
-				if (focus == 41 && cursor) {
-					sprintf(out, "%d|", BattleSprite2[select[mode]][1]);
+				if (focus == 38 && cursor) {
+					sprintf(out, "%d|", CharPortrait2[select[mode]]);
 					TextOut(memdc, 612, 445, out, strlen(out));
 				}
 				else {
-					sprintf(out, "%d", BattleSprite2[select[mode]][1]);
+					sprintf(out, "%d", CharPortrait2[select[mode]]);
 					TextOut(memdc, 612, 445, out, strlen(out));
 				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 445, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
 
-				/* Portrait selection */
-				TextOut(memdc, 495, 465, "Portrait:", 9);
-				if (focus == 36 && cursor) {
-					sprintf(out, "%d|", CharPortrait[select[mode]]);
+				/* Map sprite selection */
+				TextOut(memdc, 495, 465, "Map:", 4);
+				if (focus == 37 && cursor) {
+					sprintf(out, "%d|", CharMapSprite[select[mode]]);
 					TextOut(memdc, 562, 465, out, strlen(out));
 				}
 				else {
-					sprintf(out, "%d", CharPortrait[select[mode]]);
+					sprintf(out, "%d", CharMapSprite[select[mode]]);
 					TextOut(memdc, 562, 465, out, strlen(out));
 				}
 				TextOut(memdc, 592, 465, "/", 1);
-				if (focus == 38 && cursor) {
-					sprintf(out, "%d|", CharPortrait2[select[mode]]);
+				if (focus == 39 && cursor) {
+					sprintf(out, "%d|", CharMapSprite2[select[mode]]);
 					TextOut(memdc, 612, 465, out, strlen(out));
 				}
 				else {
-					sprintf(out, "%d", CharPortrait2[select[mode]]);
+					sprintf(out, "%d", CharMapSprite2[select[mode]]);
 					TextOut(memdc, 612, 465, out, strlen(out));
 				}
 				SelectObject(bmpdc, zoom);
 				BitBlt(memdc, 640, 465, 20, 20, bmpdc, 0, 0, SRCCOPY);
 
-
-				/* Map sprite selection */
-				TextOut(memdc, 495, 485, "Map:", 4);
-				if (focus == 37 && cursor) {
-					sprintf(out, "%d|", CharMapSprite[select[mode]]);
-					TextOut(memdc, 562, 485, out, strlen(out));
-				}
-				else {
-					sprintf(out, "%d", CharMapSprite[select[mode]]);
-					TextOut(memdc, 562, 485, out, strlen(out));
-				}
-				TextOut(memdc, 592, 485, "/", 1);
-				if (focus == 39 && cursor) {
-					sprintf(out, "%d|", CharMapSprite2[select[mode]]);
-					TextOut(memdc, 612, 485, out, strlen(out));
-				}
-				else {
-					sprintf(out, "%d", CharMapSprite2[select[mode]]);
-					TextOut(memdc, 612, 485, out, strlen(out));
-				}
-				SelectObject(bmpdc, zoom);
-				BitBlt(memdc, 640, 485, 20, 20, bmpdc, 0, 0, SRCCOPY);
-
-				/* Arrows and checkbox */
+				/* Arrows */
 				if (NumChars == MAX_CHARS) {
 					SelectObject(bmpdc, uparrow);
 					BitBlt(memdc, 20, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
 					SelectObject(bmpdc, downarrow);
 					BitBlt(memdc, 43, 520, 20, 20, bmpdc, 0, 0, SRCCOPY);
+				}
+				
+				/* Extend Chars */
+				if (NumChars > MIN_CHARS) {
 					SelectObject(bmpdc, checkon);
 				}
 				else {
 					SelectObject(bmpdc, checkoff);
 				}
-				
+				TextOut(memdc, 515, 492, "Extend Chars", 12);
+				BitBlt(memdc, 492, 493, 13, 13, bmpdc, 0, 0, SRCCOPY);
 
-				TextOut(memdc, 515, 512, "Extend Chars", 12);
-				BitBlt(memdc, 492, 513, 13, 13, bmpdc, 0, 0, SRCCOPY);
+				/* Extend Save File */
+				if (NumChars > MIN_CHARS) {
+					if (NumChars == MAX_CHARS) {
+						SelectObject(bmpdc, checkon);
+					}
+					else {
+						SelectObject(bmpdc, checkoff);
+					}
+					TextOut(memdc, 515, 512, "Extend Save File", 16);
+					BitBlt(memdc, 492, 513, 13, 13, bmpdc, 0, 0, SRCCOPY);
+				}
 
 
 
@@ -665,7 +679,7 @@ if(submode[mode]==0){
 
 				TextOut(memdc,270,35," STAT GROWTH ",13);
 				TextOut(memdc,212,55,"UNPROMOTED",10);
-				if (select[mode] >= 0 && select[mode] < NumChars)TextOut(memdc,352,55,"PROMOTED",8);
+				if (select[mode] >= 0 && select[mode] <= NumChars)TextOut(memdc,352,55,"PROMOTED",8);
 
 				SetBkMode(memdc, TRANSPARENT);
 				SetBkColor(memdc, RGB(255, 255, 255));

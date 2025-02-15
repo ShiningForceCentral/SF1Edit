@@ -95,8 +95,7 @@ void LoadMech(char *path){
 
 	if (r == 0x74) {
 		fseek(fp, 0x20F95, SEEK_SET);
-		fscanf(fp, "%c", &r);
-		StatusElement = r;
+		fscanf(fp, "%c", &StatusElement);
 	}
 	else {
 		StatusElement = 0;

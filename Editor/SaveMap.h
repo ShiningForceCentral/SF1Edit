@@ -44,13 +44,26 @@ void SaveMap(){
 			return;
 		}
 
-		fseek(fp, 0x23A6D, SEEK_SET);
-		fprintf(fp, "%c", NovaSprite);
-
+		/* LoadHeadquartersMapsprite */
 		fseek(fp, 0x68C1, SEEK_SET);
+		fprintf(fp, "%c", 0x72); // moveq   #BlueFlameSprite,d1
 		fprintf(fp, "%c", BlueFlameSprite);
 
-		fseek(fp, 0x23A79, SEEK_SET);
+		/* TalkMenuAction */
+		fseek(fp, 0x6C04, SEEK_SET);
+		fprintf(fp, "%c", 0x74); // moveq   #NovaSprite,d2
+		fprintf(fp, "%c", NovaSprite);
+
+		/* GetMapsprite */
+		fseek(fp, 0x23A6D, SEEK_SET);
+		fprintf(fp, "%c", 0x32); // move.w  #NovaSprite,d1
+		fprintf(fp, "%c", 0x3C);
+		fprintf(fp, "%c", 0x00);
+		fprintf(fp, "%c", NovaSprite);
+		fseek(fp, 0x23A6D, SEEK_SET);
+		fprintf(fp, "%c", 0x32); // move.w  #JogurtStatusSprite,d1
+		fprintf(fp, "%c", 0x3C);
+		fprintf(fp, "%c", 0x00);
 		fprintf(fp, "%c", JogurtStatusSprite);
 
 		long o;

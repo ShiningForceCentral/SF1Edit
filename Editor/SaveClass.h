@@ -37,18 +37,16 @@ void SaveClass(){
 		unsigned char r;
 		FILE * fp = fopen(file,"rb+");
 
+		if (romsize < 0x200000) {
+			MessageBox(NULL, "Rom is too small, expand rom to save class changes.", "Error", MB_OK);
+			fclose(fp);
+			return;
+		}
+
 		if (NumMonsters == 146 || NumClasses == 64) {
 			ClassOffset = 0x1E2000;
 			ClassNamesOffset = 0x1DC000;
 		}
-		
-		if (romsize < 0x200000) {
-			MessageBox(NULL,"Rom is too small, expand rom to save class changes.","Error",MB_OK);
-			fclose(fp);
-			return;
-		}
-		
-		
 
 		
 		/* (Hardcoded) Fix Dark Dragon finisher check */
@@ -490,7 +488,7 @@ void SaveClass(){
 			fprintf(fp, "%c", Priority8[i]);
 		}
 
-		fseek(fp,132032,SEEK_SET);
+		fseek(fp,0x203C0,SEEK_SET);
 		fprintf(fp,"%c",(ClassNamesOffset&0xFF000000)/0x1000000);
 		fprintf(fp,"%c",(ClassNamesOffset&0x00FF0000)/0x10000);
 		fprintf(fp,"%c",(ClassNamesOffset&0x0000FF00)/0x100);
@@ -510,7 +508,7 @@ void SaveClass(){
 			Classes[i][r]='\0';
 		}
 
-		fseek(fp,132036,SEEK_SET);
+		fseek(fp,0x203C4,SEEK_SET);
 		fprintf(fp,"%c",(ClassOffset&0xFF000000)/0x1000000);
 		fprintf(fp,"%c",(ClassOffset&0x00FF0000)/0x10000);
 		fprintf(fp,"%c",(ClassOffset&0x0000FF00)/0x100);

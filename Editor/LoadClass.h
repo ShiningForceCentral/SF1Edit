@@ -70,8 +70,8 @@ void LoadClass(char *path,bool single=false){
 		ExtendEquip = true;
 	}
 
+	/* table_PromotedClasses */
 	if (NumClasses == 64) {
-		/* table_PromotedClasses */
 		fseek(fp, 0x16FE20, SEEK_SET);
 		for (i = 0; i < 64; i++) {
 			fscanf(fp, "%c", &(ClassPromote[i]));
@@ -95,7 +95,7 @@ void LoadClass(char *path,bool single=false){
 		Priority8[i] = r;
 	}
 
-	fseek(fp,132032,SEEK_SET);
+	fseek(fp,0x203C0,SEEK_SET);
 	fscanf(fp,"%c",&r);
 	ClassNamesOffset = r;
 	fscanf(fp,"%c",&r);
@@ -126,7 +126,7 @@ void LoadClass(char *path,bool single=false){
 		if(!single||i==select[mode])Classes[i][r]='\0';
 	}
 
-	fseek(fp,132036,SEEK_SET);
+	fseek(fp,0x203C4,SEEK_SET);
 	fscanf(fp,"%c",&r);
 	ClassOffset = r;
 	fscanf(fp,"%c",&r);
