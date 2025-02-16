@@ -1,5 +1,7 @@
 void SaveClass(){
 	if(!strlen(file)){
+
+
 		int ret=IDYES;
 		OPENFILENAME openFileName;
 		char path[256];
@@ -46,6 +48,15 @@ void SaveClass(){
 		if (NumMonsters == 146 || NumClasses == 64) {
 			ClassOffset = 0x1E2000;
 			ClassNamesOffset = 0x1DC000;
+		}
+
+		LoadClass(file, true); // Pass 'true' to reload only the current class if needed
+
+		if (submode[mode] == 1) {
+			MessageBox(NULL, "Monsters Saved", "Note", MB_OK); // Monsters tab
+		}
+		else {
+			MessageBox(NULL, "Classes Saved", "Note", MB_OK); // Classes tab
 		}
 
 		
@@ -531,10 +542,21 @@ void SaveClass(){
 			}
 		}
 
-		fclose(fp);
-		MessageBox(NULL,"Classes Saved","Note",MB_OK);
+// Save healer classes
+			fseek(fp, 0x20CEF, SEEK_SET);
+			fprintf(fp, "%c", HealerClasses[0]); //healer class 1
+			fseek(fp, 0x20CF5, SEEK_SET);
+			fprintf(fp, "%c", HealerClasses[1]); //healer class 2
+			fseek(fp, 0x20CFB, SEEK_SET);
+			fprintf(fp, "%c", HealerClasses[2]); //healer class 3
+			fseek(fp, 0x20D01, SEEK_SET);
+			fprintf(fp, "%c", HealerClasses[3]); //healer class 4
+
+		}
 	}
-}
+
+
+
 
 void ExportClass(char*path){
 	FILE * fp = fopen(path,"wb");

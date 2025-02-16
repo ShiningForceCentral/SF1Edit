@@ -346,3 +346,40 @@
 						}
 					}
 				}
+				if (p.x >= 480 && p.x <= 580 && p.y >= 430 && p.y <= 445) {
+					// Healer Class 1 clicked
+					menu = 9; // Open a menu to select a class
+					currentHealerIndex = 0; // Track which healer class is being modified
+				}
+				if (p.x >= 625 && p.x <= 725 && p.y >= 430 && p.y <= 445) {
+					// Healer Class 2 clicked
+					menu = 9;
+					currentHealerIndex = 1;
+				}
+				if (p.x >= 480 && p.x <= 580 && p.y >= 450 && p.y <= 465) {
+					// Healer Class 3 clicked
+					menu = 9;
+					currentHealerIndex = 2;
+				}
+				if (p.x >= 625 && p.x <= 725 && p.y >= 450 && p.y <= 465) {
+					// Healer Class 4 clicked
+					menu = 9;
+					currentHealerIndex = 3;
+				}
+
+				if (p.x >= 480 && p.x <= 580 && p.y >= 405 && p.y <= 420) {
+					// Healer Class 1 clicked
+					HealerClasses[0] = (HealerClasses[0] + 1) % NumClasses; // Cycle to next class
+				}
+				if (p.x >= 625 && p.x <= 725 && p.y >= 405 && p.y <= 420) {
+					// Healer Class 2 clicked
+					HealerClasses[1] = (HealerClasses[1] + 1) % NumClasses; // Cycle to next class
+				}
+				if (p.x >= 480 && p.x <= 580 && p.y >= 425 && p.y <= 440) {
+					// Healer Class 3 clicked
+					HealerClasses[2] = (HealerClasses[2] + 1) % NumClasses; // Cycle to next class
+				}
+				if (p.x >= 625 && p.x <= 725 && p.y >= 425 && p.y <= 440) {
+					// Healer Class 4 clicked
+					HealerClasses[3] = (HealerClasses[3] + 1) % NumClasses; // Cycle to next class
+				}
