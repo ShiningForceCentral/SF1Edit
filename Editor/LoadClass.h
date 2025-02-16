@@ -14,6 +14,8 @@ unsigned char Priority8[64]; // Undefined
 long ClassNamesOffset;
 long ClassOffset;
 
+int currentHealerIndex = -1; // Tracks which healer class is being modified
+
 char ClassMovements[][16] = { "","Standard","Mounted","Aquatic","Forest","Mechanical","Flying","Hovering" };
 char ClassActions[][20] = { "Default","Caster","Use Items","Fire Breath","Fire Breath 2","Fire Breath 3","Ice Breath","Fire Breath 4","Ice Breath 2", "Electric Breath","Machine Gun","Laser","Demon Blaze","Dark Dragon Mid","Dark Dragon Side" };
 char ActionChances[][6] = { "100%","25%","50%","75%" };
@@ -26,9 +28,11 @@ unsigned char ActionChance = 255;
 unsigned char ClassSpecial = 255;
 unsigned char SpecialChance = 255;
 
+unsigned char HealerClasses[4]; // Stores IDs of healer classes
+
 unsigned char ClassPromote[64];
 
-void LoadClass(char *path,bool single=false){
+void LoadClass(char* path, bool single = false){
 	unsigned char r,c;
 	FILE * fp = fopen(path,"rb");
 	char in=0;
@@ -70,6 +74,7 @@ void LoadClass(char *path,bool single=false){
 		ExtendEquip = true;
 	}
 
+
 	/* table_PromotedClasses */
 	if (NumClasses == 64) {
 		fseek(fp, 0x16FE20, SEEK_SET);
@@ -80,6 +85,15 @@ void LoadClass(char *path,bool single=false){
 	} else {
 		fseek(fp, 0x243AA, SEEK_SET);
 	}
+
+	fseek(fp, 0x20CEF, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[0]); //load healer class 1
+	fseek(fp, 0x20CF5, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[1]); //load healer class 2
+	fseek(fp, 0x20CFB, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[2]); //load healer class 3
+	fseek(fp, 0x20D01, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[3]); // load healer class 4
 
 	/* table_AiPriority */
 	for(i=0; i<NumClasses; i++){
