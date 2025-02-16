@@ -14,8 +14,6 @@ unsigned char Priority8[64]; // Undefined
 long ClassNamesOffset;
 long ClassOffset;
 
-int currentHealerIndex = -1; // Tracks which healer class is being modified
-
 char ClassMovements[][16] = { "","Standard","Mounted","Aquatic","Forest","Mechanical","Flying","Hovering" };
 char ClassActions[][20] = { "Default","Caster","Use Items","Fire Breath","Fire Breath 2","Fire Breath 3","Ice Breath","Fire Breath 4","Ice Breath 2", "Electric Breath","Machine Gun","Laser","Demon Blaze","Dark Dragon Mid","Dark Dragon Side" };
 char ActionChances[][6] = { "100%","25%","50%","75%" };
@@ -28,7 +26,11 @@ unsigned char ActionChance = 255;
 unsigned char ClassSpecial = 255;
 unsigned char SpecialChance = 255;
 
-unsigned char HealerClasses[4]; // Stores IDs of healer classes
+byte HealerClass1;
+byte HealerClass2;
+byte HealerClass3;
+byte HealerClass4;
+
 
 unsigned char ClassPromote[64];
 
@@ -86,15 +88,6 @@ void LoadClass(char* path, bool single = false){
 		fseek(fp, 0x243AA, SEEK_SET);
 	}
 
-	fseek(fp, 0x20CEF, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[0]); //load healer class 1
-	fseek(fp, 0x20CF5, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[1]); //load healer class 2
-	fseek(fp, 0x20CFB, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[2]); //load healer class 3
-	fseek(fp, 0x20D01, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[3]); // load healer class 4
-
 	/* table_AiPriority */
 	for(i=0; i<NumClasses; i++){
 		fscanf(fp,"%c",&r);
@@ -149,6 +142,16 @@ void LoadClass(char* path, bool single = false){
 	ClassOffset = ClassOffset*256+r;
 	fscanf(fp,"%c",&r);
 	ClassOffset = ClassOffset*256+r;
+
+	// Load healer classes
+	fseek(fp, 0x20CEF, SEEK_SET);
+	fscanf(fp, "%c", &HealerClass1); // Load first healer class
+	fseek(fp, 0x20CF5, SEEK_SET);
+	fscanf(fp, "%c", &HealerClass2); // Load second healer class
+	fseek(fp, 0x20CFB, SEEK_SET);
+	fscanf(fp, "%c", &HealerClass3); // Load third healer class
+	fseek(fp, 0x20D01, SEEK_SET);
+	fscanf(fp, "%c", &HealerClass4); // Load fourth healer class
 
 	fseek(fp,ClassOffset,SEEK_SET);
 	for(i=0; i<NumClasses + NumMonsters; i++){
@@ -206,6 +209,7 @@ void ImportClass(char *path){
 
 	fclose(fp);
 }
+
 
 void ClassImport(){
 	int ret=IDYES;

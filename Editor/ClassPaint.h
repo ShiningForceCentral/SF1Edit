@@ -418,21 +418,24 @@
 						}
 						break;
 				}
-				//label stuff for healer classes
-				TextOut(memdc, 380, 410, "Healer Class 1:", 15);
-				TextOut(memdc, 525, 410, "Healer Class 2:", 15);
-				TextOut(memdc, 380, 425, "Healer Class 3:", 15);
-				TextOut(memdc, 525, 425, "Healer Class 4:", 15);
+				if (submode[mode] == 0) {
+					//label stuff for healer classes
+					TextOut(memdc, 380, 410, "Healer Class 1:", 15);
+					TextOut(memdc, 525, 410, "Healer Class 2:", 15);
+					TextOut(memdc, 380, 425, "Healer Class 3:", 15);
+					TextOut(memdc, 525, 425, "Healer Class 4:", 15);
 
-				//show the current healer classes
-				sprintf(out, "%s", Classes[HealerClasses[0]]); // Display Healer Class 1
-				TextOut(memdc, 480, 410, out, strlen(out));
+					char out[16];
+					sprintf(out, "%s", Classes[HealerClass1]); // Display Healer Class 1
+					TextOut(memdc, 480, 410, out, strlen(out));
 
-				sprintf(out, "%s", Classes[HealerClasses[1]]); // Display Healer Class 2
-				TextOut(memdc, 625, 410, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClass2]); // Display Healer Class 2
+					TextOut(memdc, 625, 410, out, strlen(out));
 
-				sprintf(out, "%s", Classes[HealerClasses[2]]); // Display Healer Class 3
-				TextOut(memdc, 480, 425, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClass3]); // Display Healer Class 3
+					TextOut(memdc, 480, 425, out, strlen(out));
 
-				sprintf(out, "%s", Classes[HealerClasses[3]]); // Display Healer Class 4
-				TextOut(memdc, 625, 425, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClass4]); // Display Healer Class 4
+					TextOut(memdc, 625, 425, out, strlen(out));
+
+				}
