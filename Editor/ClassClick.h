@@ -347,22 +347,21 @@
 					}
 				}
 
-
 				if (submode[mode] == 0) {
-					if (p.x >= 480 && p.x <= 580 && p.y >= 410 && p.y <= 420) {
+					if (p.x >= 480 && p.x <= 580 && p.y >= 430 && p.y <= 445) {
 						// Healer Class 1 clicked
-						HealerClass1 = (HealerClass1 + 1) % NumClasses; // Cycle to next class
+						HealerClasses[0] = (HealerClasses[0] + 1) % NumClasses; // Cycle to next class
 					}
-					if (p.x >= 625 && p.x <= 725 && p.y >= 410 && p.y <= 420) {
+					if (p.x >= 625 && p.x <= 725 && p.y >= 430 && p.y <= 445) {
 						// Healer Class 2 clicked
-						HealerClass2 = (HealerClass2 + 1) % NumClasses; // Cycle to next class
+						HealerClasses[1] = (HealerClasses[1] + 1) % NumClasses; // Cycle to next class
 					}
-					if (p.x >= 480 && p.x <= 580 && p.y >= 425 && p.y <= 435) {
+					if (p.x >= 480 && p.x <= 580 && p.y >= 450 && p.y <= 465) {
 						// Healer Class 3 clicked
-						HealerClass3 = (HealerClass3 + 1) % NumClasses; // Cycle to next class
+						HealerClasses[2] = (HealerClasses[2] + 1) % NumClasses; // Cycle to next class
 					}
-					if (p.x >= 625 && p.x <= 725 && p.y >= 425 && p.y <= 435) {
+					if (p.x >= 625 && p.x <= 725 && p.y >= 450 && p.y <= 465) {
 						// Healer Class 4 clicked
-						HealerClass4 = (HealerClass4 + 1) % NumClasses; // Cycle to next class
+						HealerClasses[3] = (HealerClasses[3] + 1) % NumClasses; // Cycle to next class
 					}
 				}

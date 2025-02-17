@@ -21,20 +21,16 @@ char SpecialAttacks[][20] = { "None","150% Damage Crit","200% Damage Crit","Stea
 char SpecialChances[][6] = { "0%","25%","50%","75%" };
 char DoubleChances[][16] = { "Default","Never","High","Level Bonus" };
 
+unsigned char HealerClasses[4]; // Stores IDs of healer classes
+
 unsigned char ClassAction = 255;
 unsigned char ActionChance = 255;
 unsigned char ClassSpecial = 255;
 unsigned char SpecialChance = 255;
 
-byte HealerClass1;
-byte HealerClass2;
-byte HealerClass3;
-byte HealerClass4;
-
-
 unsigned char ClassPromote[64];
 
-void LoadClass(char* path, bool single = false){
+void LoadClass(char *path,bool single=false){
 	unsigned char r,c;
 	FILE * fp = fopen(path,"rb");
 	char in=0;
@@ -75,7 +71,6 @@ void LoadClass(char* path, bool single = false){
 		NumClasses = 64;
 		ExtendEquip = true;
 	}
-
 
 	/* table_PromotedClasses */
 	if (NumClasses == 64) {
@@ -133,6 +128,15 @@ void LoadClass(char* path, bool single = false){
 		if(!single||i==select[mode])Classes[i][r]='\0';
 	}
 
+	fseek(fp, 0x20CEF, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[0]); // Load first healer class
+	fseek(fp, 0x20CF5, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[1]); // Load second healer class
+	fseek(fp, 0x20CFB, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[2]); // Load third healer class
+	fseek(fp, 0x20D01, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[3]); // Load fourth healer class
+
 	fseek(fp,0x203C4,SEEK_SET);
 	fscanf(fp,"%c",&r);
 	ClassOffset = r;
@@ -142,16 +146,6 @@ void LoadClass(char* path, bool single = false){
 	ClassOffset = ClassOffset*256+r;
 	fscanf(fp,"%c",&r);
 	ClassOffset = ClassOffset*256+r;
-
-	// Load healer classes
-	fseek(fp, 0x20CEF, SEEK_SET);
-	fscanf(fp, "%c", &HealerClass1); // Load first healer class
-	fseek(fp, 0x20CF5, SEEK_SET);
-	fscanf(fp, "%c", &HealerClass2); // Load second healer class
-	fseek(fp, 0x20CFB, SEEK_SET);
-	fscanf(fp, "%c", &HealerClass3); // Load third healer class
-	fseek(fp, 0x20D01, SEEK_SET);
-	fscanf(fp, "%c", &HealerClass4); // Load fourth healer class
 
 	fseek(fp,ClassOffset,SEEK_SET);
 	for(i=0; i<NumClasses + NumMonsters; i++){
@@ -209,7 +203,6 @@ void ImportClass(char *path){
 
 	fclose(fp);
 }
-
 
 void ClassImport(){
 	int ret=IDYES;

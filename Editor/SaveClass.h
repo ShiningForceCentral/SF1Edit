@@ -1,6 +1,5 @@
-void SaveClass() {
+void SaveClass(){
 	if(!strlen(file)){
-
 		int ret=IDYES;
 		OPENFILENAME openFileName;
 		char path[256];
@@ -27,7 +26,6 @@ void SaveClass() {
 		openFileName.lpfnHook = NULL;
 		openFileName.lpTemplateName = NULL;
 
-
 		if(GetOpenFileName(&openFileName)!=0){
 			sprintf(file,path);
 		}
@@ -35,9 +33,9 @@ void SaveClass() {
 
 	int i;
 	
-	if (strlen(file)) {
+	if(strlen(file)){
 		unsigned char r;
-		FILE* fp = fopen(file, "rb+");
+		FILE * fp = fopen(file,"rb+");
 
 		if (romsize < 0x200000) {
 			MessageBox(NULL, "Rom is too small, expand rom to save class changes.", "Error", MB_OK);
@@ -50,23 +48,7 @@ void SaveClass() {
 			ClassNamesOffset = 0x1DC000;
 		}
 
-		if (submode[mode] == 1) {
-			MessageBox(NULL, "Monsters Saved", "Note", MB_OK); // Monsters tab
-		}
-		else {
-			MessageBox(NULL, "Classes Saved", "Note", MB_OK); // Classes tab
-		}
-
-		fseek(fp, 0x20CEF, SEEK_SET);
-		fprintf(fp, "%c", HealerClass1);
-		fseek(fp, 0x20CF5, SEEK_SET);
-		fprintf(fp, "%c", HealerClass2);
-		fseek(fp, 0x20CFB, SEEK_SET);
-		fprintf(fp, "%c", HealerClass3);
-		fseek(fp, 0x20D01, SEEK_SET);
-		fprintf(fp, "%c", HealerClass4);
-
-
+		
 		/* (Hardcoded) Fix Dark Dragon finisher check */
 		fseek(fp, 0x214D4, SEEK_SET);
 		fprintf(fp, "%c", 0x0C); // cmpi.b  #NumClasses + 59,d1
@@ -516,44 +498,52 @@ void SaveClass() {
 			fprintf(fp, "%c", Priority8[i]);
 		}
 
-		fseek(fp, 0x203C0, SEEK_SET);
-		fprintf(fp, "%c", (ClassNamesOffset & 0xFF000000) / 0x1000000);
-		fprintf(fp, "%c", (ClassNamesOffset & 0x00FF0000) / 0x10000);
-		fprintf(fp, "%c", (ClassNamesOffset & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (ClassNamesOffset & 0x000000FF));
+		fseek(fp,0x203C0,SEEK_SET);
+		fprintf(fp,"%c",(ClassNamesOffset&0xFF000000)/0x1000000);
+		fprintf(fp,"%c",(ClassNamesOffset&0x00FF0000)/0x10000);
+		fprintf(fp,"%c",(ClassNamesOffset&0x0000FF00)/0x100);
+		fprintf(fp,"%c",(ClassNamesOffset&0x000000FF));
 
 		MonsterNameOffset = ClassNamesOffset;
 
 
-		fseek(fp, ClassNamesOffset, SEEK_SET);
-		for (i = 0; i < NumClasses; i++) {
-			r = strlen(Classes[i]);
-			MonsterNameOffset += r + 1;
-			fprintf(fp, "%c", r);
-			for (int j = 0; j < r; j++) {
-				fprintf(fp, "%c", Classes[i][j]);
+		fseek(fp,ClassNamesOffset,SEEK_SET);
+		for(i=0; i<NumClasses; i++){
+			r=strlen(Classes[i]);
+			MonsterNameOffset+=r+1;
+			fprintf(fp,"%c",r);
+			for(int j=0; j<r; j++){
+				fprintf(fp,"%c",Classes[i][j]);
 			}
-			Classes[i][r] = '\0';
+			Classes[i][r]='\0';
 		}
 
-		fseek(fp, 0x203C4, SEEK_SET);
-		fprintf(fp, "%c", (ClassOffset & 0xFF000000) / 0x1000000);
-		fprintf(fp, "%c", (ClassOffset & 0x00FF0000) / 0x10000);
-		fprintf(fp, "%c", (ClassOffset & 0x0000FF00) / 0x100);
-		fprintf(fp, "%c", (ClassOffset & 0x000000FF));
+		fseek(fp,0x203C4,SEEK_SET);
+		fprintf(fp,"%c",(ClassOffset&0xFF000000)/0x1000000);
+		fprintf(fp,"%c",(ClassOffset&0x00FF0000)/0x10000);
+		fprintf(fp,"%c",(ClassOffset&0x0000FF00)/0x100);
+		fprintf(fp,"%c",(ClassOffset&0x000000FF));
 
-		fseek(fp, ClassOffset, SEEK_SET);
-		for (i = 0; i < NumClasses + NumMonsters; i++) {
-			for (int j = 0;j < 8;j++) {
-				fprintf(fp, "%c", ClassData[i][j]);
+		fseek(fp,ClassOffset,SEEK_SET);
+		for(i=0; i<NumClasses +NumMonsters; i++){
+			for(int j=0;j<8;j++){
+				fprintf(fp,"%c",ClassData[i][j]);
 			}
 		}
-		}
 
+		fseek(fp, 0x20CEF, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[0]); // Save first healer class
+		fseek(fp, 0x20CF5, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[1]); // Save second healer class
+		fseek(fp, 0x20CFB, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[2]); // Save third healer class
+		fseek(fp, 0x20D01, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[3]); // Save fourth healer class
+
+		fclose(fp);
+		MessageBox(NULL,"Classes Saved","Note",MB_OK);
 	}
-
-
-
+}
 
 void ExportClass(char*path){
 	FILE * fp = fopen(path,"wb");
