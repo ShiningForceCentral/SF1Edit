@@ -134,3 +134,9 @@
 				if(AddMPEffect)NUM_EFFECT_ROUTINE++;
 				else NUM_EFFECT_ROUTINE--;
 			}
+			if (p.x >= 430 && p.x <= 480 && p.y >= 150 && p.y <= 170) {
+				focus = 16;
+			}
+			if (p.x >= 430 && p.x <= 480 && p.y >= 170 && p.y <= 190) {
+				focus = 18;
+			}

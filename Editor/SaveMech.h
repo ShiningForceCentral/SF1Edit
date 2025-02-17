@@ -446,6 +446,12 @@ void SaveMech(){
 
 		fseek(fp, 0x20CD5, SEEK_SET);
 		fprintf(fp, "%c", HPEXPMin);
+
+		fseek(fp, 0x20D65, SEEK_SET);
+		fprintf(fp, "%c", DetoxEXP);
+
+		fseek(fp, 0x24D8B, SEEK_SET);
+		fprintf(fp, "%c", SleepWakeChance);
 		
 
 		/* effect_InflictStatus */

@@ -33,6 +33,7 @@ unsigned char PromotePercent;
 unsigned char HPEXPPercent;
 unsigned char HPEXPMin;
 unsigned char DetoxEXP;
+unsigned char SleepWakeChance;
 
 unsigned char ProLevel;
 unsigned char ProLevelAdd;
@@ -87,6 +88,12 @@ void LoadMech(char *path){
 
 	fseek(fp,0x17441,SEEK_SET);
 	fscanf(fp,"%c",&ProLevel);
+
+	fseek(fp, 0x20D65, SEEK_SET);
+	fscanf(fp, "%c",&DetoxEXP);
+
+	fseek(fp, 0x24D8B, SEEK_SET);
+	fscanf(fp, "%c", &SleepWakeChance);
 
 
 	/* effect_InflictStatus */

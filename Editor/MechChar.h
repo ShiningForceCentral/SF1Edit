@@ -275,4 +275,37 @@
 						PromotePercent = i;
 					}
 					break;
+				case 16: { //detox exp
+					int val = c - '0';
+					if (val >= 0 && val < 10) {
+						int i = DetoxEXP;
+						if (i <= 12) {  
+							i *= 10;
+							i += val;
+							DetoxEXP = i;
+						}
+					}
+					if (c == 8) { 
+						int i = DetoxEXP;
+						i = i - i % 10;
+						i /= 10;
+						DetoxEXP = i;
+					}
+					if (DetoxEXP > 100) {
+						DetoxEXP = 100;  
+					}
+					break;
+				}
+				case 18: { //sleep chance
+					int val = c - '0';
+					if (val >= 0 && val < 10) {
+						int newVal = SleepWakeChance * 10 + val;
+						if (newVal <= 100)
+							SleepWakeChance = newVal;
+					}
+					else if (c == 8) { 
+						SleepWakeChance /= 10;
+					}
+					break;
+				}
 			}

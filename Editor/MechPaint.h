@@ -60,14 +60,16 @@
 	if (focus == 14 && cursor)sprintf(out, "%s|", out);
 	TextOut(memdc, 437, 130, out, strlen(out));
 
-
+	TextOut(memdc, 340, 170, "Wake Up Chance%:", 18);
+	sprintf(out, "%d", SleepWakeChance);
+	if (focus == 18 && cursor)sprintf(out, "%s|", out);
+	TextOut(memdc, 470, 170, out, strlen(out));
 
 	TextOut(memdc, 310, 298, "Fix Muddle:", 11);
 	if (FixMuddle)SelectObject(bmpdc, checkon);
 	else SelectObject(bmpdc, checkoff);
 	BitBlt(memdc, 397, 300, 13, 13, bmpdc, 0, 0, SRCCOPY);
 	TextOut(memdc, 420, 298, "(Evasion/Accuracy)", 18);
-
 
 
 	TextOut(memdc,10,90,"Damage:",7);
@@ -164,7 +166,10 @@
 	if (focus == 15 && cursor)sprintf(out, "%s|", out);
 	TextOut(memdc, 210, 410, out, strlen(out));
 
-
+	TextOut(memdc, 310, 150, "Detox EXP:", 10); 
+	sprintf(out, "%d", DetoxEXP); 
+	if (focus == 16 && cursor)sprintf(out, "%s|", out); 
+	TextOut(memdc, 437, 150, out, strlen(out));
 
 	TextOut(memdc,10,430,"Jogurt Levels:",14);
 	if(JogurtLevels)SelectObject(bmpdc,checkon);
