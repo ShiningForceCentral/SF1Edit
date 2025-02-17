@@ -422,22 +422,22 @@
 
 				if (submode[mode] == 0) {
 					// Draw Healer Class labels
-					TextOut(memdc, 380, 430, "Healer Class 1:", 15);
-					TextOut(memdc, 525, 430, "Healer Class 2:", 15);
-					TextOut(memdc, 380, 450, "Healer Class 3:", 15);
-					TextOut(memdc, 525, 450, "Healer Class 4:", 15);
+					TextOut(memdc, 380, 410, "Healer Class 1:", 15);
+					TextOut(memdc, 525, 410, "Healer Class 2:", 15);
+					TextOut(memdc, 380, 425, "Healer Class 3:", 15);
+					TextOut(memdc, 525, 425, "Healer Class 4:", 15);
 
 					// Display assigned healer classes
 					char out[16];
 					sprintf(out, "%s", Classes[HealerClasses[0]]); // Display Healer Class 1
-					TextOut(memdc, 480, 430, out, strlen(out));
+					TextOut(memdc, 480, 410, out, strlen(out));
 
 					sprintf(out, "%s", Classes[HealerClasses[1]]); // Display Healer Class 2
-					TextOut(memdc, 625, 430, out, strlen(out));
+					TextOut(memdc, 625, 410, out, strlen(out));
 
 					sprintf(out, "%s", Classes[HealerClasses[2]]); // Display Healer Class 3
-					TextOut(memdc, 480, 450, out, strlen(out));
+					TextOut(memdc, 480, 425, out, strlen(out));
 
 					sprintf(out, "%s", Classes[HealerClasses[3]]); // Display Healer Class 4
-					TextOut(memdc, 625, 450, out, strlen(out));
+					TextOut(memdc, 625, 425, out, strlen(out));
 				}
