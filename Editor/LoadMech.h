@@ -45,6 +45,8 @@ long StatCapOffsets[] = {0x228FC, 0x22926, 0x22950, 0x229A4, 0x229F8, 0x22A22, 0
 int NUM_EFFECT_ROUTINE = 11;
 int NUM_STAT_UPS = 5;
 
+int currentPage = 1; // 1 = EXP, 2 = Fixes, 3 = Mechanics
+
 void LoadMech(char *path){
 	unsigned char r;
 	FILE * fp = fopen(path,"rb");
