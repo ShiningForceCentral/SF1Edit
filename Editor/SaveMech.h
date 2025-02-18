@@ -453,6 +453,30 @@ void SaveMech(){
 		fseek(fp, 0x24D8B, SEEK_SET);
 		fprintf(fp, "%c", SleepWakeChance);
 
+		fseek(fp, 0x20CEF, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[0]); // Save first healer class
+		fseek(fp, 0x20CF5, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[1]); // Save second healer class
+		fseek(fp, 0x20CFB, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[2]); // Save third healer class
+		fseek(fp, 0x20D01, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[3]); // Save fourth healer class
+
+		// Save "All Classes Get Heal EXP" setting to offset 0x20CEC
+		fseek(fp, 0x20CEC, SEEK_SET);
+		if (AllHealEXP) {
+			fputc(0x4E, fp);
+			fputc(0x71, fp);
+			fputc(0xB2, fp);
+			fputc(0x01, fp);
+		}
+		else {
+			fputc(0x0C, fp);
+			fputc(0x01, fp);
+			fputc(0x00, fp);
+			fputc(0x06, fp);
+		}
+
 		fseek(fp, 0x20E8C, SEEK_SET);
 		fprintf(fp, "%c", EXP5Above);
 
@@ -479,7 +503,6 @@ void SaveMech(){
 
 		fseek(fp, 0x20E94, SEEK_SET);
 		fprintf(fp, "%c", EXP3Below);
-		
 
 		/* effect_InflictStatus */
 		fseek(fp, 0x20F94, SEEK_SET);

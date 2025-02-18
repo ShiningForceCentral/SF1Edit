@@ -419,34 +419,3 @@
 						}
 						break;
 				}
-
-				if (submode[mode] == 0) {
-					int healerX = 600;  // new x coordinate for the list (adjust as needed)
-					int healerY = 440;  // starting y coordinate for the list
-					int lineHeight = 20;
-					char out[32];
-
-					// Healer Class 1
-					sprintf(out, "Healer Class 1:");
-					TextOut(memdc, healerX, healerY, out, strlen(out));
-					sprintf(out, "%s", Classes[HealerClasses[0]]);
-					TextOut(memdc, healerX + 130, healerY, out, strlen(out));
-
-					// Healer Class 2
-					sprintf(out, "Healer Class 2:");
-					TextOut(memdc, healerX, healerY + lineHeight, out, strlen(out));
-					sprintf(out, "%s", Classes[HealerClasses[1]]);
-					TextOut(memdc, healerX + 130, healerY + lineHeight, out, strlen(out));
-
-					// Healer Class 3
-					sprintf(out, "Healer Class 3:");
-					TextOut(memdc, healerX, healerY + 2 * lineHeight, out, strlen(out));
-					sprintf(out, "%s", Classes[HealerClasses[2]]);
-					TextOut(memdc, healerX + 130, healerY + 2 * lineHeight, out, strlen(out));
-
-					// Healer Class 4
-					sprintf(out, "Healer Class 4:");
-					TextOut(memdc, healerX, healerY + 3 * lineHeight, out, strlen(out));
-					sprintf(out, "%s", Classes[HealerClasses[3]]);
-					TextOut(memdc, healerX + 130, healerY + 3 * lineHeight, out, strlen(out));
-				}

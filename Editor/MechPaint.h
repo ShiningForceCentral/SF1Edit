@@ -15,130 +15,170 @@ TextOut(memdc, 20, 95, "Mechanics", 9);
 
 if (currentPage == 1) {
     // Page 1: EXP-Related Mechanics
-    int centerOffset = 200; // Center alignment
-    int yStart = 50; // Starting Y position
+    int centerOffset = 200;
+    int leftY = 50;
 
-    TextOut(memdc, centerOffset, yStart, "Heal EXP Percent:", 17);
-    sprintf(out, "%d", HPEXPPercent);
-    if (focus == 13 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 125, yStart, out, strlen(out));
-
-    TextOut(memdc, centerOffset, yStart + 30, "Heal EXP Min:", 13);
-    sprintf(out, "%d", HPEXPMin);
-    if (focus == 14 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 105, yStart + 30, out, strlen(out));
-
-    TextOut(memdc, centerOffset, yStart + 60, "Detox EXP:", 10);
-    sprintf(out, "%d", DetoxEXP);
-    if (focus == 16 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 90, yStart + 60, out, strlen(out));
-
-    TextOut(memdc, centerOffset, yStart + 90, "Promotion Stats Percentage:", 27);
+    TextOut(memdc, centerOffset, leftY, "Promotion Stats Percentage:", 27);
     sprintf(out, "%d", PromotePercent);
     if (focus == 15 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 190, yStart + 90, out, strlen(out));
+    TextOut(memdc, centerOffset + 190, leftY, out, strlen(out));
 
-    // EXP Overflow checkbox
-    TextOut(memdc, centerOffset, yStart + 120, "EXP Overflow:", 13);
+    TextOut(memdc, centerOffset, leftY + 30, "EXP Overflow:", 13);
     if (EXPOverflow) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 100, yStart + 122, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    BitBlt(memdc, centerOffset + 100, leftY + 32, 13, 13, bmpdc, 0, 0, SRCCOPY);
 
-    // Level Caps
-    TextOut(memdc, centerOffset, yStart + 150, "Unpromoted Level Limit:", 24);
+    TextOut(memdc, centerOffset, leftY + 60, "Unpromoted Level Limit:", 24);
     sprintf(out, "%d", UnLevelLimit);
     if (focus == 9 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 165, yStart + 150, out, strlen(out));
+    TextOut(memdc, centerOffset + 165, leftY + 60, out, strlen(out));
 
-    TextOut(memdc, centerOffset, yStart + 180, "Promoted Level Limit:", 24);
+    TextOut(memdc, centerOffset, leftY + 90, "Promoted Level Limit:", 24);
     sprintf(out, "%d", LevelLimit);
     if (focus == 10 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 150, yStart + 180, out, strlen(out));
+    TextOut(memdc, centerOffset + 150, leftY + 90, out, strlen(out));
 
-    TextOut(memdc, centerOffset, yStart + 210, "Promotion Level:", 16);
+    TextOut(memdc, centerOffset, leftY + 120, "Promotion Level:", 16);
     sprintf(out, "%d", ProLevel);
     if (focus == 11 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 120, yStart + 210, out, strlen(out));
+    TextOut(memdc, centerOffset + 120, leftY + 120, out, strlen(out));
 
-    TextOut(memdc, centerOffset, yStart + 240, "Base Promoted Level (Used For Calculating EXP):", 48);
+    TextOut(memdc, centerOffset, leftY + 150, "Base Promoted Level (Used For Calculating EXP):", 48);
     sprintf(out, "%d", ProLevelAdd);
     if (focus == 12 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 325, yStart + 240, out, strlen(out));
+    TextOut(memdc, centerOffset + 325, leftY + 150, out, strlen(out));
 
-    int tableX = 625; // far right x offset (adjust as needed)
-    int tableY = 50;  // starting y position for the table
+    int tableX = 595;
+    int tableY = 50;
+
+    TextOut(memdc, tableX + 20, tableY - 30, "Kill EXP Table", 14);
 
     // EXP5Above
-    TextOut(memdc, tableX, tableY, "EXP5Above:", 10);
+    TextOut(memdc, tableX, tableY, "5+ Levels:", 18);
     sprintf(out, "%d", EXP5Above);
-    if (focus == 17 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 17 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPPlus4
-    TextOut(memdc, tableX, tableY, "EXPPlus4:", 9);
+    TextOut(memdc, tableX, tableY, "4 Levels:", 11);
     sprintf(out, "%d", EXPPlus4);
-    if (focus == 18 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 18 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPPlus3
-    TextOut(memdc, tableX, tableY, "EXPPlus3:", 9);
+    TextOut(memdc, tableX, tableY, "3 Levels:", 11);
     sprintf(out, "%d", EXPPlus3);
-    if (focus == 19 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 19 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPPlus2
-    TextOut(memdc, tableX, tableY, "EXPPlus2:", 9);
+    TextOut(memdc, tableX, tableY, "2 Levels:", 11);
     sprintf(out, "%d", EXPPlus2);
-    if (focus == 20 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 20 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPPlus1
-    TextOut(memdc, tableX, tableY, "EXPPlus1:", 9);
+    TextOut(memdc, tableX, tableY, "1 Level:", 9);
     sprintf(out, "%d", EXPPlus1);
-    if (focus == 21 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 21 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // SameLevel
-    TextOut(memdc, tableX, tableY, "SameLevel:", 10);
+    TextOut(memdc, tableX, tableY, "Level Is Equal:", 16);
     sprintf(out, "%d", SameLevel);
-    if (focus == 22 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 22 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPMinus1
-    TextOut(memdc, tableX, tableY, "EXPMinus1:", 10);
+    TextOut(memdc, tableX, tableY, "Over 1 Level:", 15);
     sprintf(out, "%d", EXPMinus1);
-    if (focus == 23 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 23 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXPMinus2
-    TextOut(memdc, tableX, tableY, "EXPMinus2:", 10);
+    TextOut(memdc, tableX, tableY, "Over 2 Levels:", 15);
     sprintf(out, "%d", EXPMinus2);
-    if (focus == 24 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 24 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
     tableY += 30;
 
     // EXP3Below
-    TextOut(memdc, tableX, tableY, "EXP3Below:", 10);
+    TextOut(memdc, tableX, tableY, "Over 3+ Levels:", 15);
     sprintf(out, "%d", EXP3Below);
-    if (focus == 25 && cursor)sprintf(out, "%s|", out);
-    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    if (focus == 25 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 125, tableY, out, strlen(out));
+
+    int healExpX = 600;
+    int healExpY = 350 + 25; 
+    int healExpLine = 20;
+    TextOut(memdc, healExpX, healExpY, "Heal EXP Percent:", 17);
+    sprintf(out, "%d", HPEXPPercent);
+    if (focus == 13 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, healExpX + 130, healExpY, out, strlen(out));
+    healExpY += healExpLine;
+
+    TextOut(memdc, healExpX, healExpY, "Heal EXP Min:", 13);
+    sprintf(out, "%d", HPEXPMin);
+    if (focus == 14 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, healExpX + 130, healExpY, out, strlen(out));
+
+    healExpY += healExpLine;
+    TextOut(memdc, healExpX, healExpY, "Detox EXP:", 10);
+    sprintf(out, "%d", DetoxEXP);
+    if (focus == 16 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, healExpX + 130, healExpY, out, strlen(out));
+
+    // All heal classes checkbox
+    int allHealExpX = 580;
+    int allHealExpY = 350;
+    if (AllHealEXP)SelectObject(bmpdc, checkon);
+    else SelectObject(bmpdc, checkoff);
+
+    BitBlt(memdc, allHealExpX, allHealExpY, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    TextOut(memdc, allHealExpX + 20, allHealExpY, "All Classes Get Heal EXP", 26);
+
+    if (!AllHealEXP) {
+        int healerX = 600;
+        int healerY = 420 + 25;
+        int lineHeight = 20;
+
+        sprintf(out, "Healer Class 1:");
+        TextOut(memdc, healerX, healerY, out, strlen(out));
+        sprintf(out, "%s", Classes[HealerClasses[0]]);
+        TextOut(memdc, healerX + 130, healerY, out, strlen(out));
+
+        sprintf(out, "Healer Class 2:");
+        TextOut(memdc, healerX, healerY + lineHeight, out, strlen(out));
+        sprintf(out, "%s", Classes[HealerClasses[1]]);
+        TextOut(memdc, healerX + 130, healerY + lineHeight, out, strlen(out));
+
+        sprintf(out, "Healer Class 3:");
+        TextOut(memdc, healerX, healerY + 2 * lineHeight, out, strlen(out));
+        sprintf(out, "%s", Classes[HealerClasses[2]]);
+        TextOut(memdc, healerX + 130, healerY + 2 * lineHeight, out, strlen(out));
+
+        sprintf(out, "Healer Class 4:");
+        TextOut(memdc, healerX, healerY + 3 * lineHeight, out, strlen(out));
+        sprintf(out, "%s", Classes[HealerClasses[3]]);
+        TextOut(memdc, healerX + 130, healerY + 3 * lineHeight, out, strlen(out));
+    }
 }
 else if (currentPage == 2) {
     // Page 2: Fixes
     int centerOffset = 200; // Center alignment
-    int yStart = 50; // Starting Y position
+    int yStart = 50;        // Starting Y position
 
     TextOut(memdc, centerOffset, yStart, "Fix Muddle:", 11);
     if (FixMuddle) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 80, yStart +2, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    BitBlt(memdc, centerOffset + 80, yStart + 2, 13, 13, bmpdc, 0, 0, SRCCOPY);
     TextOut(memdc, centerOffset + 95, yStart, "(Evasion/Accuracy)", 18);
 
     TextOut(memdc, centerOffset, yStart + 30, "Fix Land Effect:", 16);
@@ -146,7 +186,6 @@ else if (currentPage == 2) {
     else SelectObject(bmpdc, checkoff);
     BitBlt(memdc, centerOffset + 105, yStart + 32, 13, 13, bmpdc, 0, 0, SRCCOPY);
 
-    // Fix Class Double Setting checkbox
     TextOut(memdc, centerOffset, yStart + 60, "Fix Class Double Setting:", 25);
     if (FixDoubles) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
@@ -155,9 +194,8 @@ else if (currentPage == 2) {
 else if (currentPage == 3) {
     // Page 3: Mechanics
     int centerOffset = 200; // Center alignment
-    int yStart = 50; // Starting Y position
+    int yStart = 50;        // Starting Y position
 
-    // Poison
     TextOut(memdc, centerOffset, yStart, "Poison:", 7);
     sprintf(out, "%d", Poison);
     if (focus == 1 && cursor) sprintf(out, "%s|", out);
@@ -180,7 +218,6 @@ else if (currentPage == 3) {
         TextOut(memdc, centerOffset + 240, yStart + 40, out, strlen(out));
     }
 
-    // Sleep Chance
     TextOut(memdc, centerOffset + 180, yStart + 90, "Wake Up Chance%:", 18);
     sprintf(out, "%d", SleepWakeChance);
     if (focus == 18 && cursor) sprintf(out, "%s|", out);
@@ -218,12 +255,11 @@ else if (currentPage == 3) {
     if (focus == 6 && cursor) sprintf(out, "%s|", out);
     TextOut(memdc, centerOffset + 150, yStart + 160, out, strlen(out));
 
-     TextOut(memdc, centerOffset, yStart + 180, "Triple+ Attacks:", 16);
+    TextOut(memdc, centerOffset, yStart + 180, "Triple+ Attacks:", 16);
     if (MultiAttacks) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
     BitBlt(memdc, centerOffset + 150, yStart + 180, 13, 13, bmpdc, 0, 0, SRCCOPY);
 
-    // Multi Falloff field (to the right of the checkbox)
     if (MultiAttacks) {
         TextOut(memdc, centerOffset + 170, yStart + 180, "Multi Falloff:", 14);
         sprintf(out, "%d", MultiFalloff);

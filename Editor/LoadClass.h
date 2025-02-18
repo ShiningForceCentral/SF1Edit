@@ -21,8 +21,6 @@ char SpecialAttacks[][20] = { "None","150% Damage Crit","200% Damage Crit","Stea
 char SpecialChances[][6] = { "0%","25%","50%","75%" };
 char DoubleChances[][16] = { "Default","Never","High","Level Bonus" };
 
-unsigned char HealerClasses[4]; // Stores IDs of healer classes
-
 unsigned char ClassAction = 255;
 unsigned char ActionChance = 255;
 unsigned char ClassSpecial = 255;
@@ -127,15 +125,6 @@ void LoadClass(char *path,bool single=false){
 		}
 		if(!single||i==select[mode])Classes[i][r]='\0';
 	}
-
-	fseek(fp, 0x20CEF, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[0]); // Load first healer class
-	fseek(fp, 0x20CF5, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[1]); // Load second healer class
-	fseek(fp, 0x20CFB, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[2]); // Load third healer class
-	fseek(fp, 0x20D01, SEEK_SET);
-	fscanf(fp, "%c", &HealerClasses[3]); // Load fourth healer class
 
 	fseek(fp,0x203C4,SEEK_SET);
 	fscanf(fp,"%c",&r);

@@ -27,6 +27,7 @@ bool ChooseMSPal;
 bool FixDoubles;
 bool ShowCrit;
 bool FixMuddle;
+bool AllHealEXP;
 
 unsigned char StatusElement;
 
@@ -48,6 +49,8 @@ unsigned char SameLevel; //character and enemy are the same level
 unsigned char EXPMinus1;
 unsigned char EXPMinus2;
 unsigned char EXP3Below; //character is 3 levels or more than the enemy
+
+unsigned char HealerClasses[4]; // Stores IDs of healer classes
 
 long PoisonOffset;
 
@@ -88,6 +91,17 @@ void LoadMech(char *path){
 		FixMuddle = true;
 	} else {
 		FixMuddle = false;
+	}
+
+	// Load "All Classes Get Heal EXP" setting from offset 0x20CEC
+	fseek(fp, 0x20CEC, SEEK_SET);
+	unsigned char temp;
+	fscanf(fp, "%c", &temp);
+	if (temp == 0x4E) {
+		AllHealEXP = true;
+	}
+	else {
+		AllHealEXP = false;
 	}
 
 
@@ -132,6 +146,15 @@ void LoadMech(char *path){
 
 	fseek(fp, 0x20E94, SEEK_SET);
 	fscanf(fp, "%c", &EXP3Below);
+
+	fseek(fp, 0x20CEF, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[0]); // Load first healer class
+	fseek(fp, 0x20CF5, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[1]); // Load second healer class
+	fseek(fp, 0x20CFB, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[2]); // Load third healer class
+	fseek(fp, 0x20D01, SEEK_SET);
+	fscanf(fp, "%c", &HealerClasses[3]); // Load fourth healer class
 
 	/* effect_InflictStatus */
 	fseek(fp, 0x20F94, SEEK_SET);
