@@ -16,20 +16,34 @@ if (currentPage == 1) {
     int centerOffset = 200;
     int yStart = 50;
 
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart && p.y <= yStart + 20) {
+    if (p.x >= centerOffset + 125 && p.x <= centerOffset + 145 && p.y >= yStart && p.y <= yStart + 20) {
         focus = 13; // Heal EXP Percent
     }
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 30 && p.y <= yStart + 50) {
+    if (p.x >= centerOffset + 105 && p.x <= centerOffset + 125 && p.y >= yStart + 30 && p.y <= yStart + 50) {
         focus = 14; // Heal EXP Min
     }
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 60 && p.y <= yStart + 80) {
+    if (p.x >= centerOffset + 90 && p.x <= centerOffset + 115 && p.y >= yStart + 60 && p.y <= yStart + 80) {
         focus = 16; // Detox EXP
     }
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 90 && p.y <= yStart + 110) {
+    if (p.x >= centerOffset + 190 && p.x <= centerOffset + 210 && p.y >= yStart + 90 && p.y <= yStart + 110) {
         focus = 15; // Promotion Stats Percentage
     }
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 120 && p.y <= yStart + 133) {
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 165 && p.y >= yStart + 120 && p.y <= yStart + 133) {
         EXPOverflow = !EXPOverflow; // EXP Overflow
+    }
+
+    // Level Caps
+    if (p.x >= centerOffset + 165 && p.x <= centerOffset + 185 && p.y >= yStart + 150 && p.y <= yStart + 170) {
+        focus = 9; // Unpromoted Level Limit
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 170 && p.y >= yStart + 180 && p.y <= yStart + 200) {
+        focus = 10; // Promoted Level Limit
+    }
+    if (p.x >= centerOffset + 120 && p.x <= centerOffset + 140 && p.y >= yStart + 210 && p.y <= yStart + 230) {
+        focus = 11; // Promotion Level
+    }
+    if (p.x >= centerOffset + 325 && p.x <= centerOffset + 345 && p.y >= yStart + 240 && p.y <= yStart + 260) {
+        focus = 12; // the thing for promo exp
     }
 }
 else if (currentPage == 2) {
@@ -37,13 +51,13 @@ else if (currentPage == 2) {
     int centerOffset = 200;
     int yStart = 50;
 
-    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 113 && p.y >= yStart && p.y <= yStart + 13) {
+    if (p.x >= centerOffset + 80 && p.x <= centerOffset + 93 && p.y >= yStart + 2 && p.y <= yStart + 9) {
         FixMuddle = !FixMuddle; // Fix Muddle
     }
-    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 30 && p.y <= yStart + 43) {
+    if (p.x >= centerOffset + 105 && p.x <= centerOffset + 118 && p.y >= yStart + 30 && p.y <= yStart + 43) {
         FixLE = !FixLE; // Fix Land Effect
     }
-    if (p.x >= centerOffset + 200 && p.x <= centerOffset + 213 && p.y >= yStart + 60 && p.y <= yStart + 73) {
+    if (p.x >= centerOffset + 170 && p.x <= centerOffset + 183 && p.y >= yStart + 60 && p.y <= yStart + 73) {
         FixDoubles = !FixDoubles; // Fix Class Double Setting
     }
 }

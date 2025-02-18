@@ -1,15 +1,15 @@
 if (currentPage == 1) {
-    Rectangle(memdc, 10, 10, 100, 40); // Highlight EXP button
+    Rectangle(memdc, 10, 10, 150, 40); // Highlight EXP button
 }
 else if (currentPage == 2) {
-    Rectangle(memdc, 10, 50, 100, 80); // Highlight Fixes button
+    Rectangle(memdc, 10, 50, 150, 80); // Highlight Fixes button
 }
 else if (currentPage == 3) {
-    Rectangle(memdc, 10, 90, 100, 120); // Highlight Mechanics button
+    Rectangle(memdc, 10, 90, 150, 120); // Highlight Mechanics button
 }
 
-TextOut(memdc, 20, 15, "EXP", 3);
-TextOut(memdc, 20, 55, "Fixes", 5);
+TextOut(memdc, 20, 15, "Levels & EXP", 13);
+TextOut(memdc, 20, 55, "Various Fixes", 14);
 TextOut(memdc, 20, 95, "Mechanics", 9);
 
 
@@ -21,17 +21,17 @@ if (currentPage == 1) {
     TextOut(memdc, centerOffset, yStart, "Heal EXP Percent:", 17);
     sprintf(out, "%d", HPEXPPercent);
     if (focus == 13 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 150, yStart, out, strlen(out));
+    TextOut(memdc, centerOffset + 125, yStart, out, strlen(out));
 
     TextOut(memdc, centerOffset, yStart + 30, "Heal EXP Min:", 13);
     sprintf(out, "%d", HPEXPMin);
     if (focus == 14 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 150, yStart + 30, out, strlen(out));
+    TextOut(memdc, centerOffset + 105, yStart + 30, out, strlen(out));
 
     TextOut(memdc, centerOffset, yStart + 60, "Detox EXP:", 10);
     sprintf(out, "%d", DetoxEXP);
     if (focus == 16 && cursor) sprintf(out, "%s|", out);
-    TextOut(memdc, centerOffset + 150, yStart + 60, out, strlen(out));
+    TextOut(memdc, centerOffset + 90, yStart + 60, out, strlen(out));
 
     TextOut(memdc, centerOffset, yStart + 90, "Promotion Stats Percentage:", 27);
     sprintf(out, "%d", PromotePercent);
@@ -42,7 +42,28 @@ if (currentPage == 1) {
     TextOut(memdc, centerOffset, yStart + 120, "EXP Overflow:", 13);
     if (EXPOverflow) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 150, yStart + 120, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    BitBlt(memdc, centerOffset + 100, yStart + 122, 13, 13, bmpdc, 0, 0, SRCCOPY);
+
+    // Level Caps
+    TextOut(memdc, centerOffset, yStart + 150, "Unpromoted Level Limit:", 24);
+    sprintf(out, "%d", UnLevelLimit);
+    if (focus == 9 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, centerOffset + 165, yStart + 150, out, strlen(out));
+
+    TextOut(memdc, centerOffset, yStart + 180, "Promoted Level Limit:", 24);
+    sprintf(out, "%d", LevelLimit);
+    if (focus == 10 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, centerOffset + 150, yStart + 180, out, strlen(out));
+
+    TextOut(memdc, centerOffset, yStart + 210, "Promotion Level:", 16);
+    sprintf(out, "%d", ProLevel);
+    if (focus == 11 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, centerOffset + 120, yStart + 210, out, strlen(out));
+
+    TextOut(memdc, centerOffset, yStart + 240, "Base Promoted Level (Used For Calculating EXP):", 48);
+    sprintf(out, "%d", ProLevelAdd);
+    if (focus == 12 && cursor) sprintf(out, "%s|", out);
+    TextOut(memdc, centerOffset + 325, yStart + 240, out, strlen(out));
 }
 else if (currentPage == 2) {
     // Page 2: Fixes
@@ -52,19 +73,19 @@ else if (currentPage == 2) {
     TextOut(memdc, centerOffset, yStart, "Fix Muddle:", 11);
     if (FixMuddle) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 100, yStart, 13, 13, bmpdc, 0, 0, SRCCOPY);
-    TextOut(memdc, centerOffset + 120, yStart, "(Evasion/Accuracy)", 18);
+    BitBlt(memdc, centerOffset + 80, yStart +2, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    TextOut(memdc, centerOffset + 95, yStart, "(Evasion/Accuracy)", 18);
 
     TextOut(memdc, centerOffset, yStart + 30, "Fix Land Effect:", 16);
     if (FixLE) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 150, yStart + 30, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    BitBlt(memdc, centerOffset + 105, yStart + 32, 13, 13, bmpdc, 0, 0, SRCCOPY);
 
     // Fix Class Double Setting checkbox
     TextOut(memdc, centerOffset, yStart + 60, "Fix Class Double Setting:", 25);
     if (FixDoubles) SelectObject(bmpdc, checkon);
     else SelectObject(bmpdc, checkoff);
-    BitBlt(memdc, centerOffset + 200, yStart + 60, 13, 13, bmpdc, 0, 0, SRCCOPY);
+    BitBlt(memdc, centerOffset + 170, yStart + 62, 13, 13, bmpdc, 0, 0, SRCCOPY);
 }
 else if (currentPage == 3) {
     // Page 3: Mechanics
