@@ -421,23 +421,32 @@
 				}
 
 				if (submode[mode] == 0) {
-					// Draw Healer Class labels
-					TextOut(memdc, 380, 410, "Healer Class 1:", 15);
-					TextOut(memdc, 525, 410, "Healer Class 2:", 15);
-					TextOut(memdc, 380, 425, "Healer Class 3:", 15);
-					TextOut(memdc, 525, 425, "Healer Class 4:", 15);
+					int healerX = 600;  // new x coordinate for the list (adjust as needed)
+					int healerY = 440;  // starting y coordinate for the list
+					int lineHeight = 20;
+					char out[32];
 
-					// Display assigned healer classes
-					char out[16];
-					sprintf(out, "%s", Classes[HealerClasses[0]]); // Display Healer Class 1
-					TextOut(memdc, 480, 410, out, strlen(out));
+					// Healer Class 1
+					sprintf(out, "Healer Class 1:");
+					TextOut(memdc, healerX, healerY, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClasses[0]]);
+					TextOut(memdc, healerX + 130, healerY, out, strlen(out));
 
-					sprintf(out, "%s", Classes[HealerClasses[1]]); // Display Healer Class 2
-					TextOut(memdc, 625, 410, out, strlen(out));
+					// Healer Class 2
+					sprintf(out, "Healer Class 2:");
+					TextOut(memdc, healerX, healerY + lineHeight, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClasses[1]]);
+					TextOut(memdc, healerX + 130, healerY + lineHeight, out, strlen(out));
 
-					sprintf(out, "%s", Classes[HealerClasses[2]]); // Display Healer Class 3
-					TextOut(memdc, 480, 425, out, strlen(out));
+					// Healer Class 3
+					sprintf(out, "Healer Class 3:");
+					TextOut(memdc, healerX, healerY + 2 * lineHeight, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClasses[2]]);
+					TextOut(memdc, healerX + 130, healerY + 2 * lineHeight, out, strlen(out));
 
-					sprintf(out, "%s", Classes[HealerClasses[3]]); // Display Healer Class 4
-					TextOut(memdc, 625, 425, out, strlen(out));
+					// Healer Class 4
+					sprintf(out, "Healer Class 4:");
+					TextOut(memdc, healerX, healerY + 3 * lineHeight, out, strlen(out));
+					sprintf(out, "%s", Classes[HealerClasses[3]]);
+					TextOut(memdc, healerX + 130, healerY + 3 * lineHeight, out, strlen(out));
 				}

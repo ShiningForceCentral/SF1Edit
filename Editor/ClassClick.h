@@ -348,20 +348,31 @@
 				}
 
 				if (submode[mode] == 0) {
-					if (p.x >= 480 && p.x <= 580 && p.y >= 400 && p.y <= 415) {
-						// Healer Class 1 clicked
-						HealerClasses[0] = (HealerClasses[0] + 1) % NumClasses; // Cycle to next class
-					}
-					if (p.x >= 625 && p.x <= 725 && p.y >= 400 && p.y <= 415) {
-						// Healer Class 2 clicked
-						HealerClasses[1] = (HealerClasses[1] + 1) % NumClasses; // Cycle to next class
-					}
-					if (p.x >= 480 && p.x <= 580 && p.y >= 420 && p.y <= 435) {
-						// Healer Class 3 clicked
-						HealerClasses[2] = (HealerClasses[2] + 1) % NumClasses; // Cycle to next class
-					}
-					if (p.x >= 625 && p.x <= 725 && p.y >= 420 && p.y <= 435) {
-						// Healer Class 4 clicked
-						HealerClasses[3] = (HealerClasses[3] + 1) % NumClasses; // Cycle to next class
+					int healerX = 600;  // same x coordinate as in ClassPaint.h
+					int healerY = 440;
+					int lineHeight = 20;
+
+					// Click Checks
+					if (p.x >= healerX + 130 && p.x <= healerX + 210) {
+						if (p.y >= healerY && p.y < healerY + lineHeight) {
+							// Healer Class 1 clicked
+							HealerClasses[0] = (HealerClasses[0] + 1) % NumClasses;
+							return 0;
+						}
+						else if (p.y >= healerY + lineHeight && p.y < healerY + 2 * lineHeight) {
+							// Healer Class 2 clicked
+							HealerClasses[1] = (HealerClasses[1] + 1) % NumClasses;
+							return 0;
+						}
+						else if (p.y >= healerY + 2 * lineHeight && p.y < healerY + 3 * lineHeight) {
+							// Healer Class 3 clicked
+							HealerClasses[2] = (HealerClasses[2] + 1) % NumClasses;
+							return 0;
+						}
+						else if (p.y >= healerY + 3 * lineHeight && p.y < healerY + 4 * lineHeight) {
+							// Healer Class 4 clicked
+							HealerClasses[3] = (HealerClasses[3] + 1) % NumClasses;
+							return 0;
+						}
 					}
 				}

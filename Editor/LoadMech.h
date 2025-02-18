@@ -1,3 +1,5 @@
+int currentPage = 1; // 1 = EXP, 2 = Fixes, 3 = Mechanics
+
 unsigned char Poison;
 unsigned char DamageSpread;
 unsigned char DamageBase;
@@ -37,6 +39,15 @@ unsigned char SleepWakeChance;
 
 unsigned char ProLevel;
 unsigned char ProLevelAdd;
+unsigned char EXP5Above; //character is 5 levels or more above the enemy
+unsigned char EXPPlus4;
+unsigned char EXPPlus3;
+unsigned char EXPPlus2;
+unsigned char EXPPlus1;
+unsigned char SameLevel; //character and enemy are the same level
+unsigned char EXPMinus1;
+unsigned char EXPMinus2;
+unsigned char EXP3Below; //character is 3 levels or more than the enemy
 
 long PoisonOffset;
 
@@ -44,8 +55,6 @@ long StatCapOffsets[] = {0x228FC, 0x22926, 0x22950, 0x229A4, 0x229F8, 0x22A22, 0
 
 int NUM_EFFECT_ROUTINE = 11;
 int NUM_STAT_UPS = 5;
-
-int currentPage = 1; // 1 = EXP, 2 = Fixes, 3 = Mechanics
 
 void LoadMech(char *path){
 	unsigned char r;
@@ -97,6 +106,32 @@ void LoadMech(char *path){
 	fseek(fp, 0x24D8B, SEEK_SET);
 	fscanf(fp, "%c", &SleepWakeChance);
 
+	fseek(fp, 0x20E8C, SEEK_SET);
+	fscanf(fp, "%c", &EXP5Above);
+
+	fseek(fp, 0x20E8D, SEEK_SET);
+	fscanf(fp, "%c", &EXPPlus4);
+
+	fseek(fp, 0x20E8E, SEEK_SET);
+	fscanf(fp, "%c", &EXPPlus3);
+
+	fseek(fp, 0x20E8F, SEEK_SET);
+	fscanf(fp, "%c", &EXPPlus2);
+
+	fseek(fp, 0x20E90, SEEK_SET);
+	fscanf(fp, "%c", &EXPPlus1);
+
+	fseek(fp, 0x20E91, SEEK_SET);
+	fscanf(fp, "%c", &SameLevel);
+
+	fseek(fp, 0x20E92, SEEK_SET);
+	fscanf(fp, "%c", &EXPMinus1);
+
+	fseek(fp, 0x20E93, SEEK_SET);
+	fscanf(fp, "%c", &EXPMinus2);
+
+	fseek(fp, 0x20E94, SEEK_SET);
+	fscanf(fp, "%c", &EXP3Below);
 
 	/* effect_InflictStatus */
 	fseek(fp, 0x20F94, SEEK_SET);

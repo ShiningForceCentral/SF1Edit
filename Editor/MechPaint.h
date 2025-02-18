@@ -64,6 +64,71 @@ if (currentPage == 1) {
     sprintf(out, "%d", ProLevelAdd);
     if (focus == 12 && cursor) sprintf(out, "%s|", out);
     TextOut(memdc, centerOffset + 325, yStart + 240, out, strlen(out));
+
+    int tableX = 625; // far right x offset (adjust as needed)
+    int tableY = 50;  // starting y position for the table
+
+    // EXP5Above
+    TextOut(memdc, tableX, tableY, "EXP5Above:", 10);
+    sprintf(out, "%d", EXP5Above);
+    if (focus == 17 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPPlus4
+    TextOut(memdc, tableX, tableY, "EXPPlus4:", 9);
+    sprintf(out, "%d", EXPPlus4);
+    if (focus == 18 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPPlus3
+    TextOut(memdc, tableX, tableY, "EXPPlus3:", 9);
+    sprintf(out, "%d", EXPPlus3);
+    if (focus == 19 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPPlus2
+    TextOut(memdc, tableX, tableY, "EXPPlus2:", 9);
+    sprintf(out, "%d", EXPPlus2);
+    if (focus == 20 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPPlus1
+    TextOut(memdc, tableX, tableY, "EXPPlus1:", 9);
+    sprintf(out, "%d", EXPPlus1);
+    if (focus == 21 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // SameLevel
+    TextOut(memdc, tableX, tableY, "SameLevel:", 10);
+    sprintf(out, "%d", SameLevel);
+    if (focus == 22 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPMinus1
+    TextOut(memdc, tableX, tableY, "EXPMinus1:", 10);
+    sprintf(out, "%d", EXPMinus1);
+    if (focus == 23 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXPMinus2
+    TextOut(memdc, tableX, tableY, "EXPMinus2:", 10);
+    sprintf(out, "%d", EXPMinus2);
+    if (focus == 24 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
+    tableY += 30;
+
+    // EXP3Below
+    TextOut(memdc, tableX, tableY, "EXP3Below:", 10);
+    sprintf(out, "%d", EXP3Below);
+    if (focus == 25 && cursor)sprintf(out, "%s|", out);
+    TextOut(memdc, tableX + 100, tableY, out, strlen(out));
 }
 else if (currentPage == 2) {
     // Page 2: Fixes

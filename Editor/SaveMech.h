@@ -452,6 +452,33 @@ void SaveMech(){
 
 		fseek(fp, 0x24D8B, SEEK_SET);
 		fprintf(fp, "%c", SleepWakeChance);
+
+		fseek(fp, 0x20E8C, SEEK_SET);
+		fprintf(fp, "%c", EXP5Above);
+
+		fseek(fp, 0x20E8D, SEEK_SET);
+		fprintf(fp, "%c", EXPPlus4);
+
+		fseek(fp, 0x20E8E, SEEK_SET);
+		fprintf(fp, "%c", EXPPlus3);
+
+		fseek(fp, 0x20E8F, SEEK_SET);
+		fprintf(fp, "%c", EXPPlus2);
+
+		fseek(fp, 0x20E90, SEEK_SET);
+		fprintf(fp, "%c", EXPPlus1);
+
+		fseek(fp, 0x20E91, SEEK_SET);
+		fprintf(fp, "%c", SameLevel);
+
+		fseek(fp, 0x20E92, SEEK_SET);
+		fprintf(fp, "%c", EXPMinus1);
+
+		fseek(fp, 0x20E93, SEEK_SET);
+		fprintf(fp, "%c", EXPMinus2);
+
+		fseek(fp, 0x20E94, SEEK_SET);
+		fprintf(fp, "%c", EXP3Below);
 		
 
 		/* effect_InflictStatus */

@@ -308,4 +308,168 @@
 					}
 					break;
 				}
+
+			}
+			c = wParam;
+			if (focus == 17) {  // EXP5Above
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXP5Above;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXP5Above = i;
+					}
+				}
+				if (c == 8) {
+					i = EXP5Above;
+					i = i - i % 10;
+					i /= 10;
+					EXP5Above = i;
+				}
+				if (EXP5Above > 100) EXP5Above = 100;
+			}
+			else if (focus == 18) {  // EXPPlus4
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPPlus4;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPPlus4 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPPlus4;
+					i = i - i % 10;
+					i /= 10;
+					EXPPlus4 = i;
+				}
+				if (EXPPlus4 > 100) EXPPlus4 = 100;
+			}
+			else if (focus == 19) {  // EXPPlus3
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPPlus3;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPPlus3 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPPlus3;
+					i = i - i % 10;
+					i /= 10;
+					EXPPlus3 = i;
+				}
+				if (EXPPlus3 > 100) EXPPlus3 = 100;
+			}
+			else if (focus == 20) {  // EXPPlus2
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPPlus2;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPPlus2 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPPlus2;
+					i = i - i % 10;
+					i /= 10;
+					EXPPlus2 = i;
+				}
+				if (EXPPlus2 > 100) EXPPlus2 = 100;
+			}
+			else if (focus == 21) {  // EXPPlus1
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPPlus1;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPPlus1 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPPlus1;
+					i = i - i % 10;
+					i /= 10;
+					EXPPlus1 = i;
+				}
+				if (EXPPlus1 > 100) EXPPlus1 = 100;
+			}
+			else if (focus == 22) {  // SameLevel
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = SameLevel;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						SameLevel = i;
+					}
+				}
+				if (c == 8) {
+					i = SameLevel;
+					i = i - i % 10;
+					i /= 10;
+					SameLevel = i;
+				}
+				if (SameLevel > 100) SameLevel = 100;
+			}
+			else if (focus == 23) {  // EXPMinus1
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPMinus1;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPMinus1 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPMinus1;
+					i = i - i % 10;
+					i /= 10;
+					EXPMinus1 = i;
+				}
+				if (EXPMinus1 > 100) EXPMinus1 = 100;
+			}
+			else if (focus == 24) {  // EXPMinus2
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXPMinus2;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXPMinus2 = i;
+					}
+				}
+				if (c == 8) {
+					i = EXPMinus2;
+					i = i - i % 10;
+					i /= 10;
+					EXPMinus2 = i;
+				}
+				if (EXPMinus2 > 100) EXPMinus2 = 100;
+			}
+			else if (focus == 25) {  // EXP3Below
+				val = c - '0';
+				if (val >= 0 && val < 10) {
+					i = EXP3Below;
+					if (i <= 10) {
+						i *= 10;
+						i += val;
+						EXP3Below = i;
+					}
+				}
+				if (c == 8) {
+					i = EXP3Below;
+					i = i - i % 10;
+					i /= 10;
+					EXP3Below = i;
+				}
+				if (EXP3Below > 100) EXP3Below = 100;
 			}

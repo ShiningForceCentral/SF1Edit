@@ -45,6 +45,52 @@ if (currentPage == 1) {
     if (p.x >= centerOffset + 325 && p.x <= centerOffset + 345 && p.y >= yStart + 240 && p.y <= yStart + 260) {
         focus = 12; // the thing for promo exp
     }
+    int tableX = 625; // far right x offset (adjust as needed)
+    int tableY = 50;  // starting y position for the Kill EXP table
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 17; // EXP5Above
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 18; // EXPPlus4
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 19; // EXPPlus3
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 20; // EXPPlus2
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 21; // EXPPlus1
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 22; // SameLevel
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 23; // EXPMinus1
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 24; // EXPMinus2
+    }
+    tableY += 30;
+
+    if (p.x >= tableX + 100 && p.x <= tableX + 120 && p.y >= tableY && p.y <= tableY + 20) {
+        focus = 25; // EXP3Below
+    }
 }
 else if (currentPage == 2) {
     // Page 2: Fixes
