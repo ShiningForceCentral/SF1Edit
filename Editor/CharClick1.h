@@ -53,7 +53,7 @@ if(submode[mode]==0){
 					return 0;
 				}
 
-				if (p.x >= 640 && p.x <= 660 && p.y >= 425 && p.y < 445) {
+				if (p.x >= 640 && p.x <= 660 && p.y >= 405 && p.y < 425) {
 					submode[16] = 0;
 					subselect[16][submode[16]] = BattleSprite[select[mode]][0];
 
@@ -62,7 +62,7 @@ if(submode[mode]==0){
 					mode = 16;
 				}
 
-				if (p.x >= 640 && p.x <= 660 && p.y >= 445 && p.y < 465) {
+				if (p.x >= 640 && p.x <= 660 && p.y >= 425 && p.y < 445) {
 					subselect[14][1] = BattleSprite[select[mode]][0];
 					mode = 14;
 				}
@@ -85,13 +85,13 @@ if(submode[mode]==0){
 					}
 				}
 
-				if (p.x >= 640 && p.x <= 660 && p.y >= 465 && p.y < 485) {
+				if (p.x >= 640 && p.x <= 660 && p.y >= 445 && p.y < 465) {
 					submode[16] = 6;
 					subselect[16][submode[16]] = CharPortrait[select[mode]];
 					mode = 16;
 				}
 
-				if (p.x >= 640 && p.x <= 660 && p.y >= 485 && p.y < 505) {
+				if (p.x >= 640 && p.x <= 660 && p.y >= 465 && p.y < 485) {
 					submode[16] = 7;
 					subselect[16][submode[16]] = CharMapSprite[select[mode]];
 					mode = 16;

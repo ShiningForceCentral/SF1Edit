@@ -531,6 +531,15 @@ void SaveClass(){
 			}
 		}
 
+		fseek(fp, 0x20CEF, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[0]); // Save first healer class
+		fseek(fp, 0x20CF5, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[1]); // Save second healer class
+		fseek(fp, 0x20CFB, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[2]); // Save third healer class
+		fseek(fp, 0x20D01, SEEK_SET);
+		fprintf(fp, "%c", HealerClasses[3]); // Save fourth healer class
+
 		fclose(fp);
 		MessageBox(NULL,"Classes Saved","Note",MB_OK);
 	}

@@ -1,136 +1,138 @@
+if (p.x >= 10 && p.x <= 100) {
+    // Page navigation buttons
+    if (p.y >= 10 && p.y <= 40) {
+        currentPage = 1; // EXP Page
+    }
+    else if (p.y >= 50 && p.y <= 80) {
+        currentPage = 2; // Fixes Page
+    }
+    else if (p.y >= 90 && p.y <= 120) {
+        currentPage = 3; // Mechanics Page
+    }
+}
 
-			if(p.x>=63&&p.x<=103&&p.y>=10&&p.y<=26){
-				focus=1;
-			}
+if (currentPage == 1) {
+    // Page 1: EXP-Related Mechanics
+    int centerOffset = 200;
+    int yStart = 50;
 
-			if(p.x>=148&&p.x<=208&&p.y>=58&&p.y<=74&&PoisonOffset!=0x20244){
-				focus=2;
-			}
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart && p.y <= yStart + 20) {
+        focus = 13; // Heal EXP Percent
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 30 && p.y <= yStart + 50) {
+        focus = 14; // Heal EXP Min
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 60 && p.y <= yStart + 80) {
+        focus = 16; // Detox EXP
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 90 && p.y <= yStart + 110) {
+        focus = 15; // Promotion Stats Percentage
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 120 && p.y <= yStart + 133) {
+        EXPOverflow = !EXPOverflow; // EXP Overflow
+    }
+}
+else if (currentPage == 2) {
+    // Page 2: Fixes
+    int centerOffset = 200;
+    int yStart = 50;
 
-			if(p.x>=115&&p.x<=155&&p.y>=106&&p.y<=121){
-				focus=3;
-			}
-			if(p.x>=115&&p.x<=155&&p.y>=122&&p.y<=137){
-				focus=4;
-			}
-			if(p.x>=115&&p.x<=155&&p.y>=138&&p.y<=155){
-				focus=5;
-			}
-			if(p.x>=120&&p.x<=160&&p.y>=236&&p.y<=252){
-				focus=6;
-			}
-			if(p.x>=120&&p.x<=160&&p.y>=268&&p.y<=284){
-				focus=7;
-			}
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 113 && p.y >= yStart && p.y <= yStart + 13) {
+        FixMuddle = !FixMuddle; // Fix Muddle
+    }
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 30 && p.y <= yStart + 43) {
+        FixLE = !FixLE; // Fix Land Effect
+    }
+    if (p.x >= centerOffset + 200 && p.x <= centerOffset + 213 && p.y >= yStart + 60 && p.y <= yStart + 73) {
+        FixDoubles = !FixDoubles; // Fix Class Double Setting
+    }
+}
+else if (currentPage == 3) {
+    // Page 3: Mechanics
+    int centerOffset = 200;
+    int yStart = 50;
 
-			if(p.x>=138&&p.x<=178&&p.y>=298&&p.y<=314){
-				focus=8;
-			}
+    // Poison
+    if (p.x >= centerOffset + 50 && p.x <= centerOffset + 150 && p.y >= yStart && p.y <= yStart + 20) {
+        focus = 1; // Poison
+    }
+    if (p.x >= centerOffset && p.x <= centerOffset + 13 && p.y >= yStart + 20 && p.y <= yStart + 33) {
+        PoisonOffset = 0x20244; // Fixed Damage
+    }
+    if (p.x >= centerOffset && p.x <= centerOffset + 13 && p.y >= yStart + 40 && p.y <= yStart + 53 && PoisonOffset == 0x20244) {
+        PoisonOffset = 0x180000; // Percent Damage
+    }
+    if (PoisonOffset != 0x20244 && p.x >= centerOffset + 240 && p.x <= centerOffset + 340 && p.y >= yStart + 40 && p.y <= yStart + 60) {
+        focus = 2; // Routine Offset
+    }
 
-			if(p.x>=110&&p.x<=160&&p.y>=374&&p.y<=390){
-				focus=9;
-			}
-			if(p.x>=110&&p.x<=160&&p.y>=390&&p.y<=406){
-				focus=10;
-			}
-			if(p.x>=250&&p.x<=300&&p.y>=374&&p.y<=390){
-				focus=11;
-			}
+    // Wake Up Chance%
+    if (p.x >= centerOffset + 310 && p.x <= centerOffset + 410 && p.y >= yStart + 90 && p.y <= yStart + 110) {
+        focus = 18; // Wake Up Chance%
+    }
 
-			if(p.x>=250&&p.x<=300&&p.y>=390&&p.y<=406){
-				focus=12;
-			}
+    // Three Digit Stats
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 90 && p.y <= yStart + 103) {
+        RemoveMarks = !RemoveMarks; // Three Digit Stats
+    }
 
-			if (p.x >= 430 && p.x <= 480 && p.y >= 110 && p.y <= 130) {
-				focus = 13;
-			}
-			if (p.x >= 430 && p.x <= 480 && p.y >= 130 && p.y <= 150) {
-				focus = 14;
-			}
+    // Stat Cap to 127
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 110 && p.y <= yStart + 123) {
+        RemoveCaps = !RemoveCaps; // Stat Cap to 127
+    }
 
-			if (p.x >= 210 && p.x <= 250 && p.y >= 410 && p.y <= 426) {
-				focus = 15;
-			}
+    // Damage: Base Percent
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 200 && p.y >= yStart + 400 && p.y <= yStart + 420) {
+        focus = 3; // Base Percent
+    }
 
+    // Damage: Spread
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 200 && p.y >= yStart + 420 && p.y <= yStart + 440) {
+        focus = 4; // Spread
+    }
 
-			if(p.x>=20&&p.x<=33&&p.y>=26&&p.y<=39){
-				PoisonOffset=0x20244;
-			}
+    // Damage: Crit Multi
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 200 && p.y >= yStart + 440 && p.y <= yStart + 460) {
+        focus = 5; // Crit Multi
+    }
 
-			if(p.x>=20&&p.x<=33&&p.y>=42&&p.y<=55&&PoisonOffset==0x20244){
-				PoisonOffset=0x180000;
-			}
+    // Double Chance
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 250 && p.y >= yStart + 160 && p.y <= yStart + 180) {
+        focus = 6; // Double Chance
+    }
 
-			if(p.x>=130&&p.x<=143&&p.y>=172&&p.y<=185){
-				RemoveMarks=!RemoveMarks;
-			}
+    // Triple+ Attacks
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 180 && p.y <= yStart + 193) {
+        MultiAttacks = !MultiAttacks; // Triple+ Attacks
+    }
 
-			if (p.x >= 397 && p.x <= 410 && p.y >= 300 && p.y <= 313) {
-				FixMuddle = !FixMuddle;
-			}
+    // Multi Falloff
+    if (MultiAttacks && p.x >= centerOffset + 270 && p.x <= centerOffset + 370 && p.y >= yStart + 180 && p.y <= yStart + 200) {
+        focus = 7; // Multi Falloff
+    }
 
-			if(p.x>=414&&p.x<=427&&p.y>=12&&p.y<=25){
-				FixLE=!FixLE;
-			}
+    // Item Break Chance
+    if (p.x >= centerOffset + 130 && p.x <= centerOffset + 230 && p.y >= yStart + 210 && p.y <= yStart + 230) {
+        focus = 8; // Item Break Chance
+    }
 
-			if(p.x>=468&&p.x<=481&&p.y>=32&&p.y<=45){
-				ItemPassing=!ItemPassing;
-			}
+    // No Reviving
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 113 && p.y >= yStart + 240 && p.y <= yStart + 253) {
+        DisallowRevive = !DisallowRevive; // No Reviving
+    }
 
-			if (p.x >= 558 && p.x <= 571 && p.y >= 32 && p.y <= 45) {
-				ItemPassingBattle = !ItemPassingBattle;
-			}
+    // Jogurt Levels
+    if (p.x >= centerOffset + 100 && p.x <= centerOffset + 113 && p.y >= yStart + 270 && p.y <= yStart + 283) {
+        JogurtLevels = !JogurtLevels; // Jogurt Levels
+    }
 
-			if(p.x>=404&&p.x<=417&&p.y>=52&&p.y<=65){
-				EXPOverflow=!EXPOverflow;
-			}
+    // Add MP Increase Effect
+    if (p.x >= centerOffset + 160 && p.x <= centerOffset + 173 && p.y >= yStart + 302 && p.y <= yStart + 315) {
+        ExtendStatItems = !ExtendStatItems; // Add MP Increase Effect
+    }
 
-			if(p.x>=417&&p.x<=430&&p.y>=72&&p.y<=85){
-				AddArmor=!AddArmor;
-			}
-
-			if(p.x>=417&&p.x<=430&&p.y>=92&&p.y<=105){
-				HealAI=!HealAI;
-			}
-
-			if(p.x>=315&&p.x<=328&&p.y>=172&&p.y<=185){
-				DisplayCrit=!DisplayCrit;
-			}
-
-			if(p.x>=130&&p.x<=143&&p.y>=192&&p.y<=205){
-				RemoveCaps=!RemoveCaps;
-			}
-
-			if(p.x>=130&&p.x<=143&&p.y>=254&&p.y<=270){
-				MultiAttacks=!MultiAttacks;
-			}
-
-			if (p.x >= 338 && p.x <= 351 && p.y >= 222 && p.y <= 235) {
-				FixDoubles = !FixDoubles;
-			}
-
-			if(p.x>=102&&p.x<=115&&p.y>=330&&p.y<=346){
-				DisallowRevive=!DisallowRevive;
-			}
-
-			if(p.x>=115&&p.x<=128&&p.y>=431&&p.y<=444){
-				JogurtLevels=!JogurtLevels;
-			}
-
-			if (p.x >= 265 && p.x <= 278 && p.y >= 431 && p.y <= 444) {
-				ShowCrit = !ShowCrit;
-			}
-			BitBlt(memdc, 265, 431, 13, 13, bmpdc, 0, 0, SRCCOPY);
-
-			if(p.x>=172&&p.x<=185&&p.y>=472&&p.y<=485){
-				ExtendStatItems=!ExtendStatItems;
-
-				if (ExtendStatItems)NUM_STAT_UPS++;
-				else NUM_STAT_UPS--;
-			}
-			if (p.x >= 172 && p.x <= 185 && p.y >= 492 && p.y <= 505) {
-				AddMPEffect = !AddMPEffect;
-
-				if(AddMPEffect)NUM_EFFECT_ROUTINE++;
-				else NUM_EFFECT_ROUTINE--;
-			}
+    // Add New Effects
+    if (p.x >= centerOffset + 150 && p.x <= centerOffset + 163 && p.y >= yStart + 330 && p.y <= yStart + 343) {
+        AddMPEffect = !AddMPEffect; // Add New Effects
+    }
+}

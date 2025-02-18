@@ -212,6 +212,7 @@
 				TextOut(memdc,380,138,"Freeze",6);
 				TextOut(memdc,380,154,"Blaze/Status",12);
 
+
 				if((ClassData[select[mode]][2]&0xC0)/0x40==0)SelectObject(bmpdc,checkon);
 				else SelectObject(bmpdc,checkoff);
 				BitBlt(memdc,480,42,13,13,bmpdc,0,0,SRCCOPY);
@@ -417,4 +418,26 @@
 							TextOut(memdc, 402 + 114, 43 + 15 * i, out, strlen(out));
 						}
 						break;
+				}
+
+				if (submode[mode] == 0) {
+					// Draw Healer Class labels
+					TextOut(memdc, 380, 410, "Healer Class 1:", 15);
+					TextOut(memdc, 525, 410, "Healer Class 2:", 15);
+					TextOut(memdc, 380, 425, "Healer Class 3:", 15);
+					TextOut(memdc, 525, 425, "Healer Class 4:", 15);
+
+					// Display assigned healer classes
+					char out[16];
+					sprintf(out, "%s", Classes[HealerClasses[0]]); // Display Healer Class 1
+					TextOut(memdc, 480, 410, out, strlen(out));
+
+					sprintf(out, "%s", Classes[HealerClasses[1]]); // Display Healer Class 2
+					TextOut(memdc, 625, 410, out, strlen(out));
+
+					sprintf(out, "%s", Classes[HealerClasses[2]]); // Display Healer Class 3
+					TextOut(memdc, 480, 425, out, strlen(out));
+
+					sprintf(out, "%s", Classes[HealerClasses[3]]); // Display Healer Class 4
+					TextOut(memdc, 625, 425, out, strlen(out));
 				}

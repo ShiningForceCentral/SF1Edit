@@ -33,6 +33,7 @@ unsigned char PromotePercent;
 unsigned char HPEXPPercent;
 unsigned char HPEXPMin;
 unsigned char DetoxEXP;
+unsigned char SleepWakeChance;
 
 unsigned char ProLevel;
 unsigned char ProLevelAdd;
@@ -43,6 +44,8 @@ long StatCapOffsets[] = {0x228FC, 0x22926, 0x22950, 0x229A4, 0x229F8, 0x22A22, 0
 
 int NUM_EFFECT_ROUTINE = 11;
 int NUM_STAT_UPS = 5;
+
+int currentPage = 1; // 1 = EXP, 2 = Fixes, 3 = Mechanics
 
 void LoadMech(char *path){
 	unsigned char r;
@@ -87,6 +90,12 @@ void LoadMech(char *path){
 
 	fseek(fp,0x17441,SEEK_SET);
 	fscanf(fp,"%c",&ProLevel);
+
+	fseek(fp, 0x20D65, SEEK_SET);
+	fscanf(fp, "%c",&DetoxEXP);
+
+	fseek(fp, 0x24D8B, SEEK_SET);
+	fscanf(fp, "%c", &SleepWakeChance);
 
 
 	/* effect_InflictStatus */
